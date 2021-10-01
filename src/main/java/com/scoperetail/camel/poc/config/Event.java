@@ -12,5 +12,6 @@ import java.util.Map;
 public class Event {
   private String eventType;
   private Map<String, String> header;
-  private Map<String, Action> spec;
+//  private Map<String, Action> spec;
+  private Map<String, Map<String, Object>> spec;
 }

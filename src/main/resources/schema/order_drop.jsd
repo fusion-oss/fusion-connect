@@ -1,0 +1,53 @@
+{
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+    {
+      "eventType": "orderDrop",
+      "nodeId": "2142",
+      "countryCode": "US"
+    }
+  ],
+  "required": [
+    "eventType",
+    "nodeId",
+    "countryCode",
+    "test"
+  ],
+  "properties": {
+    "eventType": {
+      "$id": "#/properties/eventType",
+      "type": "string",
+      "title": "The eventType schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": [
+        "orderDrop"
+      ]
+    },
+    "nodeId": {
+      "$id": "#/properties/nodeId",
+      "type": "string",
+      "title": "The nodeId schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": [
+        "2142"
+      ]
+    },
+    "countryCode": {
+      "$id": "#/properties/countryCode",
+      "type": "string",
+      "title": "The countryCode schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": [
+        "US"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

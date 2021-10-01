@@ -2,16 +2,19 @@ package com.scoperetail.camel.poc.route.builder;
 
 import com.scoperetail.camel.poc.config.FusionConfig;
 import com.scoperetail.camel.poc.config.Source;
+import com.scoperetail.camel.poc.route.header.BuildActionProfile;
 import com.scoperetail.camel.poc.route.header.ComputeHeader1;
-import com.scoperetail.camel.poc.route.validator.Validator;
 import org.apache.camel.CamelContext;
+import org.apache.camel.ValidationException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.model.RouteDefinition;
+import org.apache.camel.model.dataformat.JsonLibrary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class DynamicRouteBuilder4 {
@@ -59,7 +62,49 @@ public class DynamicRouteBuilder4 {
       rd.bean(ComputeHeader1.class)
           .log("configLookupKey  : ${exchangeProperty.configLookupKey}")
           .log("nodeId  : ${exchangeProperty.nodeId}")
-          .log("countryCode  : ${exchangeProperty.countryCode}").bean(Validator.class);
+          .log("countryCode  : ${exchangeProperty.countryCode}")
+          .bean(BuildActionProfile.class)
+          .choice()
+          .when()
+          .simple("${exchangeProperty.validationEnabled} == true")
+          // Do Validation
+          // TODO: Check if validation is needed. choice/when or if like above
+          .doTry()
+          .toD("${exchangeProperty.validatorUri}")
+          .doCatch(ValidationException.class)
+          .log("Validation Failed - ${body}")
+          .toD("${exchangeProperty.onValidationFailureUri}")
+          .end()
+          //          .endChoice()
+          .choice()
+          .when()
+          .simple("${exchangeProperty.auditEnabled} == true")
+          // Do Audit
+          .wireTap("${exchangeProperty.auditTargetUri}")
+          .end()
+          .choice()
+          .when()
+          .simple("${exchangeProperty.idempotencyRequired} == true")
+          .bean(DeDupeFinder.class)
+          .choice()
+          .when()
+          .simple("${exchangeProperty.isDuplicate} == true")
+          .log("Duplicate message Detected")
+          .choice()
+          .when()
+          .simple("${exchangeProperty.continueOnDuplicate} == false")
+          .log("Stopping message flow as continueOnDuplicate property is set to false")
+          .stop()
+          .end()
+          .choice()
+          .when()
+          .simple("${exchangeProperty.transformationRequired} == true")
+          .unmarshal()
+          .json(JsonLibrary.Jackson, Map.class)
+          .toD("${exchangeProperty.transformerTemplateUri}")
+          .log("Transformation Completed Successfully")
+          .endChoice()
+          .recipientList(simple("${exchangeProperty.targetUri}"));
     }
   }
 }

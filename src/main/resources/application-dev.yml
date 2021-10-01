@@ -1,3 +1,6 @@
+spring:
+    activemq:
+        broker-url: tcp://localhost:61617
 fusion:
   sources:
       - name: kafka_topic
@@ -21,27 +24,24 @@ fusion:
         countryCode: $.countryCode
 #        configLookupKey: const('orderDrop').header('nodeId')
 # configLookupKey - content based key
-        configLookupKey: orderDrop_2142_US
+        configLookupKey: orderDrop_100_US
         randomKey: camel ride
         idempotencyKey: expression
       spec:
         default:
-          actions:
-            validate:
-              schema: order_drop.jsd
-              onFailureTarget: DLQ
-            audit:
-              enabled: true
-              target: audit
-            idempotence:
-              enabled: true
-              continueOnDuplicate: false
-            transform:
-              template: order_drop.ftl
-              target: activemq_order_drop
-
+#          actions:
+            validationEnabled: true
+            validatorUri: 'json-validator:schema/order_drop.jsd'
+            onValidationFailureUri: 'kafka:dead_letter?brokers=localhost:9092'
+            auditEnabled: true
+            auditTargetUri: 'activemq:queue:audit'
+            idempotencyRequired: true
+            continueOnDuplicate: true
+            transformationRequired: true
+            transformerTemplateUri: 'freemarker:templates/order_drop.ftl?contentCache=false'
+            targetUri: 'activemq:queue:mcs_order_drop1,activemq:queue:mcs_order_drop2'
         orderDrop_2142_US:
-          actions:
+#          actions:
             transform:
               template: order_drop_xyz.ftl
               target: activemq_order_drop
