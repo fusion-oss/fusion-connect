@@ -1,5 +1,6 @@
 package com.scoperetail.camel.poc.route.audit;
 
+import org.apache.camel.LoggingLevel;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
@@ -13,6 +14,7 @@ public class Auditor extends RouteBuilder {
         .simple("${exchangeProperty.auditEnabled} == true")
         // Do Audit
         .wireTap("${exchangeProperty.auditTargetUri}")
+        .log(LoggingLevel.DEBUG, "Message sent to Auditor")
         .end();
   }
 }

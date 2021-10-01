@@ -1,22 +1,32 @@
 spring:
     activemq:
         broker-url: tcp://localhost:61617
+logging:
+  level:
+    com:
+      scoperetail: DEBUG
 fusion:
   sources:
       - name: kafka_topic
         type: kafka
-        uri: kafka:test1?brokers=localhost:9092
+        uri: 'kafka:test1?brokers=localhost:9092'
+        spec:
+          format: json
+          eventTypePath: $.eventType
+      - name: jms_queue
+        type: activemq
+        uri: 'activemq:queue:order_source'
         spec:
           format: json
           eventTypePath: $.eventType
 
-  targets:
-      - name: activemq_order_drop
-        type: activemq
-        uri: order_drop.${header.nodeId}.out
-      - name: audit
-        type: activemq
-        uri: camel uri
+#  targets:
+#      - name: activemq_order_drop
+#        type: activemq
+#        uri: order_drop.${header.nodeId}.out
+#      - name: audit
+#        type: activemq
+#        uri: camel uri
   events:
     - eventType: orderDrop
       header:
@@ -27,6 +37,8 @@ fusion:
         configLookupKey: orderDrop_100_US
         randomKey: camel ride
         idempotencyKey: expression
+        actions: 'direct:validate, direct:audit, direct:dedupe, direct:transform'
+        actionExection: sequence
       spec:
         default:
 #          actions:
@@ -42,8 +54,7 @@ fusion:
             targetUri: 'activemq:queue:mcs_order_drop1,activemq:queue:mcs_order_drop2'
         orderDrop_2142_US:
 #          actions:
-            transform:
-              template: order_drop_xyz.ftl
-              target: activemq_order_drop
+            transformationRequired: true
+            transformerTemplateUri: 'freemarker:templates/order_drop.ftl?contentCache=false'
     - eventType: pickBegin
     - eventType: pickEnd

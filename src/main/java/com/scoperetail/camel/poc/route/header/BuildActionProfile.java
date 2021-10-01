@@ -8,10 +8,8 @@ import org.apache.camel.Message;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.BiConsumer;
 
 @Slf4j
 public class BuildActionProfile {
@@ -33,13 +31,7 @@ public class BuildActionProfile {
     }
     log.info("actionProfile::{}", actionProfile);
     // Set in exchange
-    actionProfile.forEach(
-        new BiConsumer<String, Object>() {
-          @Override
-          public void accept(final String k, final Object o) {
-            exchange.setProperty(k, o);
-          }
-        });
+    actionProfile.forEach(exchange::setProperty);
     log.info("targetUri::{}", exchange.getProperty("targetUri", String.class));
   }
 }

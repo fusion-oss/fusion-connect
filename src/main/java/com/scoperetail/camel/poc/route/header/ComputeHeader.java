@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.function.BiConsumer;
 
 @Slf4j
 public class ComputeHeader {
@@ -33,23 +32,20 @@ public class ComputeHeader {
       eventConfig
           .getHeader()
           .forEach(
-              new BiConsumer<String, String>() {
-                @Override
-                public void accept(final String k, final String v) {
-                  String value = v;
-                  if (v.startsWith("$")) {
-                    value = documentContext.read(v);
-                  }
-                  exchange.setProperty(k, value);
-                  buildConfigLookupKey.put(k, value);
+              (k, v) -> {
+                String value = v;
+                if (v.startsWith("$")) {
+                  value = documentContext.read(v);
                 }
+                exchange.setProperty(k, value);
+//                buildConfigLookupKey.put(k, value);
               });
       //
-      if(buildConfigLookupKey.containsKey("configLookupKey")){
-        //TODO: parse and build key at runtime, for now hard coding in yaml
+      if (buildConfigLookupKey.containsKey("configLookupKey")) {
+        // TODO: parse and build key at runtime, for now hard coding in yaml
         /**
-         * in yaml define like this and parse and build on the fly
-         * configLookupKey: const('orderDrop').header('nodeId')
+         * in yaml define like this and parse and build on the fly configLookupKey:
+         * const('orderDrop').header('nodeId')
          */
       }
     }

@@ -40,10 +40,19 @@ public class DynamicRouter {
     @Override
     public void configure() {
 
-      RouteDefinition rd = new RouteDefinition();
-      if (source.getType().equals("kafka")) {
-        rd = from(source.getUri());
-      }
+      final RouteDefinition rd = from(source.getUri());
+      findEventType(rd);
+      // Compute Header Keys after receiving message
+      rd.bean(ComputeHeader.class)
+          .log("configLookupKey  : ${exchangeProperty.configLookupKey}")
+          .log("nodeId  : ${exchangeProperty.nodeId}")
+          .log("countryCode  : ${exchangeProperty.countryCode}")
+          .bean(BuildActionProfile.class)
+          .recipientList(simple("${exchangeProperty.actions}"))
+          .recipientList(simple("${exchangeProperty.targetUri}"));
+    }
+
+    private void findEventType(final RouteDefinition rd) {
       if (source.getSpec().getFormat().equals("json")) {
         rd.setProperty("fusion.FORMAT", constant("json"))
             .setProperty("fusion.EVENT_TYPE")
@@ -52,17 +61,6 @@ public class DynamicRouter {
       } else if (source.getSpec().getFormat().equals("xml")) {
         // TODO for XML
       }
-      // Compute Header Keys after receiving message
-      rd.bean(ComputeHeader.class)
-          .log("configLookupKey  : ${exchangeProperty.configLookupKey}")
-          .log("nodeId  : ${exchangeProperty.nodeId}")
-          .log("countryCode  : ${exchangeProperty.countryCode}")
-          .bean(BuildActionProfile.class)
-          .to("direct:validate")
-          .to("direct:audit")
-          .to("direct:dedupe")
-          .to("direct:transform")
-          .recipientList(simple("${exchangeProperty.targetUri}"));
     }
   }
 }
