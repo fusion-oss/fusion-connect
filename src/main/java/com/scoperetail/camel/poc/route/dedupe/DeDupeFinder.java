@@ -1,4 +1,4 @@
-package com.scoperetail.camel.poc.route.builder;
+package com.scoperetail.camel.poc.route.dedupe;
 
 import org.apache.camel.Exchange;
 
