@@ -41,12 +41,19 @@ public class DynamicRouter {
           .setProperty(SOURCE_NAME, simple(source.getName()))
           .bean(EventFinder.class) //find event
           .bean(ComputeHeader.class) // compute header
-          .log("configLookupKey  : ${exchangeProperty.configLookupKey}")
-          .log("nodeId  : ${exchangeProperty.nodeId}")
-          .log("countryCode  : ${exchangeProperty.countryCode}")
           .bean(BuildActionProfile.class)
+          .log("${exchangeProperty.actionExecution}")
+          .choice()
+          .when(simple("${exchangeProperty.actionExecution} == 'sequence'"))
+          .log("Exceuting actions sequentially")
           .recipientList(simple("${exchangeProperty.actions}"))
-          .recipientList(simple("${exchangeProperty.targetUri}"));
+          .end()
+          .otherwise()
+          .log("Exceuting actions in parallel")
+          .multicast()
+          .parallelProcessing()
+          .recipientList(simple("${exchangeProperty.actions}"))
+          .end();
     }
   }
 }

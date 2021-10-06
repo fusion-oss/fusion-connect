@@ -24,7 +24,7 @@ fusion:
         randomKey: camel ride
         idempotencyKey: idempotency.ftl
         actions: 'direct:validate, direct:audit, direct:dedupe, direct:transform'
-        actionExection: sequence
+        actionExecution: parallel
       configSpec:
         default:
             validationEnabled: true
@@ -39,8 +39,7 @@ fusion:
             targetUri: 'activemq:queue:mcs_order_drop1,activemq:queue:mcs_order_drop2'
         orderDrop_5505_US:
             transformationRequired: true
-            transformerTemplateUri: 'freemarker:templates/order_drop.ftl?contentCache=false'
-            
+            transformerTemplateUri: 'freemarker:orderDrop/templates/ftl/order_drop.ftl?contentCache=false'
             
     - eventType: pickBegin
       spec:
@@ -54,7 +53,7 @@ fusion:
         randomKey: camel ride
         idempotencyKey: expression
         actions: 'direct:validate, direct:audit, direct:dedupe, direct:transform'
-        actionExection: sequence
+        actionExecution: sequence
       configSpec:
         default:
 #          actions:
