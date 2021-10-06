@@ -1,45 +1,61 @@
 spring:
     activemq:
-        broker-url: tcp://localhost:61617
+        broker-url: tcp://127.0.0.1:61616
 logging:
   level:
     com:
       scoperetail: DEBUG
 fusion:
   sources:
-      - name: kafka_topic
-        type: kafka
-        uri: 'kafka:test1?brokers=localhost:9092'
-        spec:
-          format: json
-          eventTypePath: $.eventType
-      - name: jms_queue
-        type: activemq
+      - name: activemq_order_source
         uri: 'activemq:queue:order_source'
-        spec:
-          format: json
-          eventTypePath: $.eventType
-
-#  targets:
-#      - name: activemq_order_drop
-#        type: activemq
-#        uri: order_drop.${header.nodeId}.out
-#      - name: audit
-#        type: activemq
-#        uri: camel uri
+      - name: activemq_pick_event
+        uri: 'activemq:queue:pick_event'        
   events:
     - eventType: orderDrop
+      spec:
+          source: activemq_order_source
+          format: json
+          eventTypePath: $.RoutingInfo.SourceNode.nodeID
       header:
-        nodeId: $.nodeId
-        countryCode: $.countryCode
-#        configLookupKey: const('orderDrop').header('nodeId')
-# configLookupKey - content based key
-        configLookupKey: orderDrop_100_US
+        nodeId: $.RoutingInfo.DestinationNode.nodeID
+        countryCode: $.RoutingInfo.DestinationNode.location.countryCode
+        configLookupKey: configLookupKey.ftl  
+        randomKey: camel ride
+        idempotencyKey: idempotency.ftl
+        actions: 'direct:validate, direct:audit, direct:dedupe, direct:transform'
+        actionExection: sequence
+      configSpec:
+        default:
+            validationEnabled: true
+            validatorUri: 'json-validator:schema/order_drop.jsd'
+            onValidationFailureUri: 'kafka:dead_letter?brokers=localhost:9092'
+            auditEnabled: true
+            auditTargetUri: 'activemq:queue:audit'
+            idempotencyRequired: true
+            continueOnDuplicate: true
+            transformationRequired: true
+            transformerTemplateUri: 'freemarker:templates/order_drop.ftl?contentCache=false'
+            targetUri: 'activemq:queue:mcs_order_drop1,activemq:queue:mcs_order_drop2'
+        orderDrop_5505_US:
+            transformationRequired: true
+            transformerTemplateUri: 'freemarker:templates/order_drop.ftl?contentCache=false'
+            
+            
+    - eventType: pickBegin
+      spec:
+          source: activemq_pick_event
+          format: xml
+          eventTypePath: /pickingOrderBeginEventMessage
+      header:
+        nodeId: /pickingOrderBeginEventMessage/MessageBody/RoutingInfo/DestinationNode/nodeID/text()
+        countryCode: /pickingOrderBeginEventMessage/MessageBody/RoutingInfo/DestinationNode/location/countryCode/text()
+        configLookupKey: configLookupKey.ftl
         randomKey: camel ride
         idempotencyKey: expression
         actions: 'direct:validate, direct:audit, direct:dedupe, direct:transform'
         actionExection: sequence
-      spec:
+      configSpec:
         default:
 #          actions:
             validationEnabled: true
@@ -52,9 +68,7 @@ fusion:
             transformationRequired: true
             transformerTemplateUri: 'freemarker:templates/order_drop.ftl?contentCache=false'
             targetUri: 'activemq:queue:mcs_order_drop1,activemq:queue:mcs_order_drop2'
-        orderDrop_2142_US:
+        pickBegin_2142_US:
 #          actions:
             transformationRequired: true
-            transformerTemplateUri: 'freemarker:templates/order_drop.ftl?contentCache=false'
-    - eventType: pickBegin
-    - eventType: pickEnd
+            transformerTemplateUri: 'freemarker:templates/order_drop.ftl?contentCache=false'            
