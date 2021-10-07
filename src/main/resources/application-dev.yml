@@ -16,20 +16,19 @@ fusion:
       spec:
           source: activemq_order_source
           format: json
-          eventTypePath: $.RoutingInfo.SourceNode.nodeID
+          eventTypePath: $.routingInfo.sourceNode.nodeId
       header:
-        nodeId: $.RoutingInfo.DestinationNode.nodeID
-        countryCode: $.RoutingInfo.DestinationNode.location.countryCode
+        nodeId: $.routingInfo.destinationNode.nodeId
+        countryCode: $.routingInfo.destinationNode.location.countryCode
         configLookupKey: configLookupKey.ftl  
         randomKey: camel ride
         idempotencyKey: idempotency.ftl
         actions: 'direct:validate, direct:audit, direct:dedupe, direct:transform'
-        actionExecution: parallel
+        actionExecution: sequence
       configSpec:
         default:
-            validationEnabled: true
             validatorUri: 'json-validator:schema/order_drop.jsd'
-            onValidationFailureUri: 'kafka:dead_letter?brokers=localhost:9092'
+            onValidationFailureUri: 'activemq:queue:dead_letter'
             auditEnabled: true
             auditTargetUri: 'activemq:queue:audit'
             idempotencyRequired: true
@@ -37,7 +36,7 @@ fusion:
             transformationRequired: true
             transformerTemplateUri: 'freemarker:templates/order_drop.ftl?contentCache=false'
             targetUri: 'activemq:queue:mcs_order_drop1,activemq:queue:mcs_order_drop2'
-        orderDrop_5505_US:
+        orderDrop_2142_US:
             transformationRequired: true
             transformerTemplateUri: 'freemarker:orderDrop/templates/ftl/order_drop.ftl?contentCache=false'
             
@@ -57,7 +56,6 @@ fusion:
       configSpec:
         default:
 #          actions:
-            validationEnabled: true
             validatorUri: 'json-validator:schema/order_drop.jsd'
             onValidationFailureUri: 'kafka:dead_letter?brokers=localhost:9092'
             auditEnabled: true

@@ -37,8 +37,7 @@ public class EventFinder {
     final Set<Event> events = fusionConfig.getEvents(sourceName, payloadFormat.name());
     final Event event = eventMatcher.getEvent(payload, payloadFormat, events);
     if (Objects.nonNull(event)) {
-      log.debug(
-          "Setting the exchange property for the eventType: {}", payload, event.getEventType());
+      log.debug("Setting the exchange property for the eventType: {}", event.getEventType());
       exchange.setProperty("event", event);
     }
   }

@@ -1,1 +1,1 @@
-${BODY.RoutingInfo.DestinationNode.nodeID}_${BODY.RoutingInfo.DestinationNode.location.countryCode}
+${BODY.routingInfo.destinationNode.nodeId}_${BODY.routingInfo.destinationNode.location.countryCode}

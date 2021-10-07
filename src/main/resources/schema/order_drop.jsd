@@ -1,53 +1,525 @@
 {
-  "$id": "http://example.com/example.json",
-  "type": "object",
-  "title": "The root schema",
-  "description": "The root schema comprises the entire JSON document.",
-  "default": {},
-  "examples": [
-    {
-      "eventType": "orderDrop",
-      "nodeId": "2142",
-      "countryCode": "US"
-    }
-  ],
-  "required": [
-    "eventType",
-    "nodeId",
-    "countryCode",
-    "test"
-  ],
-  "properties": {
-    "eventType": {
-      "$id": "#/properties/eventType",
-      "type": "string",
-      "title": "The eventType schema",
-      "description": "An explanation about the purpose of this instance.",
-      "default": "",
-      "examples": [
-        "orderDrop"
-      ]
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "required": [
+        "routingInfo",
+        "order"
+    ],
+    "properties": {
+        "routingInfo": {
+            "$id": "#/properties/routingInfo",
+            "type": "object",
+            "title": "The routingInfo schema",
+            "description": "Routing information for the order.",
+            "default": {},
+            "required": [
+                "sourceNode",
+                "destinationNode"
+            ],
+            "properties": {
+                "sourceNode": {
+                    "$id": "#/properties/routingInfo/properties/sourceNode",
+                    "type": "object",
+                    "title": "The sourceNode schema",
+                    "description": "Source node of the MFC where the order will be fulfilled (hub).",
+                    "default": {},
+                    "examples": [
+                        {
+                            "location": {
+                                "countryCode": "US",
+                                "timezone": "America/New_York"
+                            },
+                            "nodeId": 5505
+                        }
+                    ],
+                    "required": [
+                        "location",
+                        "nodeId"
+                    ],
+                    "properties": {
+                        "location": {
+                            "$id": "#/properties/routingInfo/properties/sourceNode/properties/location",
+                            "type": "object",
+                            "title": "The location schema",
+                            "description": "Location information for the node.",
+                            "default": {},
+                            "examples": [
+                                {
+                                    "countryCode": "US",
+                                    "timezone": "America/New_York"
+                                }
+                            ],
+                            "required": [
+                                "countryCode",
+                                "timezone"
+                            ],
+                            "properties": {
+                                "countryCode": {
+                                    "$id": "#/properties/routingInfo/properties/sourceNode/properties/location/properties/countryCode",
+                                    "type": "string",
+                                    "title": "The countryCode schema",
+                                    "description": "Two-character country code.",
+                                    "default": "",
+                                    "minLength": 2,
+                                    "maxLength": 2,
+                                    "examples": [
+                                        "US"
+                                    ]
+                                },
+                                "timezone": {
+                                    "$id": "#/properties/routingInfo/properties/sourceNode/properties/location/properties/timezone",
+                                    "type": "string",
+                                    "title": "The timezone schema",
+                                    "description": "Time zone of the node.",
+                                    "default": "",
+                                    "minLength": 1,
+                                    "maxLength": 40,
+                                    "examples": [
+                                        "America/New_York"
+                                    ]
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "nodeId": {
+                            "$id": "#/properties/routingInfo/properties/sourceNode/properties/nodeId",
+                            "type": "integer",
+                            "title": "The nodeId schema",
+                            "description": "Unique identifier of the node (store number).",
+                            "default": 0,
+                            "minimum": 0,
+                            "maximum": 999999,
+                            "examples": [
+                                5505
+                            ]
+                        }
+                    },
+                    "additionalProperties": true
+                },
+                "destinationNode": {
+                    "$id": "#/properties/routingInfo/properties/destinationNode",
+                    "type": "object",
+                    "title": "The destinationNode schema",
+                    "description": "Destination node of the MFC where the order will be delivered (spoke). This may be the same as the source if the order will be fulfilled and dispensed from the same location.",
+                    "default": {},
+                    "examples": [
+                        {
+                            "location": {
+                                "countryCode": "US"
+                            },
+                            "nodeId": 5505
+                        }
+                    ],
+                    "required": [
+                        "location",
+                        "nodeId"
+                    ],
+                    "properties": {
+                        "location": {
+                            "$id": "#/properties/routingInfo/properties/destinationNode/properties/location",
+                            "type": "object",
+                            "title": "The location schema",
+                            "description": "Location information for the node.",
+                            "default": {},
+                            "examples": [
+                                {
+                                    "countryCode": "US"
+                                }
+                            ],
+                            "required": [
+                                "countryCode"
+                            ],
+                            "properties": {
+                                "countryCode": {
+                                    "$id": "#/properties/routingInfo/properties/destinationNode/properties/location/properties/countryCode",
+                                    "type": "string",
+                                    "title": "The countryCode schema",
+                                    "description": "Two-character country code.",
+                                    "default": "",
+                                    "minLength": 2,
+                                    "maxLength": 2,
+                                    "examples": [
+                                        "US"
+                                    ]
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "nodeId": {
+                            "$id": "#/properties/routingInfo/properties/destinationNode/properties/nodeId",
+                            "type": "integer",
+                            "title": "The nodeId schema",
+                            "description": "Unique identifier of the node (store number).",
+                            "default": 0,
+                            "minimum": 0,
+                            "maximum": 999999,
+                            "examples": [
+                                5505
+                            ]
+                        }
+                    },
+                    "additionalProperties": true
+                }
+            },
+            "additionalProperties": true
+        },
+        "order": {
+            "$id": "#/properties/order",
+            "type": "object",
+            "title": "The order schema",
+            "description": "Information provided for the order.",
+            "default": {},
+            "required": [
+                "orderId",
+                "orderPriority",
+                "divisionNbr",
+                "pickDueTime",
+                "expectedOrderPickupTime",
+                "earliestPickTime",
+                "osn",
+                "lines"
+            ],
+            "properties": {
+                "orderId": {
+                    "$id": "#/properties/order/properties/orderId",
+                    "type": "string",
+                    "title": "The orderId schema",
+                    "description": "Unique identifier of the order for fulfillment.",
+                    "default": "",
+                    "minLength": 1,
+                    "maxLength": 20,
+                    "examples": [
+                        "594775128"
+                    ]
+                },
+                "orderPriority": {
+                    "$id": "#/properties/order/properties/orderPriority",
+                    "type": "string",
+                    "enum": ["REGULAR","EXPRESS"],
+                    "title": "The orderPriority schema",
+                    "description": "Type of prioritization for the order.",
+                    "default": "REGULAR",
+                    "examples": [
+                        "REGULAR"
+                    ]
+                },
+                "divisionNbr": {
+                    "$id": "#/properties/order/properties/divisionNbr",
+                    "type": "integer",
+                    "title": "The divisionNbr schema",
+                    "description": "Specific Walmart division number for which the order applies. Positive integer up to 4 digits",
+                    "default": 0,
+                    "minimum": 0,
+                    "maximum": 9999,
+                    "examples": [
+                        1
+                    ]
+                },
+                "pickDueTime": {
+                    "$id": "#/properties/order/properties/pickDueTime",
+                    "type": "string",
+                    "title": "The pickDueTime schema",
+                    "description": "Date and time by which picking should be completed.",
+                    "default": "",
+					"format": "date-time",
+                    "examples": [
+                        "2021-06-23T15:45:00.000Z"
+                    ]
+                },
+                "expectedOrderPickupTime": {
+                    "$id": "#/properties/order/properties/expectedOrderPickupTime",
+                    "type": "string",
+                    "title": "The expectedOrderPickupTime schema",
+                    "description": "Date and time by which the order must be ready for dispense.",
+                    "default": "",
+					"format": "date-time",
+                    "examples": [
+                        "2021-06-23T16:00:00.000Z"
+                    ]
+                },
+                "earliestPickTime": {
+                    "$id": "#/properties/order/properties/earliestPickTime",
+                    "type": "string",
+                    "title": "The earliestPickTime schema",
+                    "description": "Earliest date and time at which picking can begin for this order.",
+                    "default": "",
+					"format": "date-time",
+                    "examples": [
+                        "2021-06-23T15:00:00.000Z"
+                    ]
+                },
+                "osn": {
+                    "$id": "#/properties/order/properties/osn",
+                    "type": "string",
+                    "title": "The osn schema",
+                    "description": "For fleet loading, sequence within associated load number in a delivery.",
+                    "default": "",
+                    "minLength": 1,
+                    "maxLength": 10,
+                    "examples": [
+                        "E8314"
+                    ]
+                },
+                "loadNbr": {
+                    "$id": "#/properties/order/properties/loadNbr",
+                    "type": "integer",
+                    "title": "The loadNbr schema",
+                    "description": "Load number for delivery/fleet orders (may contain several orders).",
+                    "default": 0,
+                    "minimum": 0,
+                    "examples": [
+                        1
+                    ]
+                },
+                "carrierBagAllowed": {
+                    "$id": "#/properties/order/properties/carrierBagAllowed",
+                    "type": "boolean",
+                    "title": "The carrierBagAllowed schema",
+                    "description": "Whether or not carrier bags are used in the associated store.",
+                    "default": false,
+                    "examples": [
+                        false
+                    ]
+                },
+                "recordCarrierBagCount": {
+                    "$id": "#/properties/order/properties/recordCarrierBagCount",
+                    "type": "boolean",
+                    "title": "The recordCarrierBagCount schema",
+                    "description": "Whether or not carrier bags are required in the associated store.",
+                    "default": false,
+                    "examples": [
+                        false
+                    ]
+                },
+                "pickEachCurrency": {
+                    "$id": "#/properties/order/properties/pickEachCurrency",
+                    "type": "string",
+                    "title": "The pickEachCurrency schema",
+                    "description": "Currency for each picking prices.",
+                    "default": "",
+                    "maxLength": 3,
+                    "examples": [
+                        "USD"
+                    ]
+                },
+                "pickWeightCurrency": {
+                    "$id": "#/properties/order/properties/pickWeightCurrency",
+                    "type": "string",
+                    "title": "The pickWeightCurrency schema",
+                    "description": "Currency for weighted picking prices.",
+                    "default": "",
+                    "maxLength": 3,
+                    "examples": [
+                        "USD"
+                    ]
+                },
+                "lines": {
+                    "$id": "#/properties/order/properties/lines",
+                    "type": "array",
+                    "title": "The lines schema",
+                    "description": "List of lines that are part of this order.",
+                    "default": [],
+                    "items": {
+                        "$id": "#/properties/order/properties/lines/items",
+                        "anyOf": [
+                            {
+                                "$id": "#/properties/order/properties/lines/items/anyOf/0",
+                                "type": "object",
+                                "title": "The first anyOf schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "required": [
+                                    "lineNbr",
+                                    "productId",
+                                    "gtin",
+                                    "pickByType"
+                                ],
+							    "allOf": [
+							      {
+							        "if": {
+							          "properties": { "pickByType": { "const": "EACH" } },
+									  "required": ["pickByType"]
+							        },
+							        "then": {
+							          "required": ["pickEachUnitPrice", "pickEachUom", "pickEachQty"]
+							        }
+							      },
+							      {
+							        "if": {
+							          "properties": { "pickByType": { "const": "WEIGHTED" } },
+									  "required": ["pickByType"]
+							        },
+							        "then": {
+							          "required": ["pickWeightUom", "pickWeightQty", "pickWeightUnitPrice", "pickWeightMin", "pickWeightMax"]
+							        }
+							      },
+							      {
+							        "if": {
+							          "properties": { "pickByType": { "const": "PREFQTY" } },
+									  "required": ["pickByType"]
+							        },
+							        "then": {
+							          "required": ["pickWeightUom", "pickWeightQty", "pickWeightUnitPrice", "pickEachUnitPrice", "pickEachUom", "pickEachQty", "pickWeightMax"]
+							        }
+							      },
+							      {
+							        "if": {
+							          "properties": { "pickByType": { "const": "EACHWEIGHTED" } },
+									  "required": ["pickByType"]
+							        },
+							        "then": {
+							          "required": ["pickWeightUom", "pickWeightQty", "pickWeightUnitPrice", "pickEachUnitPrice", "pickEachUom", "pickEachQty", "pickWeightMin", "pickWeightMax"]
+							        }
+							      }
+							    ],
+                                "properties": {
+                                    "lineNbr": {
+                                        "$id": "#/properties/order/properties/lines/items/anyOf/0/properties/line/properties/lineNbr",
+                                        "type": "integer",
+                                        "title": "The lineNbr schema",
+                                        "description": "Order line number.",
+                                        "default": "",
+                                        "minimum": 0,
+                                        "maximum": 999,
+                                        "examples": [
+                                            1
+                                        ]
+                                    },
+                                    "productId": {
+                                        "$id": "#/properties/order/properties/lines/items/anyOf/0/properties/line/properties/productId",
+                                        "type": "string",
+                                        "title": "The productId schema",
+                                        "description": "The product ID that was ordered.",
+                                        "default": "",
+                                        "minLength": 1,
+                                        "maxLength": 12,
+                                        "examples": [
+                                            "58K5AM8C53L1"
+                                        ]
+                                    },
+                                    "gtin": {
+                                        "$id": "#/properties/order/properties/lines/items/anyOf/0/properties/line/properties/gtin",
+                                        "type": "string",
+                                        "title": "The gtin schema",
+                                        "description": "The GTIN that was ordered.",
+                                        "default": "",
+                                        "minLength": 1,
+                                        "maxLength": 14,
+                                        "examples": [
+                                            "00258533000008"
+                                        ]
+                                    },
+                                    "pickByType": {
+                                        "$id": "#/properties/order/properties/lines/items/anyOf/0/properties/line/properties/pickByType",
+                                        "type": "string",
+                                        "enum": ["EACH","WEIGHTED","PREFQTY","EACHWEIGHTED"],
+                                        "title": "The pickByType schema",
+                                        "description": "Type indicating how items should be picked.",
+                                        "default": "",
+                                        "examples": [
+                                            "WEIGHTED"
+                                        ]
+                                    },
+                                    "pickWeightUom": {
+                                        "$id": "#/properties/order/properties/lines/items/anyOf/0/properties/line/properties/pickWeightUom",
+                                        "type": "string",
+                                        "enum": ["GR"],
+                                        "title": "The pickWeightUom schema",
+                                        "description": "Unit of measure for the weigh.",
+                                        "default": "",
+                                        "examples": [
+                                            "GR"
+                                        ]
+                                    },
+                                    "pickWeightQty": {
+                                        "$id": "#/properties/order/properties/lines/items/anyOf/0/properties/line/properties/pickWeightQty",
+                                        "type": "number",
+                                        "title": "The pickWeightQty schema",
+                                        "description": "Ordered weight when picking by weight.",
+										"multipleOf": 0.01,
+                                        "default": 0.0,
+                                        "examples": [
+                                            320.11
+                                        ]
+                                    },
+                                    "pickWeightUnitPrice": {
+                                        "$id": "#/properties/order/properties/lines/items/anyOf/0/properties/line/properties/pickWeightUnitPrice",
+                                        "type": "number",
+                                        "title": "The pickWeightUnitPrice schema",
+                                        "description": "Unit price of the item by weigh.",
+										"multipleOf": 0.01,
+                                        "default": 0.0,
+                                        "examples": [
+                                            6.76
+                                        ]
+                                    },
+                                    "pickEachUnitPrice": {
+                                        "$id": "#/properties/order/properties/lines/items/anyOf/0/properties/line/properties/pickEachUnitPrice",
+                                        "type": "number",
+                                        "title": "The pickEachUnitPrice schema",
+                                        "description": "Unit price of the item by each.",
+										"multipleOf": 0.01,
+                                        "default": 0.0,
+                                        "examples": [
+                                            6.76
+                                        ]
+                                    },
+                                    "pickEachUom": {
+                                        "$id": "#/properties/order/properties/lines/items/anyOf/0/properties/line/properties/pickEachUom",
+                                        "type": "string",
+                                        "enum": ["EA"],
+                                        "title": "The pickEachUom schema",
+                                        "description": "Unit of measure for picking eaches.",
+                                        "default": "",
+                                        "examples": [
+                                            "EA"
+                                        ]
+                                    },
+                                    "pickEachQty": {
+                                        "$id": "#/properties/order/properties/lines/items/anyOf/0/properties/line/properties/pickEachQty",
+                                        "type": "number",
+                                        "title": "The pickEachQty schema",
+                                        "description": "Ordered quantity when picking by eaches.",
+										"multipleOf": 0.01,
+                                        "default": 0.0,
+                                        "examples": [
+                                            2.01
+                                        ]
+                                    },
+                                    "pickWeightMin": {
+                                        "$id": "#/properties/order/properties/lines/items/anyOf/0/properties/line/properties/pickWeightMin",
+                                        "type": "number",
+                                        "title": "The pickWeightMin schema",
+                                        "description": "Minimum weigh for item to be picked.",
+										"multipleOf": 0.01,
+                                        "default": 0.0,
+                                        "examples": [
+                                            300.01
+                                        ]
+                                    },
+                                    "pickWeightMax": {
+                                        "$id": "#/properties/order/properties/lines/items/anyOf/0/properties/line/properties/pickWeightMax",
+                                        "type": "number",
+                                        "title": "The pickWeightMax schema",
+                                        "description": "Maximum weight for item to be picked.",
+										"multipleOf": 0.01,
+                                        "default": 0.0,
+                                        "examples": [
+                                            400.01
+                                        ]
+                                    }
+                                },
+								"additionalProperties": true
+                            }
+                        ]
+                    }
+                }
+            },
+            "additionalProperties": true
+        }
     },
-    "nodeId": {
-      "$id": "#/properties/nodeId",
-      "type": "string",
-      "title": "The nodeId schema",
-      "description": "An explanation about the purpose of this instance.",
-      "default": "",
-      "examples": [
-        "2142"
-      ]
-    },
-    "countryCode": {
-      "$id": "#/properties/countryCode",
-      "type": "string",
-      "title": "The countryCode schema",
-      "description": "An explanation about the purpose of this instance.",
-      "default": "",
-      "examples": [
-        "US"
-      ]
-    }
-  },
-  "additionalProperties": true
+    "additionalProperties": true
 }

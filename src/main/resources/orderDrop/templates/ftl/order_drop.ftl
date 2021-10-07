@@ -2,9 +2,9 @@
     <RoutingInfo>
       <SourceNode>
         <location>
-          <countryCode>${body.RoutingInfo}</countryCode>
+          <countryCode>${body.routingInfo}</countryCode>
         </location>
-        <nodeID>${body.RoutingInfo.SourceNode.nodeID}</nodeID>
+        <nodeID>${body.routingInfo.sourceNode.nodeId}</nodeID>
       </SourceNode>
     </RoutingInfo>
 </MessageBody>
