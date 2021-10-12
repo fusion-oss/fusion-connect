@@ -31,5 +31,5 @@ import java.util.Map;
 public interface TemplateEngine {
   String TEMPLATES = "templates";
 
-  String generateTextFromTemplate(String event, Map<String, Object> params, String templateName);
+  String generateTextFromTemplate(String event, Map<String, Object> params, String templatePath);
 }

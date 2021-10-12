@@ -1,5 +1,7 @@
 package com.scoperetail.camel.poc.route.dedupe;
 
+import static org.apache.camel.support.builder.PredicateBuilder.and;
+import static org.apache.camel.support.builder.PredicateBuilder.not;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
 
@@ -8,19 +10,25 @@ public class DeDupeRoute extends RouteBuilder {
   @Override
   public void configure() throws Exception {
     from("direct:dedupe")
+        .log("DEDUPE START")
+        .log("${exchangeProperty.idempotencyRequired}")
+        .log("${exchangeProperty.isValidMessage}")
         .choice()
-        .when()
-        .simple("${exchangeProperty.idempotencyRequired} == true")
+        .when(
+            and(
+                simple("${exchangeProperty.idempotencyRequired}"),
+                exchangeProperty("isValidMessage")))
+        .log("Checking for duplicate message")
         .bean(DeDupeFinder.class)
         .choice()
-        .when()
-        .simple("${exchangeProperty.isDuplicate} == true")
-        .log("Duplicate message Detected")
+        .when(simple("${exchangeProperty.isDuplicate}"))
+        .log("Duplicate message detected")
         .choice()
-        .when()
-        .simple("${exchangeProperty.continueOnDuplicate} == false")
+        .when(not(simple("${exchangeProperty.continueOnDuplicate}")))
         .log("Stopping message flow as continueOnDuplicate property is set to false")
         .stop()
-        .end();
+        .end() //continue on duplicate
+        .end()
+        .log("DEDUPE END");
   }
 }

@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+		{
+		  "headers": {
+			"eventType": "ERROR_NOTIFICATION",
+			"messageId": "e5e8b9fe-b853-4651-ae47-f59d0ed97a66",
+			"correlationId": "42c0d621-1dfb-49fa-9564-98477e995591",
+			"msgTimestamp": "2021-09-08T17:55:33.139TZD",
+			"facilityNum": 2142,
+			"facilityCountryCode": "US",
+			"senderHostName": "system.walmart.com",
+			"senderHostAddress": "192.0.2.1",
+			"version": "1",
+			"heartbeatInd": "N"
+		  },
+		  "body": {
+			"status": "INVALID_VALUE",
+			"reason": "Invalid value in productId attribute."
+		  }
+		}
+  ],
+  "required": [
+    "headers",
+    "body"
+  ],
+  "properties": {
+    "body": {
+      "$id": "#/properties/body",
+      "type": "object",
+      "title": "The body schema",
+      "description": "message body",
+      "default": {},
+	  "required": [
+           "status",
+           "reason"
+       ],
+      "examples": [
+	    {
+		   "status": "INVALID_VALUE",
+           "reason": "Invalid value in productId attribute."  
+	    }
+      ],
+	  "properties": {
+			"status": {
+			  "$id": "#/properties/body/properties/status",
+			  "type": "string",
+			  "title": "The status schema",
+			  "description": "A code representing the status from the error that occurred. Applicable values should be agreed upon during the design of a new integration.",
+			  "default": "",
+			  "examples": [
+				"INVALID_VALUE"
+			  ],
+			  "maxLength": 25
+			},
+			"reason": {
+			  "$id": "#/properties/body/properties/reason",
+			  "type": "string",
+			  "title": "The reason schema",
+			  "description": "Human-readable description of the reason for the error.",
+			  "default": "",
+			  "examples": [
+				"Invalid value in productId attribute."
+			  ],
+			  "maxLength": 500
+			}
+      }
+    },
+  "additionalProperties": true
+}
+}

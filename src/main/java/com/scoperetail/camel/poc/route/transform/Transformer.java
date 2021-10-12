@@ -1,13 +1,13 @@
 package com.scoperetail.camel.poc.route.transform;
 
-import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.model.dataformat.JsonLibrary;
-import org.springframework.stereotype.Component;
-
 import java.util.Map;
+import org.apache.camel.builder.RouteBuilder;
+import org.springframework.stereotype.Component;
 
 @Component
 public class Transformer extends RouteBuilder {
+  Class<Map<String, Object>> clazz;
+
   @Override
   public void configure() throws Exception {
     from("direct:transform")
@@ -16,18 +16,26 @@ public class Transformer extends RouteBuilder {
         .simple("${exchangeProperty.transformationRequired} == true")
         .choice()
         .when()
-        .simple("${exchangeProperty.fusion.FORMAT} == 'json'")
+        .simple("${exchangeProperty.event.format} == 'json'")
         .to("direct:jsonTransformer")
         .when()
-        .simple("${exchangeProperty.fusion.FORMAT} == 'xml'")
+        .simple("${exchangeProperty.event.format} == 'xml'")
         .to("direct:xmlTransformer");
 
-    from("direct:jsonTransformer")
-        .unmarshal()
-        .json(JsonLibrary.Jackson, Map.class)
-        .toD("${exchangeProperty.transformerTemplateUri}")
-        .log("Json Transformation Completed Successfully");
-    // TODO - Add XML Transformation route
-    from("direct:xmlTransformer").log("XML Transformation not available");
+    from("direct:jsonTransformer").log("json Transformation : Unsupported Operation");
+    //        .log("JSON- Before unmarshal:" + "${body}")
+    //        .unmarshal()
+    //        .json(JsonLibrary.Jackson, Map.class)
+    //        .log("JSON- After unmarshal:" + "${body}");
+    // .toD("${exchangeProperty.transformerTemplateUri}")
+    //.log("Json Transformation Completed Successfully");
+
+    from("direct:xmlTransformer").log("xml Transformation : Unsupported Operation");
+    //        .log("XML- Before unmarshal:" + "${body}")
+    //        .unmarshal()
+    //        .jacksonxml(clazz)
+    //        .log("XML- After unmarshal:" + "${body}")
+    // .toD("${exchangeProperty.transformerTemplateUri}")
+    //.log("Json Transformation Completed Successfully");
   }
 }

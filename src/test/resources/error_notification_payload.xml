@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root>
+  <headers>
+    <eventType>ERROR_NOTIFICATION</eventType>
+    <messageId>e5e8b9fe-b853-4651-ae47-f59d0ed97a66</messageId>
+    <correlationId>42c0d621-1dfb-49fa-9564-98477e995591</correlationId>
+    <msgTimestamp>2021-09-08T17:55:33.139TZD</msgTimestamp>
+    <facilityNum>2142</facilityNum>
+    <facilityCountryCode>US</facilityCountryCode>
+    <senderHostName>system.walmart.com</senderHostName>
+    <senderHostAddress>192.0.2.1</senderHostAddress>
+    <version>1</version>
+    <heartbeatInd>N</heartbeatInd>
+  </headers>
+  <body>
+    <status>INVALID_VALUE</status>
+    <reason>Invalid value in productId attribute.</reason>
+  </body>
+</root>

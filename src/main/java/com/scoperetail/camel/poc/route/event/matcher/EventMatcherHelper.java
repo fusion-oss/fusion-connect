@@ -1,7 +1,5 @@
-package com.scoperetail.camel.poc.route.event;
+package com.scoperetail.camel.poc.route.event.matcher;
 
-import static com.scoperetail.camel.poc.common.Format.JSON;
-import static com.scoperetail.camel.poc.common.Format.XML;
 import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -9,21 +7,19 @@ import com.scoperetail.camel.poc.common.Format;
 import com.scoperetail.camel.poc.config.Event;
 
 @Component
-public class EventMatcher {
+public class EventMatcherHelper {
 
   @Autowired private JsonEventMatcher jsonEventMatcher;
   @Autowired private XmlEventMatcher xmlEventMatcher;
 
   public Event getEvent(final String payload, final Format payloadFormat, final Set<Event> events) {
+    final EventMatcher eventMatcher =
+        payloadFormat.equals(Format.JSON) ? jsonEventMatcher : xmlEventMatcher;
     boolean isMatch = false;
     Event matchedEvent = null;
     for (final Event event : events) {
       final String eventTypePath = event.getSpec().get("eventTypePath");
-      if (JSON.equals(payloadFormat)) {
-        isMatch = jsonEventMatcher.match(payload, eventTypePath);
-      } else if (XML.equals(payloadFormat)) {
-        isMatch = xmlEventMatcher.match(payload, eventTypePath);
-      }
+      isMatch = eventMatcher.match(event.getEventType(), eventTypePath, payload);
       if (isMatch) {
         matchedEvent = event;
         break;

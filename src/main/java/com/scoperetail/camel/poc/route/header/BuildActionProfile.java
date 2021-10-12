@@ -1,5 +1,6 @@
 package com.scoperetail.camel.poc.route.header;
 
+import static com.scoperetail.camel.poc.util.Constant.UNDERSCORE;
 import java.util.Map;
 import org.apache.camel.Exchange;
 import org.apache.commons.lang3.StringUtils;
@@ -15,7 +16,9 @@ public class BuildActionProfile {
     final Map<String, Map<String, Object>> configSpec = event.getConfigSpec();
     final Map<String, Object> actions = configSpec.get("default");
     if (StringUtils.isNotBlank(configLookupKey) && !"default".equals(configLookupKey)) {
-      actions.putAll(configSpec.get(configLookupKey));
+      final String key = event.getEventType() + UNDERSCORE + configLookupKey;
+      log.debug("Overriding default actions using the config look up key: {}", key);
+      actions.putAll(configSpec.get(key));
     }
     actions.forEach(exchange::setProperty);
   }

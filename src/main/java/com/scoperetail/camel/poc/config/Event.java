@@ -13,6 +13,6 @@ import lombok.ToString;
 public class Event {
   private String eventType;
   private Map<String, String> spec;
-  private Map<String, String> header;
+  private Map<String, Object> headers;
   private Map<String, Map<String, Object>> configSpec;
 }

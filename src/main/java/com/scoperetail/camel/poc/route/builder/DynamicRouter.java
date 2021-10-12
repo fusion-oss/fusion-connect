@@ -1,6 +1,5 @@
 package com.scoperetail.camel.poc.route.builder;
 
-import static com.scoperetail.camel.poc.util.Constant.SOURCE_NAME;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import org.apache.camel.CamelContext;
@@ -36,23 +35,34 @@ public class DynamicRouter {
 
     @Override
     public void configure() {
-
       from(source.getUri())
-          .setProperty(SOURCE_NAME, simple(source.getName()))
-          .bean(EventFinder.class) //find event
-          .bean(ComputeHeader.class) // compute header
+          .setProperty("source", constant(source))
+          .bean(EventFinder.class)
+          .choice()
+          .when(simple("${exchangeProperty.event} == null"))
+          .log("Stopping the route as event not found")
+          .toD("${exchangeProperty.source.bo}")
+          .stop()
+          .end()
+          .bean(ComputeHeader.class)
           .bean(BuildActionProfile.class)
           .log("${exchangeProperty.actionExecution}")
           .choice()
           .when(simple("${exchangeProperty.actionExecution} == 'sequence'"))
           .log("Exceuting actions sequentially")
           .recipientList(simple("${exchangeProperty.actions}"))
+          .aggregationStrategy(
+              (oldExchange, newExchange) -> {
+                if (oldExchange == null) {
+                  return newExchange;
+                }
+                newExchange.getAllProperties().forEach(oldExchange::setProperty);
+                return oldExchange;
+              })
+          .choice()
+          .when(simple("${exchangeProperty.isValidMessage} == true"))
+          .recipientList(simple("${exchangeProperty.targetUri}"))
           .end()
-          .otherwise()
-          .log("Exceuting actions in parallel")
-          .multicast()
-          .parallelProcessing()
-          .recipientList(simple("${exchangeProperty.actions}"))
           .end();
     }
   }

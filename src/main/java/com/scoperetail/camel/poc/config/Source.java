@@ -10,4 +10,5 @@ import lombok.ToString;
 public class Source {
   private String name;
   private String uri;
+  private String bo;
 }

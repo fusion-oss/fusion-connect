@@ -5,7 +5,6 @@ import static org.apache.camel.LoggingLevel.ERROR;
 import org.apache.camel.ValidationException;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.stereotype.Component;
-import com.networknt.schema.JsonSchemaException;
 
 @Component
 public class Validator extends RouteBuilder {
@@ -13,7 +12,7 @@ public class Validator extends RouteBuilder {
   @Override
   public void configure() throws Exception {
     from("direct:validate")
-        .log("VALIDATION START")
+        .setProperty("isValidMessage", constant(false))
         .choice()
         .when(simple("${exchangeProperty.?validatorUri.isEmpty()}"))
         .log(DEBUG, "Validation URI is not provided so skipping validation")
@@ -21,13 +20,16 @@ public class Validator extends RouteBuilder {
         .doTry()
         .log(DEBUG, "Validating with the schema provided at path: ${exchangeProperty.validatorUri}")
         .toD("${exchangeProperty.validatorUri}")
-        .log("Message Validation successful")
-        .doCatch(ValidationException.class, JsonSchemaException.class)
-        .setProperty("isValidMessage", constant(false))
-        .log(ERROR, "Validation Failed - ${body}")
+        .setProperty("isValidMessage", constant(true))
+        .log(DEBUG, "Message Validation successful")
+        .doCatch(ValidationException.class)
+        .log(
+            ERROR,
+            "Validation Failed - Sending message to URI: "
+                + "${exchangeProperty.onValidationFailureUri}")
         .toD("${exchangeProperty.onValidationFailureUri}")
+        .stop()
         .end()
-        .end()
-        .log("VALIDATION END");
+        .end();
   }
 }

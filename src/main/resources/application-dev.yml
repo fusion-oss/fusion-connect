@@ -7,65 +7,64 @@ logging:
       scoperetail: DEBUG
 fusion:
   sources:
-      - name: activemq_order_source
-        uri: 'activemq:queue:order_source'
-      - name: activemq_pick_event
-        uri: 'activemq:queue:pick_event'        
+      - name: walmart
+        uri: 'activemq:queue:walmart_source'
+        bo: 'activemq:queue:walmart_source_bo'
+      - name: mfc
+        uri: 'activemq:queue:mfc_source'
+        bo: 'activemq:queue:mfc_source_bo'
   events:
-    - eventType: orderDrop
+    - eventType: ERROR_NOTIFICATION
       spec:
-          source: activemq_order_source
+          source: walmart
           format: json
-          eventTypePath: $.routingInfo.sourceNode.nodeId
-      header:
-        nodeId: $.routingInfo.destinationNode.nodeId
-        countryCode: $.routingInfo.destinationNode.location.countryCode
-        configLookupKey: configLookupKey.ftl  
-        randomKey: camel ride
-        idempotencyKey: idempotency.ftl
-        actions: 'direct:validate, direct:audit, direct:dedupe, direct:transform'
+          eventTypePath: $.headers.eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl 
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
         actionExecution: sequence
       configSpec:
         default:
-            validatorUri: 'json-validator:schema/order_drop.jsd'
-            onValidationFailureUri: 'activemq:queue:dead_letter'
-            auditEnabled: true
-            auditTargetUri: 'activemq:queue:audit'
-            idempotencyRequired: true
-            continueOnDuplicate: true
+            validatorUri: 'json-validator:schema/ERROR_NOTIFICATION/error_notification.jsd'
+            onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
             transformationRequired: true
-            transformerTemplateUri: 'freemarker:templates/order_drop.ftl?contentCache=false'
-            targetUri: 'activemq:queue:mcs_order_drop1,activemq:queue:mcs_order_drop2'
-        orderDrop_2142_US:
-            transformationRequired: true
-            transformerTemplateUri: 'freemarker:orderDrop/templates/ftl/order_drop.ftl?contentCache=false'
+            transformerTemplateUri: 'freemarker:templates/ERROR_NOTIFICATION/error_notification_message.ftl?contentCache=false'
+        ERROR_NOTIFICATION_2142_US:
+            targetUri: 'activemq:queue:mfc_2142_US'
             
-    - eventType: pickBegin
+    - eventType: ERROR_NOTIFICATION
       spec:
-          source: activemq_pick_event
-          format: xml
-          eventTypePath: /pickingOrderBeginEventMessage
-      header:
-        nodeId: /pickingOrderBeginEventMessage/MessageBody/RoutingInfo/DestinationNode/nodeID/text()
-        countryCode: /pickingOrderBeginEventMessage/MessageBody/RoutingInfo/DestinationNode/location/countryCode/text()
-        configLookupKey: configLookupKey.ftl
-        randomKey: camel ride
-        idempotencyKey: expression
-        actions: 'direct:validate, direct:audit, direct:dedupe, direct:transform'
+          source: mfc
+          format: json
+          eventTypePath: $.headers.eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
         actionExecution: sequence
       configSpec:
         default:
-#          actions:
-            validatorUri: 'json-validator:schema/order_drop.jsd'
-            onValidationFailureUri: 'kafka:dead_letter?brokers=localhost:9092'
-            auditEnabled: true
-            auditTargetUri: 'activemq:queue:audit'
-            idempotencyRequired: true
-            continueOnDuplicate: true
+            validatorUri: 'json-validator:schema/ERROR_NOTIFICATION/error_notification.jsd'
+            onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
             transformationRequired: true
-            transformerTemplateUri: 'freemarker:templates/order_drop.ftl?contentCache=false'
-            targetUri: 'activemq:queue:mcs_order_drop1,activemq:queue:mcs_order_drop2'
-        pickBegin_2142_US:
-#          actions:
+            transformerTemplateUri: 'freemarker:templates/ERROR_NOTIFICATION/error_notification_message.ftl?contentCache=false'
+            targetUri: 'activemq:queue:walmart_US'   
+                                           
+    - eventType: ERROR_NOTIFICATION
+      spec:
+          source: walmart
+          format: xml
+          eventTypePath: /root/headers/eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl 
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+            validatorUri: 'validator:schema/ERROR_NOTIFICATION/error_notification.xsd'
+            onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
             transformationRequired: true
-            transformerTemplateUri: 'freemarker:templates/order_drop.ftl?contentCache=false'            
+            transformerTemplateUri: 'freemarker:templates/ERROR_NOTIFICATION/error_notification_message.ftl?contentCache=false'
+        ERROR_NOTIFICATION_2142_US:
+            targetUri: 'activemq:queue:mfc_2142_US'    
