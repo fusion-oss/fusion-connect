@@ -11,7 +11,7 @@
 	</parent>
 	<groupId>com.scoperetail.camel.poc</groupId>
 	<artifactId>fusion</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1-SNAPSHOT</version>
 	<name>fusion</name>
 	<description>Demo project for Fusion with Camel</description>
 	<properties>
