@@ -1,5 +1,8 @@
 package com.scoperetail.fusion.route.event.matcher;
 
+import java.util.Map;
+import java.util.Objects;
+
 /*-
  * *****
  * fusion-connect
@@ -38,14 +41,23 @@ public class EventMatcherHelper {
   @Autowired private JsonEventMatcher jsonEventMatcher;
   @Autowired private XmlEventMatcher xmlEventMatcher;
 
-  public Event getEvent(final String payload, final Format payloadFormat, final Set<Event> events) {
+  public Event getEvent(
+      final Map<String, Object> headers,
+      final String payload,
+      final Format payloadFormat,
+      final Set<Event> events) {
     final EventMatcher eventMatcher =
         payloadFormat.equals(Format.JSON) ? jsonEventMatcher : xmlEventMatcher;
     boolean isMatch = false;
     Event matchedEvent = null;
     for (final Event event : events) {
       final String eventTypePath = event.getSpec().get("eventTypePath");
-      isMatch = eventMatcher.match(event.getEventType(), eventTypePath, payload);
+      final Object eventType = headers.get(eventTypePath);
+      if (Objects.nonNull(eventType)) {
+        isMatch = event.getEventType().equalsIgnoreCase(eventType.toString());
+      } else {
+        isMatch = eventMatcher.match(event.getEventType(), eventTypePath, payload);
+      }
       if (isMatch) {
         matchedEvent = event;
         break;
@@ -53,4 +65,48 @@ public class EventMatcherHelper {
     }
     return matchedEvent;
   }
+
+  //  public Event getEvent(final String payload, final Format payloadFormat, final Set<Event> events) {
+  //    final EventMatcher eventMatcher =
+  //        payloadFormat.equals(Format.JSON) ? jsonEventMatcher : xmlEventMatcher;
+  //    boolean isMatch = false;
+  //    Event matchedEvent = null;
+  //    for (final Event event : events) {
+  //      final String eventTypePath = event.getSpec().get("eventTypePath");
+  //      isMatch = eventMatcher.match(event.getEventType(), eventTypePath, payload);
+  //      if (isMatch) {
+  //        matchedEvent = event;
+  //        break;
+  //      }
+  //    }
+  //    return matchedEvent;
+  //  }
+
+  //  public Event getEvent(
+  //      final Map<String, Object> headers,
+  //      final String payload,
+  //      final Format payloadFormat,
+  //      final Set<Event> events) {
+  //    final EventMatcher eventMatcher =
+  //        payloadFormat.equals(Format.JSON) ? jsonEventMatcher : xmlEventMatcher;
+  //    boolean isMatch = false;
+  //    Event matchedEvent = null;
+  //    for (final Event event : events) {
+  //      final String eventTypePath = event.getSpec().get("eventTypePath");
+  //      if (eventTypePath.startsWith("$") || eventTypePath.startsWith("/")) {
+  //        isMatch = eventMatcher.match(event.getEventType(), eventTypePath, payload);
+  //      } else {
+  //        final Object eventType = headers.get(eventTypePath);
+  //        if (Objects.nonNull(eventType)) {
+  //          isMatch = event.getEventType().equalsIgnoreCase(eventType.toString());
+  //        }
+  //      }
+  //      if (isMatch) {
+  //        matchedEvent = event;
+  //        break;
+  //      }
+  //    }
+  //    return matchedEvent;
+  //  }
+
 }

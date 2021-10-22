@@ -12,10 +12,10 @@ package com.scoperetail.fusion.route.header;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -74,7 +74,13 @@ public class ComputeHeader {
         computedValue = xPath.compile(headerValue.toString()).evaluate(document);
       } else if (headerValue.toString().endsWith(FTL_EXTENSION)) {
         computedValue =
-            computeValueUsingFtl(payload, eventConfig, format, eventObject, headerValue);
+            computeValueUsingFtl(
+                eventConfig.getEventType(),
+                format,
+                payload,
+                message.getHeaders(),
+                eventObject,
+                headerValue.toString());
       } else {
         computedValue = headerValue;
       }
@@ -83,13 +89,15 @@ public class ComputeHeader {
   }
 
   private Object computeValueUsingFtl(
-      final String payload,
-      final Event eventConfig,
+      final String eventType,
       final String format,
+      final String payload,
+      final Map<String, Object> messageHeaders,
       final Map<String, Object> eventObject,
-      final Object headerValue)
+      final String templatePath)
       throws Exception {
     if (eventObject.isEmpty()) {
+      eventObject.putAll(messageHeaders);
       if (JSON.name().equalsIgnoreCase(format)) {
         eventObject.putAll(
             JsonUtils.unmarshal(Optional.ofNullable(payload), Map.class.getCanonicalName()));
@@ -98,8 +106,7 @@ public class ComputeHeader {
         eventObject.putAll(xmlMapper.readValue(payload, Map.class));
       }
     }
-    return domainToFtlTemplateTransformer.transform(
-        eventConfig.getEventType(), eventObject, headerValue.toString());
+    return domainToFtlTemplateTransformer.transform(eventType, eventObject, templatePath);
   }
 
   private Object getDocument(final String format, final String payload)

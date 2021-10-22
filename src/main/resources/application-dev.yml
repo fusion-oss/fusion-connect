@@ -18,7 +18,7 @@ fusion:
       spec:
           source: walmart
           format: json
-          eventTypePath: $.headers.eventType
+          eventTypePath: eventType
       headers:
         configLookupKey: configLookupKey/configLookupKey.ftl 
         idempotencyKey: idempotency/idempotency.ftl

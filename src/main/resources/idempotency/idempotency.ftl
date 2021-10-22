@@ -1,1 +1,1 @@
-${headers.correlationId}_${headers.messageId}
+${correlationId}_${messageId}
