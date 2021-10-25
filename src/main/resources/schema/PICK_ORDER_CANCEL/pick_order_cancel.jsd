@@ -1,0 +1,213 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "orders": [
+                {
+                    "orderId": "665250372",
+                    "reason": {
+                        "code": "3",
+                        "description": "Expired"
+                    },
+                    "lines": [
+                        {
+                            "lineNbr": 6,
+                            "reason": "3"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "required": [
+        "orders"
+    ],
+    "properties": {
+        "orders": {
+            "$id": "#/properties/orders",
+            "type": "array",
+            "title": "The orders schema",
+            "description": "List of cancelled orders.",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "orderId": "665250372",
+                        "reason": {
+                            "code": "3",
+                            "description": "Expired"
+                        },
+                        "lines": [
+                            {
+                                "lineNbr": 6,
+                                "reason": "3"
+                            }
+                        ]
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/orders/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/orders/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "orderId": "665250372",
+                                "reason": {
+                                    "code": "3",
+                                    "description": "Expired"
+                                },
+                                "lines": [
+                                    {
+                                        "lineNbr": 6,
+                                        "reason": "3"
+                                    }
+                                ]
+                            }
+                        ],
+                        "required": [
+                            "orderId",
+                            "lines"
+                        ],
+                        "properties": {
+                            "orderId": {
+                                "$id": "#/properties/orders/items/anyOf/0/properties/orderId",
+                                "type": "string",
+                                "title": "The orderId schema",
+                                "description": "Unique identifier of the order for that is being cancelled.",
+                                "default": "",
+                                "examples": [
+                                    "665250372"
+                                ],
+                                "maxLength": 20
+                            },
+                            "reason": {
+                                "$id": "#/properties/orders/items/anyOf/0/properties/reason",
+                                "type": "object",
+                                "title": "The reason schema",
+                                "description": "Reason that the order is being cancelled.",
+                                "default": {},
+                                "examples": [
+                                    {
+                                        "code": "3",
+                                        "description": "Expired"
+                                    }
+                                ],
+                                "required": [
+                                    "code",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "code": {
+                                        "$id": "#/properties/orders/items/anyOf/0/properties/reason/properties/code",
+                                        "type": "string",
+                                        "title": "The code schema",
+                                        "description": "Reason code for cancelling the order.",
+                                        "default": "",
+                                        "examples": [
+                                            "3"
+                                        ],
+								        "enum": [
+								          "1",
+								          "3",
+								          "28",
+										  "180"
+								        ]
+                                    },
+                                    "description": {
+                                        "$id": "#/properties/orders/items/anyOf/0/properties/reason/properties/description",
+                                        "type": "string",
+                                        "title": "The description schema",
+                                        "description": "Descriptin of the reason for cancelling the order.",
+                                        "default": "",
+                                        "examples": [
+                                            "Expired"
+                                        ],
+										"maxLength": 100
+                                    }
+                                },
+                                "additionalProperties": true
+                            },
+                            "lines": {
+                                "$id": "#/properties/orders/items/anyOf/0/properties/lines",
+                                "type": "array",
+                                "title": "The lines schema",
+                                "description": "List of lines that are part of this order.",
+                                "default": [],
+                                "examples": [
+                                    [
+                                        {
+                                            "lineNbr": 6,
+                                            "reason": "3"
+                                        }
+                                    ]
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "$id": "#/properties/orders/items/anyOf/0/properties/lines/items",
+                                    "anyOf": [
+                                        {
+                                            "$id": "#/properties/orders/items/anyOf/0/properties/lines/items/anyOf/0",
+                                            "type": "object",
+                                            "title": "The first anyOf schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [
+                                                {
+                                                    "lineNbr": 6,
+                                                    "reason": "3"
+                                                }
+                                            ],
+                                            "required": [
+                                                "lineNbr"
+                                            ],
+                                            "properties": {
+                                                "lineNbr": {
+                                                    "$id": "#/properties/orders/items/anyOf/0/properties/lines/items/anyOf/0/properties/lineNbr",
+                                                    "type": "integer",
+                                                    "title": "The lineNbr schema",
+                                                    "description": "Order line number.",
+                                                    "default": 0,
+                                                    "examples": [
+                                                        6
+                                                    ],
+													"minimum": 0,
+													"maximum": 999
+                                                },
+                                                "reason": {
+                                                    "$id": "#/properties/orders/items/anyOf/0/properties/lines/items/anyOf/0/properties/reason",
+                                                    "type": "string",
+                                                    "title": "The reason schema",
+                                                    "description": "Reason code for line.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "3"
+                                                    ],
+													"maxLength": 100
+                                                }
+                                            },
+                                            "additionalProperties": true
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                ]
+            }
+        }
+    },
+    "additionalProperties": true
+}

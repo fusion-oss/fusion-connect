@@ -1,12 +1,11 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "http://json-schema.org/draft-04/schema",
     "$id": "http://example.com/example.json",
     "type": "object",
     "title": "The root schema",
     "description": "The root schema comprises the entire JSON document.",
     "default": {},
     "required": [
-        "routingInfo",
         "order"
     ],
     "properties": {
@@ -334,7 +333,6 @@
                                 "default": {},
                                 "required": [
                                     "lineNbr",
-                                    "productId",
                                     "gtin",
                                     "pickByType"
                                 ],
@@ -387,18 +385,6 @@
                                         "maximum": 999,
                                         "examples": [
                                             1
-                                        ]
-                                    },
-                                    "productId": {
-                                        "$id": "#/properties/order/properties/lines/items/anyOf/0/properties/line/properties/productId",
-                                        "type": "string",
-                                        "title": "The productId schema",
-                                        "description": "The product ID that was ordered.",
-                                        "default": "",
-                                        "minLength": 1,
-                                        "maxLength": 12,
-                                        "examples": [
-                                            "58K5AM8C53L1"
                                         ]
                                     },
                                     "gtin": {

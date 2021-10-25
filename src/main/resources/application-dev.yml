@@ -37,7 +37,7 @@ fusion:
       spec:
           source: mfc
           format: json
-          eventTypePath: $.headers.eventType
+          eventTypePath: eventType
       headers:
         idempotencyKey: idempotency/idempotency.ftl
         actions: 'direct:validate, direct:transform'
@@ -48,7 +48,7 @@ fusion:
             onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
             transformationRequired: true
             transformerTemplateUri: 'freemarker:templates/ERROR_NOTIFICATION/error_notification_message.ftl?contentCache=false'
-            targetUri: 'activemq:queue:walmart_US'   
+            targetUri: 'activemq:queue:walmart_US'
                                            
     - eventType: ERROR_NOTIFICATION
       spec:
@@ -85,5 +85,75 @@ fusion:
           onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'freemarker:templates/ORDER_DROP/order_drop_message.ftl?contentCache=false'
-        ERROR_NOTIFICATION_2142_US:
+        ORDER_DROP_2142_US:
+          targetUri: 'activemq:queue:mfc_2142_US'
+
+    - eventType: PICK_BEGIN
+      spec:
+        source: mfc
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/PICK_BEGIN/pick_begin.jsd'
+          onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'freemarker:templates/PICK_BEGIN/pick_begin_message.ftl?contentCache=false'
+          targetUri: 'activemq:queue:walmart_US'
+
+    - eventType: PICK_COMPLETE
+      spec:
+        source: mfc
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/PICK_COMPLETE/pick_complete.jsd'
+          onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'freemarker:templates/PICK_COMPLETE/pick_complete_message.ftl?contentCache=false'
+          targetUri: 'activemq:queue:walmart_US'
+
+    - eventType: PICK_EVENT
+      spec:
+        source: mfc
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/PICK_EVENT/pick_event.jsd'
+          onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'freemarker:templates/PICK_EVENT/pick_event_message.ftl?contentCache=false'
+          targetUri: 'activemq:queue:walmart_US'
+
+    - eventType: PICK_ORDER_CANCEL
+      spec:
+        source: walmart
+        format: json
+        eventTypePath: eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/PICK_ORDER_CANCEL/pick_order_cancel.jsd'
+          onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'freemarker:templates/PICK_ORDER_CANCEL/pick_order_cancel_message.ftl?contentCache=false'
+        PICK_ORDER_CANCEL_2142_US:
           targetUri: 'activemq:queue:mfc_2142_US'
