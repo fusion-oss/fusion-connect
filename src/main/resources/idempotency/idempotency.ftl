@@ -2,16 +2,16 @@
   {
     "index": 1,
     "name": "eventType",
-    "value": "RELEASED"
+    "value": "${eventType}"
   },
   {
     "index": 2,
-    "name": "source",
-    "value": "ScheduledRelease"
+    "name": "correlationId",
+    "value": "${correlationId}"
   },
   {
     "index": 3,
-    "name": "orderId",
-    "value": "${orderHeader.orderId}"
+    "name": "messageId",
+    "value": "${messageId}"
   }
 ]
