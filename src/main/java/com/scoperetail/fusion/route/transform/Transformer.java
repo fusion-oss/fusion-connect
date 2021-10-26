@@ -26,13 +26,20 @@ package com.scoperetail.fusion.route.transform;
  * =====
  */
 
-import java.util.Map;
+import com.scoperetail.fusion.transform.impl.DomainToFtlTemplateTransformer;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.Map;
 
 @Component
 public class Transformer extends RouteBuilder {
   Class<Map<String, Object>> clazz;
+
+  @Autowired private DomainToFtlTemplateTransformer domainToFtlTemplateTransformer;
 
   @Override
   public void configure() throws Exception {
@@ -43,24 +50,30 @@ public class Transformer extends RouteBuilder {
         .choice()
         .when()
         .simple("${exchangeProperty.event.format} == 'json'")
-        .to("direct:jsonTransformer")
+        .unmarshal()
+        .json(Map.class)
+        .to("direct:transformer")
         .when()
         .simple("${exchangeProperty.event.format} == 'xml'")
-        .to("direct:xmlTransformer");
+        .unmarshal()
+        .jacksonxml(Map.class)
+        .to("direct:transformer");
 
-    from("direct:jsonTransformer")
-        //.log("JSON- Before unmarshal:" + "${body}")
-        // .json(JsonLibrary.Jackson, Map.class)
-        // .log("JSON- After unmarshal:" + "${body}")
-        .toD("${exchangeProperty.transformerTemplateUri}")
-        .log("Json Transformation Completed Successfully");
-
-    from("direct:xmlTransformer").log("xml Transformation : Unsupported Operation");
-    //        .log("XML- Before unmarshal:" + "${body}")
-    //        .unmarshal()
-    //        .jacksonxml(clazz)
-    //        .log("XML- After unmarshal:" + "${body}")
-    // .toD("${exchangeProperty.transformerTemplateUri}")
-    //.log("Json Transformation Completed Successfully");
+    from("direct:transformer")
+        .process(
+            new Processor() {
+              @Override
+              public void process(Exchange exchange) throws Exception {
+                exchange
+                    .getMessage()
+                    .setBody(
+                        domainToFtlTemplateTransformer.transform(
+                            exchange.getProperty("event", String.class),
+                            (Map<String, Object>) exchange.getMessage().getBody(),
+                            exchange.getProperty("transformerTemplateUri", String.class)));
+              }
+            })
+        .log("After transformation:" + "${body}")
+        .log("Transformation Completed Successfully");
   }
 }
