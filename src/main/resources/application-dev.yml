@@ -111,7 +111,7 @@ fusion:
     - eventType: PICK_BEGIN
       spec:
         source: mfc
-        format: json
+        format: xml
         eventTypePath: eventType
       headers:
         idempotencyKey: idempotency/idempotency.ftl
@@ -119,7 +119,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/PICK_BEGIN/pick_begin.jsd'
+          validatorUri: 'validator:schema/PICK_BEGIN/pick_begin.xsd'
           onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/PICK_BEGIN/pick_begin_message.ftl'
