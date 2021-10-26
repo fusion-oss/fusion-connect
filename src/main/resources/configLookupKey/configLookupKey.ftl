@@ -1,1 +1,1 @@
-${headers.facilityNum}_${headers.facilityCountryCode}
+${facilityNum}_${facilityCountryCode}

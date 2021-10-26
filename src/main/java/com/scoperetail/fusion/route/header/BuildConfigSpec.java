@@ -12,10 +12,10 @@ package com.scoperetail.fusion.route.header;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -34,18 +34,18 @@ import com.scoperetail.fusion.config.Event;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class BuildActionProfile {
+public class BuildConfigSpec {
 
   public void build(final Exchange exchange) {
     final String configLookupKey = exchange.getProperty("configLookupKey", String.class);
     final Event event = exchange.getProperty("event", Event.class);
     final Map<String, Map<String, Object>> configSpec = event.getConfigSpec();
-    final Map<String, Object> actions = configSpec.get("default");
+    final Map<String, Object> configSpecByNameMap = configSpec.get("default");
     if (StringUtils.isNotBlank(configLookupKey) && !"default".equals(configLookupKey)) {
       final String key = event.getEventType() + UNDERSCORE + configLookupKey;
-      log.debug("Overriding default actions using the config look up key: {}", key);
-      actions.putAll(configSpec.get(key));
+      log.debug("Overriding default config scpefications using the config look up key: {}", key);
+      configSpecByNameMap.putAll(configSpec.get(key));
     }
-    actions.forEach(exchange::setProperty);
+    configSpecByNameMap.forEach(exchange::setProperty);
   }
 }

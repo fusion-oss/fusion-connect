@@ -29,6 +29,7 @@ package com.scoperetail.fusion.route.event;
 import static com.scoperetail.fusion.common.Format.JSON;
 import static com.scoperetail.fusion.common.Format.PLAIN_TEXT;
 import static com.scoperetail.fusion.common.Format.XML;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import org.apache.camel.Exchange;
@@ -48,11 +49,12 @@ public class EventFinder {
   @Autowired private EventMatcherHelper eventMatcher;
 
   public void process(final Message message, final Exchange exchange) {
+    final Map<String, Object> headers = message.getHeaders();
     final String payload = message.getBody(String.class).trim();
     final Format payloadFormat = getPayloadFormat(payload);
     final Source source = exchange.getProperty("source", Source.class);
     final Set<Event> events = fusionConfig.getEvents(source.getName(), payloadFormat.name());
-    final Event event = eventMatcher.getEvent(payload, payloadFormat, events);
+    final Event event = eventMatcher.getEvent(headers, payload, payloadFormat, events);
     if (Objects.nonNull(event)) {
       log.debug(
           "Event found for source: {} eventType: {} format: {}",
