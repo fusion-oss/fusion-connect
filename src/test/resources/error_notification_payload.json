@@ -1,18 +1,4 @@
 {
-  "headers": {
-    "eventType": "ERROR_NOTIFICATION",
-    "messageId": "e5e8b9fe-b853-4651-ae47-f59d0ed97a66",
-    "correlationId": "42c0d621-1dfb-49fa-9564-98477e995591",
-    "msgTimestamp": "2021-09-08T17:55:33.139TZD",
-    "facilityNum": 2142,
-    "facilityCountryCode": "US",
-    "senderHostName": "system.walmart.com",
-    "senderHostAddress": "192.0.2.1",
-    "version": "1",
-    "heartbeatInd": "N"
-  },
-  "body": {
-    "status": "INVALID_VALUE",
-    "reason": "Invalid value in productId attribute."
-  }
+	"status": "INVALID_VALUE",
+	"reason": "Invalid value in productId attribute."
 }

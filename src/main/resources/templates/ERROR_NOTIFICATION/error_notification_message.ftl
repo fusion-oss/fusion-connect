@@ -1,1 +1,4 @@
-${body}
+{
+    "status": "${status}",
+    "reason": "${reason}"
+}
