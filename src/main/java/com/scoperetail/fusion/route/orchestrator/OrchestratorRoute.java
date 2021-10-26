@@ -1,4 +1,4 @@
-package com.scoperetail.fusion.route.builder;
+package com.scoperetail.fusion.route.orchestrator;
 
 /*-
  * *****
@@ -12,10 +12,10 @@ package com.scoperetail.fusion.route.builder;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -35,11 +35,12 @@ import org.springframework.stereotype.Component;
 import com.scoperetail.fusion.config.FusionConfig;
 import com.scoperetail.fusion.config.Source;
 import com.scoperetail.fusion.route.event.EventFinder;
-import com.scoperetail.fusion.route.header.BuildActionProfile;
+import com.scoperetail.fusion.route.header.BuildAction;
+import com.scoperetail.fusion.route.header.BuildConfigSpec;
 import com.scoperetail.fusion.route.header.ComputeHeader;
 
 @Component
-public class DynamicRouter {
+public class OrchestratorRoute {
   @Autowired private CamelContext camelContext;
   @Autowired private FusionConfig config;
 
@@ -71,24 +72,16 @@ public class DynamicRouter {
           .stop()
           .end()
           .bean(ComputeHeader.class)
-          .bean(BuildActionProfile.class)
+          .bean(BuildConfigSpec.class)
           .log("${exchangeProperty.actionExecution}")
           .choice()
           .when(simple("${exchangeProperty.actionExecution} == 'sequence'"))
           .log("Exceuting actions sequentially")
-          .recipientList(simple("${exchangeProperty.actions}"))
-          .aggregationStrategy(
-              (oldExchange, newExchange) -> {
-                if (oldExchange == null) {
-                  return newExchange;
-                }
-                newExchange.getAllProperties().forEach(oldExchange::setProperty);
-                return oldExchange;
-              })
-          .choice()
-          .when(simple("${exchangeProperty.isValidMessage} == true"))
-          .recipientList(simple("${exchangeProperty.targetUri}"))
+          .bean(BuildAction.class)
+          .loop(exchangeProperty("actionCount"))
+          .toD("${exchangeProperty.action_" + "${exchangeProperty.CamelLoopIndex}" + "}")
           .end()
+          .recipientList(simple("${exchangeProperty.targetUri}"))
           .end();
     }
   }

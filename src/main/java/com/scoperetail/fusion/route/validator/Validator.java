@@ -52,7 +52,7 @@ public class Validator extends RouteBuilder {
         .log(
             ERROR,
             "Validation Failed - Sending message to URI: "
-                + "${exchangeProperty.onValidationFailureUri}")
+                + "${exchangeProperty.onValidationFailureUri} " + "${exchangeProperty.exception_caught}")  //how to print exception class in doCatch
         .toD("${exchangeProperty.onValidationFailureUri}")
         .stop()
         .end()
