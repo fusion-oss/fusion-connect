@@ -33,6 +33,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import javax.annotation.PostConstruct;
+
+import com.scoperetail.fusion.adapter.dedupe.FusionDedupeConfig;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import lombok.AccessLevel;
@@ -42,12 +44,14 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.context.annotation.Import;
 
 @Configuration
 @ConfigurationProperties(prefix = "fusion")
 @Getter
 @Setter
 @ToString
+@Import(FusionDedupeConfig.class)
 public class FusionConfig {
   private List<Source> sources;
   private List<Event> events;

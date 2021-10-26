@@ -1,4 +1,4 @@
-package com.scoperetail.fusion.route.dedupe;
+package com.scoperetail.fusion.dedupe.impl;
 
 /*-
  * *****
@@ -26,30 +26,29 @@ package com.scoperetail.fusion.route.dedupe;
  * =====
  */
 
-import static org.apache.camel.support.builder.PredicateBuilder.and;
-import static org.apache.camel.support.builder.PredicateBuilder.not;
+import com.scoperetail.fusion.dedupe.DuplicateCheckUseCase;
+import com.scoperetail.fusion.dedupe.HashServiceUseCase;
+import com.scoperetail.fusion.shared.kernel.common.annotation.UseCase;
+import lombok.AllArgsConstructor;
+import org.apache.camel.Exchange;
+import org.apache.commons.lang3.StringUtils;
 
-import com.scoperetail.fusion.dedupe.impl.DuplicateCheckService;
-import org.apache.camel.builder.RouteBuilder;
-import org.springframework.stereotype.Component;
+@UseCase
+@AllArgsConstructor
+public class DuplicateCheckService implements DuplicateCheckUseCase {
+  private HashServiceUseCase hashServiceUseCase;
+  private DedupeJpaAdapter dedupeJpaAdapter;
 
-@Component
-public class DeDupeRoute extends RouteBuilder {
   @Override
-  public void configure() throws Exception {
-    from("direct:dedupe")
-        .log("DEDUPE START")
-        .log("Checking for duplicate message")
-        .bean(DuplicateCheckService.class)
-        .choice()
-        .when(simple("${exchangeProperty.isDuplicate}"))
-        .log("Duplicate message detected")
-        .choice()
-        .when(not(simple("${exchangeProperty.continueOnDuplicate}")))
-        .log("Stopping message flow as continueOnDuplicate property is set to false")
-        .stop()
-        .end() //continue on duplicate
-        .end()
-        .log("DEDUPE END");
+  public boolean isDuplicate(final Exchange exchange) throws Exception {
+    boolean isDuplicate = false;
+    final String idempotencyKey = exchange.getProperty("idempotencyKey", String.class);
+
+    if (StringUtils.isNotBlank(idempotencyKey)) {
+      final String hashKey = hashServiceUseCase.generateHash(idempotencyKey);
+      isDuplicate = !dedupeJpaAdapter.isNotDuplicate(hashKey);
+    }
+    exchange.setProperty("isDuplicate", isDuplicate);
+    return isDuplicate;
   }
 }

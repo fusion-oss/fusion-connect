@@ -1,4 +1,4 @@
-package com.scoperetail.fusion.route.dedupe;
+package com.scoperetail.fusion.dedupe.impl;
 
 /*-
  * *****
@@ -26,30 +26,18 @@ package com.scoperetail.fusion.route.dedupe;
  * =====
  */
 
-import static org.apache.camel.support.builder.PredicateBuilder.and;
-import static org.apache.camel.support.builder.PredicateBuilder.not;
+import com.scoperetail.fusion.adapter.dedupe.repository.DedupeKeyRepository;
+import com.scoperetail.fusion.dedupe.DedupeOutboundPort;
+import com.scoperetail.fusion.shared.kernel.common.annotation.PersistenceAdapter;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import com.scoperetail.fusion.dedupe.impl.DuplicateCheckService;
-import org.apache.camel.builder.RouteBuilder;
-import org.springframework.stereotype.Component;
+@PersistenceAdapter
+public class DedupeJpaAdapter implements DedupeOutboundPort {
+  @Autowired(required = false)
+  private DedupeKeyRepository dedupeKeyRepository;
 
-@Component
-public class DeDupeRoute extends RouteBuilder {
   @Override
-  public void configure() throws Exception {
-    from("direct:dedupe")
-        .log("DEDUPE START")
-        .log("Checking for duplicate message")
-        .bean(DuplicateCheckService.class)
-        .choice()
-        .when(simple("${exchangeProperty.isDuplicate}"))
-        .log("Duplicate message detected")
-        .choice()
-        .when(not(simple("${exchangeProperty.continueOnDuplicate}")))
-        .log("Stopping message flow as continueOnDuplicate property is set to false")
-        .stop()
-        .end() //continue on duplicate
-        .end()
-        .log("DEDUPE END");
+  public Boolean isNotDuplicate(final String logKey) {
+    return dedupeKeyRepository.insertIfNotExist(logKey) > 0;
   }
 }

@@ -1,4 +1,4 @@
-package com.scoperetail.fusion.route.dedupe;
+package com.scoperetail.fusion.dedupe;
 
 /*-
  * *****
@@ -26,11 +26,13 @@ package com.scoperetail.fusion.route.dedupe;
  * =====
  */
 
-import org.apache.camel.Exchange;
+import com.scoperetail.fusion.shared.kernel.events.DomainProperty;
 
-public class DeDupeFinder {
-    public void isDuplicate(Exchange exchange){
-        //Get idempotencyKey from exchange and perform
-        exchange.setProperty("isDuplicate", true);
-    }
+import java.util.Set;
+
+public interface HashServiceUseCase {
+
+  String generateHash(Set<DomainProperty> properties);
+
+  String generateHash(final String idempotencyKey) throws Exception;
 }

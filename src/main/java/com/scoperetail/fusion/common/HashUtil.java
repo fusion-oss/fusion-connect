@@ -1,4 +1,4 @@
-package com.scoperetail.fusion.route.dedupe;
+package com.scoperetail.fusion.common;
 
 /*-
  * *****
@@ -26,30 +26,43 @@ package com.scoperetail.fusion.route.dedupe;
  * =====
  */
 
-import static org.apache.camel.support.builder.PredicateBuilder.and;
-import static org.apache.camel.support.builder.PredicateBuilder.not;
+import lombok.extern.slf4j.Slf4j;
 
-import com.scoperetail.fusion.dedupe.impl.DuplicateCheckService;
-import org.apache.camel.builder.RouteBuilder;
-import org.springframework.stereotype.Component;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
-@Component
-public class DeDupeRoute extends RouteBuilder {
-  @Override
-  public void configure() throws Exception {
-    from("direct:dedupe")
-        .log("DEDUPE START")
-        .log("Checking for duplicate message")
-        .bean(DuplicateCheckService.class)
-        .choice()
-        .when(simple("${exchangeProperty.isDuplicate}"))
-        .log("Duplicate message detected")
-        .choice()
-        .when(not(simple("${exchangeProperty.continueOnDuplicate}")))
-        .log("Stopping message flow as continueOnDuplicate property is set to false")
-        .stop()
-        .end() //continue on duplicate
-        .end()
-        .log("DEDUPE END");
+import static java.nio.charset.StandardCharsets.UTF_8;
+
+@Slf4j
+public final class HashUtil {
+
+  public static final String SHA3_512 = "SHA3-512";
+  public static final String SHA_256 = "SHA-256";
+
+  private HashUtil() {}
+
+  public static byte[] digest(final byte[] input, final String algorithm) {
+    MessageDigest md;
+    try {
+      md = MessageDigest.getInstance(algorithm);
+    } catch (final NoSuchAlgorithmException e) {
+      throw new IllegalArgumentException(e);
+    }
+    return md.digest(input);
+  }
+
+  public static String bytesToHex(final byte[] bytes) {
+    final StringBuilder sb = new StringBuilder();
+    for (final byte b : bytes) {
+      sb.append(String.format("%02x", b));
+    }
+    return sb.toString();
+  }
+
+  public static String getHash(final String input, final String algorithm) {
+    final byte[] shaInBytes = digest(input.getBytes(UTF_8), algorithm);
+    final String hash = bytesToHex(shaInBytes);
+    log.trace("Created hash for input: {} hash: {}", input, hash);
+    return hash;
   }
 }

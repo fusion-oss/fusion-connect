@@ -1,4 +1,4 @@
-package com.scoperetail.fusion.route.dedupe;
+package com.scoperetail.fusion.dedupe;
 
 /*-
  * *****
@@ -26,30 +26,6 @@ package com.scoperetail.fusion.route.dedupe;
  * =====
  */
 
-import static org.apache.camel.support.builder.PredicateBuilder.and;
-import static org.apache.camel.support.builder.PredicateBuilder.not;
-
-import com.scoperetail.fusion.dedupe.impl.DuplicateCheckService;
-import org.apache.camel.builder.RouteBuilder;
-import org.springframework.stereotype.Component;
-
-@Component
-public class DeDupeRoute extends RouteBuilder {
-  @Override
-  public void configure() throws Exception {
-    from("direct:dedupe")
-        .log("DEDUPE START")
-        .log("Checking for duplicate message")
-        .bean(DuplicateCheckService.class)
-        .choice()
-        .when(simple("${exchangeProperty.isDuplicate}"))
-        .log("Duplicate message detected")
-        .choice()
-        .when(not(simple("${exchangeProperty.continueOnDuplicate}")))
-        .log("Stopping message flow as continueOnDuplicate property is set to false")
-        .stop()
-        .end() //continue on duplicate
-        .end()
-        .log("DEDUPE END");
-  }
+public interface DedupeOutboundPort {
+  Boolean isNotDuplicate(String logKey);
 }
