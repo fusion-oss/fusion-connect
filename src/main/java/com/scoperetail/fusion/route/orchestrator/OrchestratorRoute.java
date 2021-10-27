@@ -76,7 +76,7 @@ public class OrchestratorRoute {
           .log("${exchangeProperty.actionExecution}")
           .choice()
           .when(simple("${exchangeProperty.actionExecution} == 'sequence'"))
-          .log("Exceuting actions sequentially")
+          .log("Executing actions sequentially")
           .bean(BuildAction.class)
           .loop(exchangeProperty("actionCount"))
           .toD("${exchangeProperty.action_" + "${exchangeProperty.CamelLoopIndex}" + "}")
