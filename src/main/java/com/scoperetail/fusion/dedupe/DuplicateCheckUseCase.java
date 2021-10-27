@@ -30,5 +30,5 @@ import org.apache.camel.Exchange;
 
 public interface DuplicateCheckUseCase {
 
-  boolean isDuplicate(final Exchange exchange) throws Exception;
+  void isDuplicate(final Exchange exchange) throws Exception;
 }
