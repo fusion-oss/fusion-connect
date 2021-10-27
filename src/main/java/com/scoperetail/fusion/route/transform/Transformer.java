@@ -57,6 +57,7 @@ public class Transformer extends RouteBuilder {
         .simple("${exchangeProperty.event.format} == 'xml'")
         .unmarshal()
         .jacksonxml(Map.class)
+        .to("log:input")
         .to("direct:transformer");
 
     from("direct:transformer")
@@ -73,6 +74,7 @@ public class Transformer extends RouteBuilder {
                             exchange.getProperty("transformerTemplateUri", String.class)));
               }
             })
+        .to("log:input")
         .log("After transformation:" + "${body}")
         .log("Transformation Completed Successfully");
   }
