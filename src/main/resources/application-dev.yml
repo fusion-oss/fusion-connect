@@ -128,7 +128,7 @@ fusion:
     - eventType: PICK_COMPLETE
       spec:
         source: mfc
-        format: json
+        format: xml
         eventTypePath: eventType
       headers:
         idempotencyKey: idempotency/idempotency.ftl
@@ -136,7 +136,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/PICK_COMPLETE/pick_complete.jsd'
+          validatorUri: 'validator:schema/PICK_COMPLETE/pick_complete.xsd'
           onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/PICK_COMPLETE/pick_complete_message.ftl'
