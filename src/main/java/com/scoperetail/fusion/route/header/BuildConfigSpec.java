@@ -43,7 +43,7 @@ public class BuildConfigSpec {
     final Map<String, Object> configSpecByNameMap = configSpec.get("default");
     if (StringUtils.isNotBlank(configLookupKey) && !"default".equals(configLookupKey)) {
       final String key = event.getEventType() + UNDERSCORE + configLookupKey;
-      log.debug("Overriding default config scpefications using the config look up key: {}", key);
+      log.debug("Overriding default config specifications using the config look up key: {}", key);
       configSpecByNameMap.putAll(configSpec.get(key));
     }
     configSpecByNameMap.forEach(exchange::setProperty);

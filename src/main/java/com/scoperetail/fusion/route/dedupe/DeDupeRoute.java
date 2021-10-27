@@ -38,18 +38,17 @@ public class DeDupeRoute extends RouteBuilder {
   @Override
   public void configure() throws Exception {
     from("direct:dedupe")
-        .log("DEDUPE START")
         .log("Checking for duplicate message")
         .bean(DuplicateCheckService.class)
+        .log("Is message duplicate: ${exchangeProperty.isDuplicate}")
         .choice()
-        .when(simple("${exchangeProperty.isDuplicate}"))
-        .log("Duplicate message detected")
-        .choice()
-        .when(not(simple("${exchangeProperty.continueOnDuplicate}")))
-        .log("Stopping message flow as continueOnDuplicate property is set to false")
+        .when(
+            and(
+                simple("${exchangeProperty.isDuplicate}"),
+                not(simple("${exchangeProperty.continueOnDuplicate}"))))
+        .log(
+            "Stopping message flow as duplicat message detected and continueOnDuplicate property is set to false")
         .stop()
-        .end() //continue on duplicate
-        .end()
-        .log("DEDUPE END");
+        .end();
   }
 }
