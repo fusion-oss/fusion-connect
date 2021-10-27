@@ -36,6 +36,9 @@ fusion:
         uri: 'activemq:queue:mfc_source'
         bo: 'activemq:queue:mfc_source_bo'
   events:
+    #--------------------------
+    # ERROR NOTIFICATION
+    #--------------------------
     - eventType: ERROR_NOTIFICATION
       spec:
           source: walmart
@@ -91,6 +94,9 @@ fusion:
         ERROR_NOTIFICATION_2142_US:
             targetUri: 'activemq:queue:mfc_2142_US'
 
+    #--------------------------
+    # ORDER DROP
+    #--------------------------
     - eventType: ORDER_DROP
       spec:
         source: walmart
@@ -110,6 +116,9 @@ fusion:
         ORDER_DROP_2142_US:
           targetUri: 'activemq:queue:mfc_2142_US'
 
+    #--------------------------
+    # PICK BEGIN
+    #--------------------------
     - eventType: PICK_BEGIN
       spec:
         source: mfc
@@ -127,6 +136,9 @@ fusion:
           transformerTemplateUri: 'templates/PICK_BEGIN/pick_begin_message.ftl'
           targetUri: 'activemq:queue:walmart_US'
 
+    #--------------------------
+    # PICK COMPLETE
+    #--------------------------
     - eventType: PICK_COMPLETE
       spec:
         source: mfc
@@ -144,6 +156,9 @@ fusion:
           transformerTemplateUri: 'templates/PICK_COMPLETE/pick_complete_message.ftl'
           targetUri: 'activemq:queue:walmart_US'
 
+    #--------------------------
+    # PICK EVENT
+    #--------------------------
     - eventType: PICK_EVENT
       spec:
         source: mfc
@@ -161,6 +176,9 @@ fusion:
           transformerTemplateUri: 'templates/PICK_EVENT/pick_event_message.ftl'
           targetUri: 'activemq:queue:walmart_US'
 
+    #--------------------------
+    # ORDER CANCEL
+    #--------------------------
     - eventType: PICK_ORDER_CANCEL
       spec:
         source: walmart
