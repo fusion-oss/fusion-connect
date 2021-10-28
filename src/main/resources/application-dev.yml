@@ -47,12 +47,13 @@ fusion:
       headers:
         configLookupKey: configLookupKey/configLookupKey.ftl 
         idempotencyKey: idempotency/idempotency.ftl
-        actions: 'direct:validate, direct:transform'
+        actions: 'direct:validate,direct:dedupe,direct:transform'
         actionExecution: sequence
       configSpec:
         default:
             validatorUri: 'json-validator:schema/ERROR_NOTIFICATION/error_notification.jsd'
             onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
+            continueOnDuplicate: true
             transformationRequired: true
             transformerTemplateUri: 'templates/ERROR_NOTIFICATION/error_notification_message.ftl'
         ERROR_NOTIFICATION_2142_US:

@@ -73,7 +73,6 @@ public class OrchestratorRoute {
           .end()
           .bean(ComputeHeader.class)
           .bean(BuildConfigSpec.class)
-          .log("${exchangeProperty.actionExecution}")
           .choice()
           .when(simple("${exchangeProperty.actionExecution} == 'sequence'"))
           .log("Executing actions sequentially")
