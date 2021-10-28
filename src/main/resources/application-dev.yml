@@ -25,13 +25,11 @@ logging:
   level:
     com:
       scoperetail: DEBUG
-kafka:
-  bootStrapAddress: siren-kafka.eastus.cloudapp.azure.com:9092,siren-kafka.eastus.cloudapp.azure.com:9093,siren-kafka.eastus.cloudapp.azure.com:9094
 fusion:
   sources:
       - name: walmart
-        uri: 'kafka:walmart_source_topic?brokers=kafka-docker.eastus2.cloudapp.azure.com:9092&groupId=hawkeye-ing&securityProtocol=SASL_SSL&sslTruststoreLocation=/Users/javier/Projects/quikpik/jks/kafka.consumer.truststore.jks&sslTruststorePassword=confluent&sslEndpointAlgorithm=HTTPS&saslMechanism=SCRAM-SHA-256&saslJaasConfig=org.apache.kafka.common.security.scram.ScramLoginModule required username="kafkaclient" password="password";&autoCommitEnable=false&autoOffsetReset=earliest&maxPollIntervalMs=300000&maxPollRecords=1&requestTimeoutMs=60000&retryBackoffMs=60000&heartbeatIntervalMs=10000&sessionTimeoutMs=30000'
-        bo: 'kafka:walmart_source_bo?brokers=kafka-docker.eastus2.cloudapp.azure.com:9092&groupId=hawk-eye-ing&securityProtocol=SASL_SSL&sslTruststoreLocation=/Users/javier/Projects/quikpik/jks/kafka.consumer.truststore.jks&sslTruststorePassword=confluent&sslEndpointAlgorithm=HTTPS&saslMechanism=SCRAM-SHA-256&saslJaasConfig=org.apache.kafka.common.security.scram.ScramLoginModule required username="kafkaclient" password="password";&autoCommitEnable=false&autoOffsetReset=earliest&maxPollIntervalMs=300000&maxPollRecords=1&requestTimeoutMs=60000&retryBackoffMs=60000&heartbeatIntervalMs=10000&sessionTimeoutMs=30000'
+        uri: 'activemq:queue:walmart_source'
+        bo: 'activemq:queue:walmart_source_bo'
       - name: mfc
         uri: 'activemq:queue:mfc_source'
         bo: 'activemq:queue:mfc_source_bo'
