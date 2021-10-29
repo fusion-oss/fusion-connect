@@ -1,5 +1,4 @@
-spring:
-    activemq:
+spring:    activemq:
         broker-url: tcp://127.0.0.1:61616
     datasource:
       platform: mariadb
@@ -28,7 +27,7 @@ logging:
 fusion:
   sources:
       - name: walmart
-        uri: 'activemq:queue:walmart_source'
+        uri: 'kafka:walmart?brokers=localhost:9092&headerDeserializer=#byteToStringHeaderDeserializerCustom'
         bo: 'activemq:queue:walmart_source_bo'
       - name: mfc
         uri: 'activemq:queue:mfc_source'
