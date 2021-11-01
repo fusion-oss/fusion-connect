@@ -40,7 +40,7 @@ public class DuplicateCheckService implements DuplicateCheckUseCase {
   private DedupeJpaAdapter dedupeJpaAdapter;
 
   @Override
-  public boolean isDuplicate(final Exchange exchange) throws Exception {
+  public void isDuplicate(final Exchange exchange) throws Exception {
     boolean isDuplicate = false;
     final String idempotencyKey = exchange.getProperty("idempotencyKey", String.class);
 
@@ -49,6 +49,5 @@ public class DuplicateCheckService implements DuplicateCheckUseCase {
       isDuplicate = !dedupeJpaAdapter.isNotDuplicate(hashKey);
     }
     exchange.setProperty("isDuplicate", isDuplicate);
-    return isDuplicate;
   }
 }
