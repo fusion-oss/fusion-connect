@@ -47,9 +47,9 @@
               "pickDisplayTs": "${pickDetail.pickDisplayTs}",
               "pickedTs": "${pickDetail.pickedTs}",
               "pickEachUom": "EA",
-              "pickEachQty": ${pickDetail.unitPrice},
+              "pickEachQty": ${pickDetail.pickQty},
               "pickEachCurrency": "USD",
-              "pickEachUnitOrdePrice": ${pickDetail.pickQty},
+              "pickEachUnitPrice": ${pickDetail.unitPrice},
               "containers": [
                 {
                   "pickQty": ${pickDetail.pickQty},
