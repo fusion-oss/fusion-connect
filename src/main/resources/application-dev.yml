@@ -144,7 +144,7 @@ fusion:
         eventTypePath: eventType
       headers:
         idempotencyKey: idempotency/idempotency.ftl
-        actions: 'direct:validate, direct:transform'
+        actions: 'direct:transform'
         actionExecution: sequence
       configSpec:
         default:
