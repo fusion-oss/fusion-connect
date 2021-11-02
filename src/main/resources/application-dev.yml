@@ -1,4 +1,5 @@
-spring:    activemq:
+spring:
+    activemq:
         broker-url: tcp://127.0.0.1:61616
     datasource:
       platform: mariadb
@@ -19,7 +20,7 @@ spring:    activemq:
         poolName: SpringBootJPAHikariCP
       jpa:
         ddl-auto: ''
-        show-sql: true        
+        show-sql: true
 logging:
   level:
     com:
@@ -27,7 +28,7 @@ logging:
 fusion:
   sources:
       - name: walmart
-        uri: 'kafka:walmart?brokers=localhost:9092&headerDeserializer=#byteToStringHeaderDeserializerCustom'
+        uri: 'activemq:queue:walmart_source'
         bo: 'activemq:queue:walmart_source_bo'
       - name: mfc
         uri: 'activemq:queue:mfc_source'
@@ -111,7 +112,7 @@ fusion:
     - eventType: PICK_BEGIN
       spec:
         source: mfc
-        format: json
+        format: xml
         eventTypePath: eventType
       headers:
         idempotencyKey: idempotency/idempotency.ftl
@@ -119,7 +120,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/PICK_BEGIN/pick_begin.jsd'
+          validatorUri: 'validator:schema/PICK_BEGIN/pick_begin.xsd'
           onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/PICK_BEGIN/pick_begin_message.ftl'
@@ -128,7 +129,7 @@ fusion:
     - eventType: PICK_COMPLETE
       spec:
         source: mfc
-        format: json
+        format: xml
         eventTypePath: eventType
       headers:
         idempotencyKey: idempotency/idempotency.ftl
@@ -136,7 +137,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/PICK_COMPLETE/pick_complete.jsd'
+          validatorUri: 'validator:schema/PICK_COMPLETE/pick_complete.xsd'
           onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/PICK_COMPLETE/pick_complete_message.ftl'
