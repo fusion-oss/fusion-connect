@@ -216,3 +216,73 @@ fusion:
           transformerTemplateUri: 'templates/INVENTORY_RESERVATION_STATUS/inventory_reservation_status_message.ftl'
         INVENTORY_RESERVATION_STATUS_2142_US:
           targetUri: 'activemq:queue:mfc_2142_US'
+
+    - eventType: INVENTORY_SNAPSHOT_REQUEST
+      spec:
+        source: walmart
+        format: json
+        eventTypePath: eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/INVENTORY_SNAPSHOT_REQUEST/inventory_snapshot_request.jsd'
+          onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/INVENTORY_SNAPSHOT_REQUEST/inventory_snapshot_request_message.ftl'
+        INVENTORY_SNAPSHOT_REQUEST_2142_US:
+          targetUri: 'activemq:queue:mfc_2142_US'
+
+    - eventType: INVENTORY_SNAPSHOT
+      spec:
+        source: mfc
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/INVENTORY_SNAPSHOT/inventory_snapshot.jsd'
+          onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/INVENTORY_SNAPSHOT/inventory_snapshot_message.ftl'
+          targetUri: 'activemq:queue:walmart_US'
+
+    - eventType: INVENTORY_ADJUSTMENT
+      spec:
+        source: mfc
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/INVENTORY_ADJUSTMENT/inventory_adjustment.jsd'
+          onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/INVENTORY_ADJUSTMENT/inventory_adjustment_message.ftl'
+          targetUri: 'activemq:queue:walmart_US'
+
+    - eventType: INVENTORY_REMOVAL
+      spec:
+        source: mfc
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/INVENTORY_ADJUSTMENT/inventory_removal.jsd'
+          onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/INVENTORY_ADJUSTMENT/inventory_adjustment_message.ftl'
+          targetUri: 'activemq:queue:walmart_US'

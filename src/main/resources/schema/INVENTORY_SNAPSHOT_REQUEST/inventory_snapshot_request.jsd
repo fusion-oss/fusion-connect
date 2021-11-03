@@ -1,0 +1,88 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+    {
+      "productIds": [
+        "0VJ66F6JX4K4",
+        "17NBFLK20ZNX",
+        "77R4IPYGVK2S"
+      ],
+      "gtins": [
+        "00078742369983",
+        "00078742113784",
+        "00078742236742"
+      ]
+    }
+  ],
+  "required": [],
+  "properties": {
+    "productIds": {
+      "$id": "#/properties/productIds",
+      "type": "array",
+      "title": "Product IDs",
+      "description": "List of products for which an inventory snapshot is being requested. If this attribute is not provided all products should be considered.",
+      "default": [],
+      "examples": [
+        [
+          "0VJ66F6JX4K4",
+          "17NBFLK20ZNX"
+        ]
+      ],
+      "additionalItems": true,
+      "items": {
+        "$id": "#/properties/productIds/items",
+        "anyOf": [
+          {
+            "$id": "#/properties/productIds/items/anyOf/0",
+            "type": "string",
+            "title": "The first anyOf schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "0VJ66F6JX4K4",
+              "17NBFLK20ZNX"
+            ],
+            "maxLength": 12
+          }
+        ]
+      }
+    },
+    "gtins": {
+      "$id": "#/properties/gtins",
+      "type": "array",
+      "title": "GTINs",
+      "description": "List of GTINs for which an inventory snapshot is being requested. If this attribute is not provided all GTINS should be considered.",
+      "default": [],
+      "examples": [
+        [
+          "00078742369983",
+          "00078742113784"
+        ]
+      ],
+      "additionalItems": true,
+      "items": {
+        "$id": "#/properties/gtins/items",
+        "anyOf": [
+          {
+            "$id": "#/properties/gtins/items/anyOf/0",
+            "type": "string",
+            "title": "The first anyOf schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "00078742369983",
+              "00078742113784"
+            ],
+            "maxLength": 14
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": true
+}
