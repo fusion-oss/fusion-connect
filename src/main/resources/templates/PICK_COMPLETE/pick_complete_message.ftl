@@ -1,3 +1,5 @@
+<#assign TestUtils=statics['com.scoperetail.fusion.util.TestUtil']>
+
 {
   "pickCompleteDetails": [
     {
@@ -13,7 +15,7 @@
             "pickDetails": [
               {
                 "pickByType": "${pickDetail.pickUom}",
-                "pickGtin": "${pickDetail.pickUpcNbr}",
+                "pickGtin": "${TestUtils.getGtinFromUpc(pickDetail.pickUpcNbr)}",
                 "pickedUser": "${pickDetail.pickedUser}",
                 "pickDisplayTs": "${pickDetail.pickDisplayTs}",
                 "pickedTs": "${pickDetail.pickedTs}",
@@ -42,7 +44,7 @@
           "pickDetails": [
             {
               "pickByType": "${pickDetail.pickUom}",
-              "pickGtin": "${pickDetail.pickUpcNbr}",
+              "pickGtin": "${TestUtils.getGtinFromUpc(pickDetail.pickUpcNbr)}",
               "pickedUser": "${pickDetail.pickedUser}",
               "pickDisplayTs": "${pickDetail.pickDisplayTs}",
               "pickedTs": "${pickDetail.pickedTs}",
