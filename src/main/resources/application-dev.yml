@@ -178,3 +178,41 @@ fusion:
           transformerTemplateUri: 'templates/PICK_ORDER_CANCEL/pick_order_cancel_message.ftl'
         PICK_ORDER_CANCEL_2142_US:
           targetUri: 'activemq:queue:mfc_2142_US'
+
+    - eventType: INVENTORY_RESERVATION
+      spec:
+        source: walmart
+        format: json
+        eventTypePath: eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/INVENTORY_RESERVATION/inventory_reservation.jsd'
+          onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/INVENTORY_RESERVATION/inventory_reservation_message.ftl'
+        INVENTORY_RESERVATION_2142_US:
+          targetUri: 'activemq:queue:mfc_2142_US'
+
+    - eventType: INVENTORY_RESERVATION_STATUS
+      spec:
+        source: walmart
+        format: json
+        eventTypePath: eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/INVENTORY_RESERVATION_STATUS/inventory_reservation_status.jsd'
+          onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/INVENTORY_RESERVATION_STATUS/inventory_reservation_status_message.ftl'
+        INVENTORY_RESERVATION_STATUS_2142_US:
+          targetUri: 'activemq:queue:mfc_2142_US'
