@@ -3,7 +3,9 @@
   "inventory": [
   <#list inventory as inv>
     {
+    <#if inv.productId??>
       "productId": "${inv.productId}",
+    </#if>
       "gtin": "${inv.gtin}",
       "quantityUom": "${inv.quantityUom}",
       "quantities": [

@@ -16,7 +16,6 @@
             "00078742369983"
           ],
           "quantity": 2.0,
-          "weight": 375.3,
           "uom": "EA"
         }
       ]
@@ -24,7 +23,6 @@
   ],
   "required": [
     "orderId",
-    "allowPartialReservation",
     "items"
   ],
   "properties": {
@@ -63,7 +61,6 @@
               "00078742369983"
             ],
             "quantity": 2.0,
-            "weight": 375.3,
             "uom": "EA"
           }
         ]
@@ -85,12 +82,12 @@
                   "00078742369983"
                 ],
                 "quantity": 2.0,
-                "weight": 375.3,
                 "uom": "EA"
               }
             ],
             "required": [
               "lineNbr",
+              "gtins",
               "uom"
             ],
             "allOf": [
@@ -127,13 +124,6 @@
                     "weight"
                   ]
                 }
-              }
-            ],
-            "anyOf": [
-              {
-                "required": [
-                  "gtins"
-                ]
               }
             ],
             "properties": {

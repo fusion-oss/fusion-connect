@@ -43,7 +43,7 @@
                 {
                   "properties": {
                     "state": {
-                      "const": "PENDING"
+                      "const": "RESERVED"
                     }
                   }
                 }

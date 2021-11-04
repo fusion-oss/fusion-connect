@@ -1,6 +1,8 @@
 {
   "orderId": "${orderId}",
+<#if allowPartialReservation??>
   "allowPartialReservation": ${allowPartialReservation?c},
+</#if>
   "items": [
     <#list items as item>
       {

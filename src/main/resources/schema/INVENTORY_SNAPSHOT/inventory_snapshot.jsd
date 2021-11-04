@@ -118,7 +118,6 @@
               }
             ],
             "required": [
-              "productId",
               "gtin",
               "quantityUom",
               "quantities"
