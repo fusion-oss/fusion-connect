@@ -1,0 +1,352 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+    {
+      "sourceCreationTimestamp": "2021-07-21T17:10:07.002Z",
+      "containerId": "546191213_20191106_719468_VENDOR_US_00091900003094981490",
+      "revision": 0,
+      "userId": "abc1234",
+      "items": [
+        {
+          "productId": "379VJ4AMO3EX",
+          "gtin": "00080153032837",
+          "quantityUom": "EA",
+          "previousState": "PENDING",
+          "stockStateChange": [
+            {
+              "currentState": "AVAILABLE",
+              "quantity": 5.0,
+              "reasonCode": "DECANTED",
+              "reasonDesc": ""
+            },
+            {
+              "currentState": "REJECTED",
+              "quantity": 1.0,
+              "reasonCode": "DAMAGED",
+              "reasonDesc": "Broke"
+            },
+            {
+              "currentState": "REJECTED",
+              "quantity": 2.0,
+              "reasonCode": "EXPIRED",
+              "reasonDesc": "Item Expired"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "required": [
+    "sourceCreationTimestamp",
+    "containerId",
+    "revision",
+    "items"
+  ],
+  "properties": {
+    "sourceCreationTimestamp": {
+      "$id": "#/properties/sourceCreationTimestamp",
+      "type": "string",
+      "title": "The sourceCreationTimestamp schema",
+      "description": "Date and time that the inventory state change occurred in the MFC.",
+      "default": "",
+      "examples": [
+        "2021-07-21T17:10:07.002Z"
+      ],
+      "format": "date-time"
+    },
+    "containerId": {
+      "$id": "#/properties/containerId",
+      "type": "string",
+      "title": "The containerId schema",
+      "description": "Unique identifier of the container being handed over to the MFC. It is generally a case or pallet ID, which is the delivery ID in Walmart enterprise inventory.",
+      "default": "",
+      "examples": [
+        "546191213_20191106_719468_VENDOR_US_00091900003094981490"
+      ],
+      "maxLength": 128
+    },
+    "revision": {
+      "$id": "#/properties/revision",
+      "type": "integer",
+      "title": "The revision schema",
+      "description": "Version of the inbound document. This will be used in case of mismatch of the quantity and ASN resent with same ID.",
+      "default": 0,
+      "examples": [
+        0
+      ],
+      "minimum": 0
+    },
+    "userId": {
+      "$id": "#/properties/userId",
+      "type": "string",
+      "title": "The userId schema",
+      "description": "The user ID of the person who performed the adjustment.",
+      "default": "",
+      "examples": [
+        "abc1234"
+      ],
+      "maxLength": 7
+    },
+    "items": {
+      "$id": "#/properties/items",
+      "type": "array",
+      "title": "The items schema",
+      "description": "List of items for which a state change has taken place.",
+      "default": [],
+      "examples": [
+        [
+          {
+            "productId": "379VJ4AMO3EX",
+            "gtin": "00080153032837",
+            "quantityUom": "EA",
+            "previousState": "PENDING",
+            "stockStateChange": [
+              {
+                "currentState": "AVAILABLE",
+                "quantity": 5.0,
+                "reasonCode": "DECANTED",
+                "reasonDesc": ""
+              },
+              {
+                "currentState": "REJECTED",
+                "quantity": 1.0,
+                "reasonCode": "DAMAGED",
+                "reasonDesc": "Broke"
+              },
+              {
+                "currentState": "REJECTED",
+                "quantity": 2.0,
+                "reasonCode": "EXPIRED",
+                "reasonDesc": "Item Expired"
+              }
+            ]
+          }
+        ]
+      ],
+      "additionalItems": true,
+      "items": {
+        "$id": "#/properties/items/items",
+        "anyOf": [
+          {
+            "$id": "#/properties/items/items/anyOf/0",
+            "type": "object",
+            "title": "The first anyOf schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+              {
+                "productId": "379VJ4AMO3EX",
+                "gtin": "00080153032837",
+                "quantityUom": "EA",
+                "previousState": "PENDING",
+                "stockStateChange": [
+                  {
+                    "currentState": "AVAILABLE",
+                    "quantity": 5.0,
+                    "reasonCode": "DECANTED",
+                    "reasonDesc": ""
+                  },
+                  {
+                    "currentState": "REJECTED",
+                    "quantity": 1.0,
+                    "reasonCode": "DAMAGED",
+                    "reasonDesc": "Broke"
+                  },
+                  {
+                    "currentState": "REJECTED",
+                    "quantity": 2.0,
+                    "reasonCode": "EXPIRED",
+                    "reasonDesc": "Item Expired"
+                  }
+                ]
+              }
+            ],
+            "required": [
+              "gtin",
+              "quantityUom",
+              "previousState",
+              "stockStateChange"
+            ],
+            "properties": {
+              "productId": {
+                "$id": "#/properties/items/items/anyOf/0/properties/productId",
+                "type": "string",
+                "title": "The productId schema",
+                "description": "Unique identifier of the product that has had a state change.",
+                "default": "",
+                "examples": [
+                  "379VJ4AMO3EX"
+                ],
+                "maxLength": 12
+              },
+              "gtin": {
+                "$id": "#/properties/items/items/anyOf/0/properties/gtin",
+                "type": "string",
+                "title": "The gtin schema",
+                "description": "GTIN of the product that has had a state change.",
+                "default": "",
+                "examples": [
+                  "00080153032837"
+                ],
+                "maxLength": 14
+              },
+              "quantityUom": {
+                "$id": "#/properties/items/items/anyOf/0/properties/quantityUom",
+                "type": "string",
+                "enum": [
+                  "EA",
+                  "GR"
+                ],
+                "title": "The quantityUom schema",
+                "description": "Unit of measure used for the quantity amount.",
+                "default": "",
+                "examples": [
+                  "EA"
+                ]
+              },
+              "previousState": {
+                "$id": "#/properties/items/items/anyOf/0/properties/previousState",
+                "type": "string",
+                "enum": [
+                  "PENDING",
+                  "AVAILABLE",
+                  "RESERVED",
+                  "HOLD"
+                ],
+                "title": "The previousState schema",
+                "description": "Previous state of the inventory.",
+                "default": "",
+                "examples": [
+                  "PENDING"
+                ]
+              },
+              "stockStateChange": {
+                "$id": "#/properties/items/items/anyOf/0/properties/stockStateChange",
+                "type": "array",
+                "title": "The stockStateChange schema",
+                "description": "List of all stock state changes.",
+                "default": [],
+                "examples": [
+                  [
+                    {
+                      "currentState": "AVAILABLE",
+                      "quantity": 5.0,
+                      "reasonCode": "DECANTED",
+                      "reasonDesc": ""
+                    },
+                    {
+                      "currentState": "REJECTED",
+                      "quantity": 1.0,
+                      "reasonCode": "DAMAGED",
+                      "reasonDesc": "Broke"
+                    }
+                  ]
+                ],
+                "additionalItems": true,
+                "items": {
+                  "$id": "#/properties/items/items/anyOf/0/properties/stockStateChange/items",
+                  "anyOf": [
+                    {
+                      "$id": "#/properties/items/items/anyOf/0/properties/stockStateChange/items/anyOf/0",
+                      "type": "object",
+                      "title": "The first anyOf schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": {},
+                      "examples": [
+                        {
+                          "currentState": "AVAILABLE",
+                          "quantity": 5.0,
+                          "reasonCode": "DECANTED",
+                          "reasonDesc": ""
+                        }
+                      ],
+                      "required": [
+                        "currentState",
+                        "quantity"
+                      ],
+                      "properties": {
+                        "currentState": {
+                          "$id": "#/properties/items/items/anyOf/0/properties/stockStateChange/items/anyOf/0/properties/currentState",
+                          "type": "string",
+                          "enum": [
+                            "AVAILABLE",
+                            "RESERVED",
+                            "HOLD",
+                            "REJECTED"
+                          ],
+                          "title": "The currentState schema",
+                          "description": "Current state of the inventory after the change.",
+                          "default": "",
+                          "examples": [
+                            "AVAILABLE",
+                            "RESERVED",
+                            "HOLD",
+                            "REJECTED"
+                          ]
+                        },
+                        "quantity": {
+                          "$id": "#/properties/items/items/anyOf/0/properties/stockStateChange/items/anyOf/0/properties/quantity",
+                          "type": "number",
+                          "title": "The quantity schema",
+                          "description": "Quantity of inventory that has had its state change.",
+                          "default": 0.0,
+                          "examples": [
+                            5.0
+                          ],
+                          "multipleOf": 0.01
+                        },
+                        "reasonCode": {
+                          "$id": "#/properties/items/items/anyOf/0/properties/stockStateChange/items/anyOf/0/properties/reasonCode",
+                          "type": "string",
+                          "enum": [
+                            "DECANTED",
+                            "EXPIRED",
+                            "DAMAGED",
+                            "RECALLED",
+                            "HW_FAIL",
+                            "FRESHNESS_EXPIRATIO N",
+                            "TOTE_ISSUE",
+                            "DIRTY_PRODUCT_OR_T OTE",
+                            "WRONG_PRODUCT",
+                            "BOT_ISSUE",
+                            "COLD_CHAIN",
+                            "HOSPITAL"
+                          ],
+                          "title": "The reasonCode schema",
+                          "description": "Reason that the quantity adjustment has been made.",
+                          "default": "",
+                          "examples": [
+                            "DECANTED"
+                          ]
+                        },
+                        "reasonDesc": {
+                          "$id": "#/properties/items/items/anyOf/0/properties/stockStateChange/items/anyOf/0/properties/reasonDesc",
+                          "type": "string",
+                          "title": "The reasonDesc schema",
+                          "description": "Description of the reason that the quantity adjustment has been made.",
+                          "default": "",
+                          "examples": [
+                            ""
+                          ],
+                          "maxLength": 50
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  ]
+                }
+              }
+            },
+            "additionalProperties": true
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": true
+}

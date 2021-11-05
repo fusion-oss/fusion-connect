@@ -284,3 +284,56 @@ fusion:
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_ADJUSTMENT/inventory_adjustment_message.ftl'
           targetUri: 'activemq:queue:walmart_US'
+
+    - eventType: INVENTORY_STATE_CHANGE
+      spec:
+        source: mfc
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/INVENTORY_STATE_CHANGE/inventory_state_change.jsd'
+          onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/INVENTORY_STATE_CHANGE/inventory_state_change_message.ftl'
+          targetUri: 'activemq:queue:walmart_US'
+
+    - eventType: DECANTING
+      spec:
+        source: mfc
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/INVENTORY_STATE_CHANGE/inventory_state_change_decanting.jsd'
+          onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/INVENTORY_STATE_CHANGE/inventory_state_change_message.ftl'
+          targetUri: 'activemq:queue:walmart_US'
+
+    - eventType: INVENTORY_STATE_CHANGE_REQUEST
+      spec:
+        source: walmart
+        format: json
+        eventTypePath: eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/INVENTORY_STATE_CHANGE_REQUEST/inventory_state_change_request.jsd'
+          onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/INVENTORY_STATE_CHANGE_REQUEST/inventory_state_change_request_message.ftl'
+        INVENTORY_STATE_CHANGE_REQUEST_2142_US:
+          targetUri: 'activemq:queue:mfc_2142_US'
