@@ -337,3 +337,39 @@ fusion:
           transformerTemplateUri: 'templates/INVENTORY_STATE_CHANGE_REQUEST/inventory_state_change_request_message.ftl'
         INVENTORY_STATE_CHANGE_REQUEST_2142_US:
           targetUri: 'activemq:queue:mfc_2142_US'
+
+    - eventType: CAPACITY_UTILIZATION_REQUEST
+      spec:
+        source: walmart
+        format: json
+        eventTypePath: eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/CAPACITY_UTILIZATION_REQUEST/capacity_utilization_request.jsd'
+          onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/CAPACITY_UTILIZATION_REQUEST/capacity_utilization_request_message.ftl'
+        CAPACITY_UTILIZATION_REQUEST_2142_US:
+          targetUri: 'activemq:queue:mfc_2142_US'
+
+    - eventType: CAPACITY_UTILIZATION
+      spec:
+        source: mfc
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/CAPACITY_UTILIZATION/capacity_utilization.jsd'
+          onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/CAPACITY_UTILIZATION/capacity_utilization_message.ftl'
+          targetUri: 'activemq:queue:walmart_US'
