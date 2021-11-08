@@ -1,0 +1,3 @@
+{
+  "dispenseTerminalId": "${dispenseTerminalId}"
+}

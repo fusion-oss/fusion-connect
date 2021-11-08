@@ -373,3 +373,111 @@ fusion:
           transformationRequired: true
           transformerTemplateUri: 'templates/CAPACITY_UTILIZATION/capacity_utilization_message.ftl'
           targetUri: 'activemq:queue:walmart_US'
+
+    - eventType: DOOR_STATUS_REQUEST
+      spec:
+        source: walmart
+        format: json
+        eventTypePath: eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/DOOR_STATUS_REQUEST/door_status_request.jsd'
+          onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/DOOR_STATUS_REQUEST/door_status_request_message.ftl'
+        DOOR_STATUS_REQUEST_2142_US:
+          targetUri: 'activemq:queue:mfc_2142_US'
+
+    - eventType: DOOR_STATUS
+      spec:
+        source: mfc
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/DOOR_STATUS/door_status.jsd'
+          onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/DOOR_STATUS/door_status_message.ftl'
+          targetUri: 'activemq:queue:walmart_US'
+
+    - eventType: EXTRACTION_REQUEST
+      spec:
+        source: walmart
+        format: json
+        eventTypePath: eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/EXTRACTION_REQUEST/extraction_request.jsd'
+          onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/EXTRACTION_REQUEST/extraction_request_message.ftl'
+        EXTRACTION_REQUEST_2142_US:
+          targetUri: 'activemq:queue:mfc_2142_US'
+
+    - eventType: EXTRACTION_STATUS
+      spec:
+        source: mfc
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/EXTRACTION_STATUS/extraction_status.jsd'
+          onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/EXTRACTION_STATUS/extraction_status_message.ftl'
+          targetUri: 'activemq:queue:walmart_US'
+
+    - eventType: BATCH_DELIVERED
+      spec:
+        source: walmart
+        format: json
+        eventTypePath: eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/BATCH_DELIVERED/batch_delivered.jsd'
+          onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/BATCH_DELIVERED/batch_delivered_message.ftl'
+        BATCH_DELIVERED_2142_US:
+          targetUri: 'activemq:queue:mfc_2142_US'
+
+    - eventType: BATCH_READY
+      spec:
+        source: mfc
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/BATCH_READY/batch_ready.jsd'
+          onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/BATCH_READY/batch_ready_message.ftl'
+          targetUri: 'activemq:queue:walmart_US'
