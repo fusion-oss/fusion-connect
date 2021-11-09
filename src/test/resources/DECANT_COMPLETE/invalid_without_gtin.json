@@ -1,0 +1,36 @@
+{
+  "sourceCreationTimestamp": "2021-07-21T17:10:07.002Z",
+  "containerId": "546191213_20191106_719468_VENDOR_US_00091900003094981490",
+  "revision": 0,
+  "items": [
+    {
+      "productId": "379VJ4AMO3EX",
+      "quantityUom": "EA",
+      "stockStatus": [
+        {
+          "status": "DECANTED",
+          "quantity": 2.0
+        },
+        {
+          "status": "REJECTED",
+          "quantity": 5.0,
+          "reasonCode": "EXPIRED",
+          "reasonDesc": "Product was past expiration date"
+        },
+        {
+          "status": "REJECTED",
+          "quantity": 5.0,
+          "reasonCode": "DAMAGED",
+          "reasonDesc": "Broke"
+        },
+        {
+          "status": "OVERAGE",
+          "quantity": 2.0,
+          "reasonCode": "OVERAGE",
+          "reasonDesc": "Additional 2 items"
+        }
+      ]
+    }
+  ]
+}
+

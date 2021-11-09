@@ -1,0 +1,345 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "sourceCreationTimestamp": "2021-07-21T17:10:07.002Z",
+            "containerId": "546191213_20191106_719468_VENDOR_US_00091900003094981490",
+            "revision": 0,
+            "items": [
+                {
+                    "productId": "379VJ4AMO3EX",
+                    "gtin": "00080153032837",
+                    "quantityUom": "EA",
+                    "stockStatus": [
+                        {
+                            "status": "DECANTED",
+                            "quantity": 2.0
+                        },
+                        {
+                            "status": "REJECTED",
+                            "quantity": 5.0,
+                            "reasonCode": "EXPIRED",
+                            "reasonDesc": "Product was past expiration date"
+                        },
+                        {
+                            "status": "REJECTED",
+                            "quantity": 5.0,
+                            "reasonCode": "DAMAGED",
+                            "reasonDesc": "Broke"
+                        },
+                        {
+                            "status": "OVERAGE",
+                            "quantity": 2.0,
+                            "reasonCode": "OVERAGE",
+                            "reasonDesc": "Additional 2 items"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "required": [
+        "sourceCreationTimestamp",
+        "containerId",
+        "revision",
+        "items"
+    ],
+    "properties": {
+        "sourceCreationTimestamp": {
+            "$id": "#/properties/sourceCreationTimestamp",
+            "type": "string",
+            "title": "The sourceCreationTimestamp schema",
+            "description": "Date and time that the decanting was complete.",
+            "default": "",
+            "examples": [
+                "2021-07-21T17:10:07.002Z"
+            ],
+            "format": "date-time"
+        },
+        "containerId": {
+            "$id": "#/properties/containerId",
+            "type": "string",
+            "title": "The containerId schema",
+            "description": "Unique identifier of the container being handed over to the MFC. It is generally a case or pallet ID, which is the delivery ID in Walmart enterprise inventory.",
+            "default": "",
+            "examples": [
+                "546191213_20191106_719468_VENDOR_US_00091900003094981490"
+            ],
+            "maxLength": 128
+        },
+        "revision": {
+            "$id": "#/properties/revision",
+            "type": "integer",
+            "title": "The revision schema",
+            "description": "Version of the inbound document. This will be used in case of mismatch of the quantity and ASN resent with same ID.",
+            "default": 0,
+            "examples": [
+                0
+            ],
+            "minimum": 0
+        },
+        "items": {
+            "$id": "#/properties/items",
+            "type": "array",
+            "title": "The items schema",
+            "description": "List of items included in this container.",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "productId": "379VJ4AMO3EX",
+                        "gtin": "00080153032837",
+                        "quantityUom": "EA",
+                        "stockStatus": [
+                            {
+                                "status": "DECANTED",
+                                "quantity": 2.0
+                            },
+                            {
+                                "status": "REJECTED",
+                                "quantity": 5.0,
+                                "reasonCode": "EXPIRED",
+                                "reasonDesc": "Product was past expiration date"
+                            },
+                            {
+                                "status": "REJECTED",
+                                "quantity": 5.0,
+                                "reasonCode": "DAMAGED",
+                                "reasonDesc": "Broke"
+                            },
+                            {
+                                "status": "OVERAGE",
+                                "quantity": 2.0,
+                                "reasonCode": "OVERAGE",
+                                "reasonDesc": "Additional 2 items"
+                            }
+                        ]
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/items/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/items/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "List of items included in this container.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "productId": "379VJ4AMO3EX",
+                                "gtin": "00080153032837",
+                                "quantityUom": "EA",
+                                "stockStatus": [
+                                    {
+                                        "status": "DECANTED",
+                                        "quantity": 2.0
+                                    },
+                                    {
+                                        "status": "REJECTED",
+                                        "quantity": 5.0,
+                                        "reasonCode": "EXPIRED",
+                                        "reasonDesc": "Product was past expiration date"
+                                    },
+                                    {
+                                        "status": "REJECTED",
+                                        "quantity": 5.0,
+                                        "reasonCode": "DAMAGED",
+                                        "reasonDesc": "Broke"
+                                    },
+                                    {
+                                        "status": "OVERAGE",
+                                        "quantity": 2.0,
+                                        "reasonCode": "OVERAGE",
+                                        "reasonDesc": "Additional 2 items"
+                                    }
+                                ]
+                            }
+                        ],
+                        "required": [
+                            "productId",
+                            "gtin",
+                            "quantityUom",
+                            "stockStatus"
+                        ],
+                        "properties": {
+                            "productId": {
+                                "$id": "#/properties/items/items/anyOf/0/properties/productId",
+                                "type": "string",
+                                "title": "The productId schema",
+                                "description": "Unique identifier of the product.",
+                                "default": "",
+                                "examples": [
+                                    "379VJ4AMO3EX"
+                                ],
+                                "maxLength": 12
+                            },
+                            "gtin": {
+                                "$id": "#/properties/items/items/anyOf/0/properties/gtin",
+                                "type": "string",
+                                "title": "The gtin schema",
+                                "description": "GTIN of the product.",
+                                "default": "",
+                                "examples": [
+                                    "00080153032837"
+                                ],
+                                "maxLength": 14
+                            },
+                            "quantityUom": {
+                                "$id": "#/properties/items/items/anyOf/0/properties/quantityUom",
+                                "type": "string",
+                                "title": "The quantityUom schema",
+                                "description": "Unit of measure used for the quantity amount.",
+                                "default": "",
+                                "examples": [
+                                    "EA"
+                                ],
+                                "enum": ["EA", "GR"]
+                            },
+                            "stockStatus": {
+                                "$id": "#/properties/items/items/anyOf/0/properties/stockStatus",
+                                "type": "array",
+                                "title": "The stockStatus schema",
+                                "description": "List of stock statuses for the item.",
+                                "default": [],
+                                "examples": [
+                                    [
+                                        {
+                                            "status": "DECANTED",
+                                            "quantity": 2.0
+                                        },
+                                        {
+                                            "status": "REJECTED",
+                                            "quantity": 5.0,
+                                            "reasonCode": "EXPIRED",
+                                            "reasonDesc": "Product was past expiration date"
+                                        }
+                                    ]
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "$id": "#/properties/items/items/anyOf/0/properties/stockStatus/items",
+                                    "anyOf": [
+                                        {
+                                            "$id": "#/properties/items/items/anyOf/0/properties/stockStatus/items/anyOf/0",
+                                            "type": "object",
+                                            "title": "The first anyOf schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": {},
+                                            "examples": [
+                                                {
+                                                    "status": "DECANTED",
+                                                    "quantity": 2.0
+                                                }
+                                            ],
+                                            "required": [
+                                                "status",
+                                                "quantity"
+                                            ],
+                                            "allOf": [
+                                              {
+                                                "if": {
+                                                  "properties": { "status": { "const": "REJECTED" } },
+                                                  "required": ["status"]
+                                                },
+                                                "then": {
+                                                  "required": ["reasonCode", "reasonDesc"]
+                                                }
+                                              },
+                                              {
+                                                "if": {
+                                                  "properties": { "status": { "const": "SHORTAGE" } },
+                                                  "required": ["status"]
+                                                },
+                                                "then": {
+                                                  "required": ["reasonCode", "reasonDesc"]
+                                                }
+                                              },
+                                              {
+                                                "if": {
+                                                  "properties": { "status": { "const": "OVERAGE" } },
+                                                  "required": ["status"]
+                                                },
+                                                "then": {
+                                                  "required": ["reasonCode", "reasonDesc"]
+                                                }
+                                              }
+                                            ],
+                                            "properties": {
+                                                "status": {
+                                                    "$id": "#/properties/items/items/anyOf/0/properties/stockStatus/items/anyOf/0/properties/status",
+                                                    "type": "string",
+                                                    "title": "The status schema",
+                                                    "description": "Status for product during decanting process.",
+                                                    "default": "",
+                                                    "examples": [
+                                                        "DECANTED"
+                                                    ],
+                                                    "enum": [
+                                                        "DECANTED",
+                                                        "REJECTED",
+                                                        "SHORTAGE",
+                                                        "OVERAGE"
+                                                    ]
+                                                },
+                                                "quantity": {
+                                                    "$id": "#/properties/items/items/anyOf/0/properties/stockStatus/items/anyOf/0/properties/quantity",
+                                                    "type": "number",
+                                                    "title": "The quantity schema",
+                                                    "description": "Number of units of the item for the given Status. Unit is based on the provided Quantity Unit of Measure.",
+                                                    "default": 0.0,
+                                                    "examples": [
+                                                        2.0
+                                                    ],
+                                                    "multipleOf": 0.01
+                                                },
+                                                "reasonCode": {
+                                                   "$id": "#/properties/items/items/anyOf/0/properties/stockStatus/items/anyOf/1/properties/reasonCode",
+                                                   "type": "string",
+                                                   "title": "The reasonCode schema",
+                                                   "description": "Reason for Rejection, Shortage and Overage.",
+                                                   "default": "",
+                                                   "examples": [
+                                                       "EXPIRED"
+                                                   ],
+                                                   "enum": [
+                                                       "DAMAGED",
+                                                       "EXPIRED",
+                                                       "MISSING",
+                                                       "OVERAGE",
+                                                       "SHIPPING_EXPIRY"
+                                                   ]
+                                                },
+                                                "reasonDesc": {
+                                                   "$id": "#/properties/items/items/anyOf/0/properties/stockStatus/items/anyOf/1/properties/reasonDesc",
+                                                   "type": "string",
+                                                   "title": "The reasonDesc schema",
+                                                   "description": "Description for the reason code.",
+                                                   "default": "",
+                                                   "examples": [
+                                                       "Product was past expiration date"
+                                                   ],
+                                                   "maxLength": 50
+                                                }
+                                            },
+                                            "additionalProperties": true
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                ]
+            }
+        }
+    },
+    "additionalProperties": true
+}

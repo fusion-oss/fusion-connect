@@ -500,3 +500,20 @@ fusion:
           transformerTemplateUri: 'templates/PRODUCT_DATA/product_data_message.ftl'
         PRODUCT_DATA_2142_US:
           targetUri: 'activemq:queue:mfc_2142_US'
+
+    - eventType: DECANT_COMPLETE
+      spec:
+        source: mfc
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/DECANT_COMPLETE/decant_complete.jsd?schemaLoader=#bean:mySchemaLoader'
+          onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/DECANT_COMPLETE/decant_complete_message.ftl'
+          targetUri: 'activemq:queue:walmart_US'
