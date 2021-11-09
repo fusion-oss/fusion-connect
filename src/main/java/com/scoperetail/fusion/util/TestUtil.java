@@ -26,14 +26,21 @@ package com.scoperetail.fusion.util;
  * =====
  */
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+//import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import freemarker.template.SimpleHash;
+import freemarker.template.TemplateModelException;
+
+import java.util.Map;
+
 public class TestUtil {
 
     private static int GTIN_SIZE = 14;
 
     public static String getGtinFromUpc(String upc)
     {
-        if (upc == null)
-        {
+        if (upc == null) {
             return null;
         }
         return padUpcToGtin14(upc + checkDigit(upc));
@@ -50,12 +57,25 @@ public class TestUtil {
 
     public static String padUpcToGtin14(String upc)
     {
-        if (upc.length() >= GTIN_SIZE)
-        {
+        if (upc.length() >= GTIN_SIZE) {
             return upc;
         }
-
         String s =  "00000000000000".substring(0, (GTIN_SIZE - upc.length())) + upc;
         return s;
+    }
+
+    public static String hashToString(SimpleHash hash) throws TemplateModelException {
+        // Get Map from hash
+        Map<String, String> map = hash.toMap();
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            // MAP -> JSON
+            String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
+            return json;
+        } catch (JsonProcessingException e) {
+            // Return error
+            e.printStackTrace();
+            return e.toString();
+        }
     }
 }
