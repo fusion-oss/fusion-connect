@@ -1,0 +1,71 @@
+{
+  "routingInfo": {
+    "sourceNode": {
+      "location": {
+        "countryCode": "US",
+        "timezone": "America/New_York"
+      },
+      "nodeId": 2142
+    },
+    "destinationNode": {
+      "location": {
+        "countryCode": "US"
+      },
+      "nodeId": 2142
+    }
+  },
+  "order": {
+    "orderId": "594775128",
+    "orderPriority": "REGULAR",
+    "divisionNbr": 1,
+    "pickDueTime": "2021-06-23T15:45:00.000Z",
+    "expectedOrderPickupTime": "2021-06-23T16:00:00.000Z",
+    "earliestPickTime": "2021-06-23T15:00:00.000Z",
+    "osn": "E8314",
+    "loadNbr": 1,
+    "carrierBagAllowed": false,
+    "recordCarrierBagCount": false,
+    "lines": [
+        {
+          "lineNbr": 1,
+          "gtin": "00258533000008",
+          "pickByType": "WEIGHTED",
+          "pickWeightUom": "GR",
+          "pickWeightUnitPrice": 6.76,
+          "pickWeightQty": 2.00,
+          "pickWeightMin": 300.00,
+          "pickWeightMax": 400.00
+        }, {
+            "lineNbr": 2,
+            "gtin": "00717524111128",
+            "pickByType": "PREFQTY",
+            "pickWeightUom": "GR",
+            "pickWeightQty": 970.00,
+            "pickWeightUnitPrice": 6.76,
+            "pickEachUnitPrice": 6.76,
+            "pickEachUom": "EA",
+            "pickEachQty": 5.00,
+			"pickWeightMax": 990.00
+        }, {
+            "lineNbr": 3,
+            "gtin": "00258533000008",
+            "pickByType": "EACHWEIGHTED",
+            "pickWeightUom": "GR",
+            "pickWeightQty": 2.00,
+            "pickWeightUnitPrice": 6.76,
+            "pickEachUnitPrice": 6.76,
+            "pickEachUom": "EA",
+            "pickEachQty": 1,
+            "pickWeightMin": 1.80,
+			"pickWeightMax": 2.10
+        }, {
+		  "lineNbr": 4,
+		  "gtin": "00258533000008",
+		  "pickByType": "EACH",
+		  "pickEachUnitPrice": 6.76,
+		  "pickEachUom": "EA",
+		  "pickEachQty": 1
+		}
+    ]
+  }
+}
