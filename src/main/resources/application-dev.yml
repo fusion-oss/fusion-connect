@@ -494,7 +494,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/PRODUCT_DATA/product_data.jsd'
+          validatorUri: 'json-validator:schema/PRODUCT_DATA/product_data.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/PRODUCT_DATA/product_data_message.ftl'

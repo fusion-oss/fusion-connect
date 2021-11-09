@@ -29,12 +29,25 @@ package com.scoperetail.fusion.route.validator;
 import static org.apache.camel.LoggingLevel.DEBUG;
 import static org.apache.camel.LoggingLevel.ERROR;
 import static org.apache.camel.LoggingLevel.INFO;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.networknt.schema.JsonSchemaFactory;
+import com.networknt.schema.SpecVersion;
 import org.apache.camel.ValidationException;
 import org.apache.camel.builder.RouteBuilder;
+import org.apache.camel.component.jsonvalidator.JsonSchemaLoader;
+
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component
 public class Validator extends RouteBuilder {
+
+  @Bean(name = "mySchemaLoader")
+  public JsonSchemaLoader mySchemaLoader() {
+    return (camelContext, schemaStream) -> JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V7)
+            .getSchema(schemaStream);
+  }
 
   @Override
   public void configure() throws Exception {
