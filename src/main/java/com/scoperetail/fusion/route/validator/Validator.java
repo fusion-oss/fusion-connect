@@ -30,15 +30,18 @@ import static org.apache.camel.LoggingLevel.DEBUG;
 import static org.apache.camel.LoggingLevel.ERROR;
 import static org.apache.camel.LoggingLevel.INFO;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.networknt.schema.JsonSchemaFactory;
 import com.networknt.schema.SpecVersion;
+import com.networknt.schema.ValidationMessage;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.ValidationException;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jsonvalidator.JsonSchemaLoader;
-
+import org.apache.camel.component.jsonvalidator.JsonValidationException;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
+import java.util.Set;
 
 @Component
 public class Validator extends RouteBuilder {
@@ -64,6 +67,25 @@ public class Validator extends RouteBuilder {
         .toD("${exchangeProperty.validatorUri}")
         .log(DEBUG, "Message Validated successfully")
         .doCatch(ValidationException.class)
+            .process(new Processor() {
+              @Override
+              public void process(Exchange exchange) throws Exception {
+                final Throwable ex = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);
+                String message = ex.getMessage();
+                if (ex.getClass() == JsonValidationException.class) {
+                  message += "\n";
+                  // Cast
+                  JsonValidationException jsonEx = (JsonValidationException) ex;
+                  // Get errors
+                  Set<ValidationMessage> errors = jsonEx.getErrors();
+                  for(ValidationMessage error : errors){
+                    message += error.getMessage() + "\n";
+                  }
+                }
+                exchange.getIn().setBody(message);
+              }
+            })
+            .log(ERROR, "VALIDATION ERROR:\n${body}")
         .log(
             ERROR,
             "Validation Failed - Sending message to URI: "
