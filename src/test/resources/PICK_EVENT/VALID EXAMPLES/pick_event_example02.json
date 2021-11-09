@@ -1,0 +1,19 @@
+{
+  "pickEventActivities": [
+    {
+      "orderId": "142531632152141",
+      "lineNbr": 2,
+      "pickByType": "PREFQTY",
+      "lineFinalize": true,
+      "pickGtin": "0007501058639",
+      "pickedUser": "abc123",
+      "pickDisplayTs": "2021-04-01T12:22:32.000Z",
+      "pickedTs": "2021-04-01T12:22:32.000Z",
+      "pickWeightCurrency": "USD",
+      "pickWeightUom": "GR",
+      "pickWeightQty": 3.0,
+      "containerId": "520032",
+      "pickLocation": "STATION01"
+    }
+  ]  
+}

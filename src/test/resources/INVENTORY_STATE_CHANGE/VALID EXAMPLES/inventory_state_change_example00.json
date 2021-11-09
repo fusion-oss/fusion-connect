@@ -1,0 +1,32 @@
+{
+  "sourceCreationTimestamp": "2021-07-21T17:10:07.002Z",
+  "userId": "abc1234",
+  "items": [
+    {
+      "productId": "379VJ4AMO3EX",
+      "gtin": "00080153032837",
+      "quantityUom": "EA",
+      "previousState": "AVAILABLE",
+      "stockStateChange": [
+        {
+          "currentState": "AVAILABLE",
+          "quantity": 5.00,
+          "reasonCode": "EXPIRED",
+          "reasonDesc": ""
+        },
+        {
+          "currentState": "AVAILABLE",
+          "quantity": 1.00,
+          "reasonCode": "DAMAGED",
+          "reasonDesc": "Broke"
+        },
+        {
+          "currentState": "AVAILABLE",
+          "quantity": 2.00,
+          "reasonCode": "EXPIRED",
+          "reasonDesc": "Item Expired"
+        }
+      ]
+    }
+  ]
+}

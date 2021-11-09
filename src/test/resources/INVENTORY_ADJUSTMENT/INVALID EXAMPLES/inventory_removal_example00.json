@@ -1,0 +1,19 @@
+{
+  "sourceCreationTimestamp": "2021-07-21T17:10:07.002Z",
+  "userId": "abc1234",
+  "items": [
+    {
+      "productId": "379VJ4AMO3EX",
+      "gtin": "00080153032837",
+      "quantityUom": "EA",
+      "state": "AVAILABLE",
+      "stockQtyChange": [
+        {
+          "quantity": -5.00,
+          "reasonCode": "EXPIRED",
+          "reasonDesc": "Product has expired"
+        }
+      ]
+    }
+  ]
+}

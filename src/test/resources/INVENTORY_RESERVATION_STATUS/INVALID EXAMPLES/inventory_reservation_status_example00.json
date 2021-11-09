@@ -1,0 +1,12 @@
+{
+  "orderId": "100001",
+  "items": [
+    {
+      "lineNbr": 1,
+      "gtin": "00078742369983",
+      "quantity": 2,
+      "weight": 2.30,
+      "uom": "EA"
+    }
+  ]
+}

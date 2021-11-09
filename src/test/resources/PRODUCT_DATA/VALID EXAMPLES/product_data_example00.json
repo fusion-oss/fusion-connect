@@ -1,0 +1,82 @@
+{
+  "products": [
+    {
+      "action": "ADD",
+      "productId": "0VJ66F6JX4K4",
+      "productName": "Great Value Crunchy Peanut Butter, 18 ounces",
+      "productShortDescription": "GREAT VALUE Crunchy Peanut Butter is a chunky spread that brings out the simple pleasure of GREAT VALUE Peanut Butter. Perfect for topping your morning toast or adding to your lunchtime peanut butter and jelly sandwich, GREAT VALUE Crunchy Peanut Butter brings you that peanutty, delicious flavor that reminds you of childhood.",
+      "deptNbr": "92",
+      "deptCategoryNbr": "1483",
+      "deptSubcatgNbr": "29230",
+      "temperatureZones": [
+        "AMBIENT",
+        "CHILLED"
+      ],
+      "segregationCode": "1",
+      "requiresContainerWashing": false,
+      "requiresInspectionWhileInStorage": false,
+      "imageUrl": "https://i5.walmartimages.com/asr/9ea36bf3-d02c-42f1-856c-6f3d928e41eb_1.b4e2828d77603bc27600c695de28f77b.jpeg",
+      "hasPriceEmbeddedBarcode": false,
+      "looseBulkMerchandise": false,
+      "hasSecurityTagInd": false,
+      "isExpirationDateTracked": false,
+      "storeMinimumLifeRemainingToReceiveQty": 180,
+      "storeMinimumLifeRemainingToReceiveUom": "DA",
+      "containerType": "Jar",
+      "eachDimensions": {
+        "height": 127.00,
+        "width": 69.00,
+        "depth": 69.00,
+        "uom": "MM"
+      },
+      "eachWeight": {
+        "amount": 544.00,
+        "uom": "GR"
+      },
+      "allowedPartitionsPerTote": [
+        1,
+        3
+      ],
+      "gtins": [
+        {
+          "gtin": "00078742369983",
+          "caseConfigurations": [
+            {
+              "activeConfiguration": true,
+              "orderablePackQty": 12,
+              "orderablePackQtyUom": "EA",
+              "caseDimensions": {
+                "height": 72.00,
+                "width": 229.00,
+                "depth": 312.00,
+                "uom": "MM"
+              },
+              "caseWeight": {
+                "amount": 6713.00,
+                "uom": "GR"
+              }
+            },
+            {
+              "activeConfiguration": false,
+              "orderablePackQty": 6,
+              "orderablePackQtyUom": "EA",
+              "caseDimensions": {
+                "height": 72.00,
+                "width": 229.00,
+                "depth": 157.00,
+                "uom": "MM"
+              },
+              "caseWeight": {
+                "amount": 3360.00,
+                "uom": "GR"
+              }
+            }
+          ]
+        }
+      ],
+      "deleteEffectiveDate": "2021-11-20",
+      "pullDate": "2021-12-20"
+    }
+  ]
+}
+
