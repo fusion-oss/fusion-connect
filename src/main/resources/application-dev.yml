@@ -373,3 +373,22 @@ fusion:
           transformationRequired: true
           transformerTemplateUri: 'templates/CAPACITY_UTILIZATION/capacity_utilization_message.ftl'
           targetUri: 'activemq:queue:walmart_US'
+
+    - eventType: PRODUCT_DATA
+      spec:
+        source: walmart
+        format: json
+        eventTypePath: eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/PRODUCT_DATA/product_data.jsd'
+          onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/PRODUCT_DATA/product_data_message.ftl'
+        PRODUCT_DATA_2142_US:
+          targetUri: 'activemq:queue:mfc_2142_US'
