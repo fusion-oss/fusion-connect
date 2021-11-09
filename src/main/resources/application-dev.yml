@@ -46,7 +46,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-            validatorUri: 'json-validator:schema/ERROR_NOTIFICATION/error_notification.jsd'
+            validatorUri: 'json-validator:schema/ERROR_NOTIFICATION/error_notification.jsd?schemaLoader=#bean:mySchemaLoader'
             onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
             continueOnDuplicate: true
             transformationRequired: true
@@ -65,7 +65,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-            validatorUri: 'json-validator:schema/ERROR_NOTIFICATION/error_notification.jsd'
+            validatorUri: 'json-validator:schema/ERROR_NOTIFICATION/error_notification.jsd?schemaLoader=#bean:mySchemaLoader'
             onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
             transformationRequired: true
             transformerTemplateUri: 'templates/ERROR_NOTIFICATION/error_notification_message.ftl'
@@ -102,7 +102,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/ORDER_DROP/order_drop.jsd'
+          validatorUri: 'json-validator:schema/ORDER_DROP/order_drop.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/ORDER_DROP/order_drop_message.ftl'
@@ -154,7 +154,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/PICK_EVENT/pick_event.jsd'
+          validatorUri: 'json-validator:schema/PICK_EVENT/pick_event.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/PICK_EVENT/pick_event_message.ftl'
@@ -172,7 +172,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/PICK_ORDER_CANCEL/pick_order_cancel.jsd'
+          validatorUri: 'json-validator:schema/PICK_ORDER_CANCEL/pick_order_cancel.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/PICK_ORDER_CANCEL/pick_order_cancel_message.ftl'
@@ -191,7 +191,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/INVENTORY_RESERVATION/inventory_reservation.jsd'
+          validatorUri: 'json-validator:schema/INVENTORY_RESERVATION/inventory_reservation.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_RESERVATION/inventory_reservation_message.ftl'
@@ -209,7 +209,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/INVENTORY_RESERVATION_STATUS/inventory_reservation_status.jsd'
+          validatorUri: 'json-validator:schema/INVENTORY_RESERVATION_STATUS/inventory_reservation_status.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_RESERVATION_STATUS/inventory_reservation_status_message.ftl'
@@ -227,7 +227,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/INVENTORY_SNAPSHOT_REQUEST/inventory_snapshot_request.jsd'
+          validatorUri: 'json-validator:schema/INVENTORY_SNAPSHOT_REQUEST/inventory_snapshot_request.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_SNAPSHOT_REQUEST/inventory_snapshot_request_message.ftl'
@@ -245,7 +245,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/INVENTORY_SNAPSHOT/inventory_snapshot.jsd'
+          validatorUri: 'json-validator:schema/INVENTORY_SNAPSHOT/inventory_snapshot.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_SNAPSHOT/inventory_snapshot_message.ftl'
@@ -262,7 +262,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/INVENTORY_ADJUSTMENT/inventory_adjustment.jsd'
+          validatorUri: 'json-validator:schema/INVENTORY_ADJUSTMENT/inventory_adjustment.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_ADJUSTMENT/inventory_adjustment_message.ftl'
@@ -279,7 +279,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/INVENTORY_ADJUSTMENT/inventory_removal.jsd'
+          validatorUri: 'json-validator:schema/INVENTORY_ADJUSTMENT/inventory_removal.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_ADJUSTMENT/inventory_adjustment_message.ftl'
@@ -296,7 +296,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/INVENTORY_STATE_CHANGE/inventory_state_change.jsd'
+          validatorUri: 'json-validator:schema/INVENTORY_STATE_CHANGE/inventory_state_change.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_STATE_CHANGE/inventory_state_change_message.ftl'
@@ -313,7 +313,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/INVENTORY_STATE_CHANGE/inventory_state_change_decanting.jsd'
+          validatorUri: 'json-validator:schema/INVENTORY_STATE_CHANGE/inventory_state_change_decanting.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_STATE_CHANGE/inventory_state_change_message.ftl'
@@ -331,7 +331,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/INVENTORY_STATE_CHANGE_REQUEST/inventory_state_change_request.jsd'
+          validatorUri: 'json-validator:schema/INVENTORY_STATE_CHANGE_REQUEST/inventory_state_change_request.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_STATE_CHANGE_REQUEST/inventory_state_change_request_message.ftl'
@@ -350,7 +350,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/CAPACITY_UTILIZATION_REQUEST/capacity_utilization_request.jsd'
+          validatorUri: 'json-validator:schema/CAPACITY_UTILIZATION_REQUEST/capacity_utilization_request.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/CAPACITY_UTILIZATION_REQUEST/capacity_utilization_request_message.ftl'
@@ -368,7 +368,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/CAPACITY_UTILIZATION/capacity_utilization.jsd'
+          validatorUri: 'json-validator:schema/CAPACITY_UTILIZATION/capacity_utilization.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/CAPACITY_UTILIZATION/capacity_utilization_message.ftl'
@@ -386,7 +386,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/DOOR_STATUS_REQUEST/door_status_request.jsd'
+          validatorUri: 'json-validator:schema/DOOR_STATUS_REQUEST/door_status_request.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/DOOR_STATUS_REQUEST/door_status_request_message.ftl'
@@ -404,7 +404,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/DOOR_STATUS/door_status.jsd'
+          validatorUri: 'json-validator:schema/DOOR_STATUS/door_status.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/DOOR_STATUS/door_status_message.ftl'
@@ -422,7 +422,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/EXTRACTION_REQUEST/extraction_request.jsd'
+          validatorUri: 'json-validator:schema/EXTRACTION_REQUEST/extraction_request.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/EXTRACTION_REQUEST/extraction_request_message.ftl'
@@ -440,7 +440,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/EXTRACTION_STATUS/extraction_status.jsd'
+          validatorUri: 'json-validator:schema/EXTRACTION_STATUS/extraction_status.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/EXTRACTION_STATUS/extraction_status_message.ftl'
@@ -458,7 +458,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/BATCH_DELIVERED/batch_delivered.jsd'
+          validatorUri: 'json-validator:schema/BATCH_DELIVERED/batch_delivered.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/BATCH_DELIVERED/batch_delivered_message.ftl'
@@ -476,7 +476,7 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/BATCH_READY/batch_ready.jsd'
+          validatorUri: 'json-validator:schema/BATCH_READY/batch_ready.jsd?schemaLoader=#bean:mySchemaLoader'
           onValidationFailureUri: 'activemq:queue:mfc_source_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/BATCH_READY/batch_ready_message.ftl'
