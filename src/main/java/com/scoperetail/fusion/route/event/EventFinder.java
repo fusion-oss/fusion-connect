@@ -50,19 +50,58 @@ public class EventFinder {
 
   public void process(final Message message, final Exchange exchange) {
     final Map<String, Object> headers = message.getHeaders();
-    final String payload = message.getBody(String.class).trim();
-    final Format payloadFormat = getPayloadFormat(payload);
-    final Source source = exchange.getProperty("source", Source.class);
-    final Set<Event> events = fusionConfig.getEvents(source.getName(), payloadFormat.name());
-    final Event event = eventMatcher.getEvent(headers, payload, payloadFormat, events);
-    if (Objects.nonNull(event)) {
-      log.debug(
-          "Event found for source: {} eventType: {} format: {}",
-          source.getName(),
-          event.getEventType(),
-          payloadFormat.name());
-      exchange.setProperty("event", event);
-      exchange.setProperty("event.format", event.getSpec().get("format"));
+
+    // Default values
+    Boolean validHeaders = true;
+    String[] mandatoryHeaders = {
+            "eventType",
+            "messageId",
+            "correlationId",
+            "facilityNum",
+            "facilityCountryCode"
+    };
+    String defaultFacilityNum = "2142";
+    String defaultFacilityCountryCode = "US";
+
+    // Check mandatory headers
+    for (String header : mandatoryHeaders) {
+      if (!headers.containsKey(header)) {
+        validHeaders = false;
+        log.error("Missing header: {}", header);
+      }
+    }
+
+    // Check supported values
+    if (validHeaders) {
+      String facilityNum = (String) headers.get("facilityNum");
+      String facilityCountryCode = (String) headers.get("facilityCountryCode");
+
+      if (!facilityNum.equals(defaultFacilityNum)) {
+        log.error("Unsupported facilityNum: {}", facilityNum);
+        validHeaders = false;
+      }
+
+      if (!facilityCountryCode.equals(defaultFacilityCountryCode)) {
+        log.error("Unsupported facilityCountryCode: {}", facilityCountryCode);
+        validHeaders = false;
+      }
+    }
+
+    if (validHeaders) {
+      final String payload = message.getBody(String.class).trim();
+      final Format payloadFormat = getPayloadFormat(payload);
+      final Source source = exchange.getProperty("source", Source.class);
+      final Set<Event> events = fusionConfig.getEvents(source.getName(), payloadFormat.name());
+      final Event event = eventMatcher.getEvent(headers, payload, payloadFormat, events);
+      if (Objects.nonNull(event)) {
+        log.debug(
+                "Event found for source: {} eventType: {} format: {}",
+                source.getName(),
+                event.getEventType(),
+                payloadFormat.name());
+        exchange.setProperty("event", event);
+        exchange.setProperty("event.format", event.getSpec().get("format"));
+      }
     }
   }
 
