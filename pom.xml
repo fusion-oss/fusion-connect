@@ -104,6 +104,11 @@
             <artifactId>camel-kafka-starter</artifactId>
             <version>${camel-spring-boot-starter.version}</version>
         </dependency>
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-netty-http-starter</artifactId>
+			<version>${camel-spring-boot-starter.version}</version>
+		</dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
