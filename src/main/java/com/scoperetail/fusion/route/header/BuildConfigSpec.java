@@ -29,6 +29,7 @@ package com.scoperetail.fusion.route.header;
 import static com.scoperetail.fusion.util.Constant.UNDERSCORE;
 import java.util.Map;
 import org.apache.camel.Exchange;
+import org.apache.commons.collections4.MapUtils;
 import org.apache.commons.lang3.StringUtils;
 import com.scoperetail.fusion.config.Event;
 import lombok.extern.slf4j.Slf4j;
@@ -44,7 +45,10 @@ public class BuildConfigSpec {
     if (StringUtils.isNotBlank(configLookupKey) && !"default".equals(configLookupKey)) {
       final String key = event.getEventType() + UNDERSCORE + configLookupKey;
       log.debug("Overriding default config specifications using the config look up key: {}", key);
-      configSpecByNameMap.putAll(configSpec.get(key));
+      final Map<String, Object> specificConfigSpec = configSpec.get(key);
+      if (MapUtils.isNotEmpty(specificConfigSpec)) {
+        configSpecByNameMap.putAll(specificConfigSpec);
+      }
     }
     configSpecByNameMap.forEach(exchange::setProperty);
   }
