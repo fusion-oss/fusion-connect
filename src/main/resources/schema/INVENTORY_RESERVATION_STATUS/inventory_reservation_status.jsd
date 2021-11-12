@@ -1,0 +1,188 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "Inventory Reservation Status",
+  "description": "The “Inventory Reservation Status” interface provides details back to Walmart about the inventory that was reserved.",
+  "default": {},
+  "examples": [
+    {
+      "orderId": "100001",
+      "items": [
+        {
+          "lineNbr": 1,
+          "gtin": "00078742369983",
+          "quantity": 2,
+          "weight": 2.3,
+          "uom": "EA"
+        }
+      ]
+    }
+  ],
+  "required": [
+    "orderId",
+    "items"
+  ],
+  "properties": {
+    "orderId": {
+      "$id": "#/properties/orderId",
+      "type": "string",
+      "title": "Order ID",
+      "description": "Unique identifier of the order to be fulfilled for which inventory in the MFC was reserved.",
+      "default": "",
+      "examples": [
+        "100001"
+      ],
+      "maxLength": 20
+    },
+    "items": {
+      "$id": "#/properties/items",
+      "type": "array",
+      "title": "Items",
+      "description": "List of items included in the order.",
+      "default": [],
+      "examples": [
+        [
+          {
+            "lineNbr": 1,
+            "gtin": "00078742369983",
+            "quantity": 2,
+            "weight": 2.3,
+            "uom": "EA"
+          }
+        ]
+      ],
+      "additionalItems": true,
+      "items": {
+        "$id": "#/properties/items/items",
+        "anyOf": [
+          {
+            "$id": "#/properties/items/items/anyOf/0",
+            "type": "object",
+            "title": "The first anyOf schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+              {
+                "lineNbr": 1,
+                "gtin": "00078742369983",
+                "quantity": 2,
+                "weight": 2.3,
+                "uom": "EA"
+              }
+            ],
+            "required": [
+              "lineNbr",
+              "uom"
+            ],
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "uom": {
+                      "const": "EA"
+                    }
+                  },
+                  "required": [
+                    "uom"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "quantity"
+                  ]
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "uom": {
+                      "const": "GR"
+                    }
+                  },
+                  "required": [
+                    "uom"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "weight"
+                  ]
+                }
+              }
+            ],
+            "anyOf": [
+              {
+                "required": [
+                  "gtin"
+                ]
+              }
+            ],
+            "properties": {
+              "lineNbr": {
+                "$id": "#/properties/items/items/anyOf/0/properties/lineNbr",
+                "type": "integer",
+                "title": "Line Number",
+                "description": "Sequence number of the item in the order",
+                "default": 0,
+                "examples": [
+                  1
+                ],
+                "minimum": 0
+              },
+              "gtin": {
+                "$id": "#/properties/items/items/anyOf/0/properties/gtin",
+                "type": "string",
+                "title": "GTIN",
+                "description": "Actual GTIN that was reserved.",
+                "default": "",
+                "examples": [
+                  "00078742369983"
+                ],
+                "maxLength": 14
+              },
+              "quantity": {
+                "$id": "#/properties/items/items/anyOf/0/properties/quantity",
+                "type": "integer",
+                "title": "Quantity",
+                "description": "Ordered each amount that was reserved. Unit is based on the 'Unit of Measure' provided.",
+                "default": 0,
+                "examples": [
+                  2
+                ],
+                "multipleOf": 0.01
+              },
+              "weight": {
+                "$id": "#/properties/items/items/anyOf/0/properties/weight",
+                "type": "number",
+                "title": "Weight",
+                "description": "Ordered weight amount. Unit is based on the 'Unit of Measure' provided.",
+                "default": 0.0,
+                "examples": [
+                  2.3
+                ],
+                "multipleOf": 0.01
+              },
+              "uom": {
+                "$id": "#/properties/items/items/anyOf/0/properties/uom",
+                "type": "string",
+                "title": "The uom schema",
+                "description": "Unit of measure used for the 'Quantity' or 'Weight' amount (depending on which is used).",
+                "default": "",
+                "examples": [
+                  "EA"
+                ],
+                "enum": [
+                  "EA",
+                  "GR"
+                ]
+              }
+            },
+            "additionalProperties": true
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": true
+}

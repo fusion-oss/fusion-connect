@@ -1,0 +1,183 @@
+{
+  "storageUtilization": [
+    {
+      "totalPositionQty": 12000,
+      "totalOccupiedQty": 10000,
+      "storageTemperatureZoneUtilization": [
+        {
+          "temperatureZone": "AMBIENT",
+          "positionQty": 8000,
+          "occupiedQty": 7000
+        },
+        {
+          "temperatureZone": "CHILLED",
+          "positionQty": 2500,
+          "occupiedQty": 2000
+        },
+        {
+          "temperatureZone": "FROZEN",
+          "positionQty": 1500,
+          "occupiedQty": 1000
+        }
+      ]
+    }
+  ],
+  "toteUtilization": [
+    {
+      "toteType": "ORDER_TOTE",
+      "interiorDimensions": {
+        "height": 275,
+        "width": 375,
+        "depth": 575,
+        "uom": "MM"
+      },
+      "weight": {
+        "amount": 3175.15,
+        "uom": "GR"
+      },
+      "maxContentsWeight": {
+        "amount": 22679.6,
+        "uom": "GR"
+      },
+      "totalToteQty": 3000,
+      "totalUsedQty": 1000,
+      "totalUnusableQty": 10,
+      "totalMfcFulfilledQty": 900,
+      "totalStoreFulfilledQty": 100,
+      "toteTemperatureZoneUtilization": [
+        {
+          "temperatureZone": "AMBIENT",
+          "toteQty": 2100,
+          "usedQty": 700,
+          "unusableQty": 1,
+          "mfcFulfilledQty": 630,
+          "storefulfilledQty": 70
+        },
+        {
+          "temperatureZone": "CHILLED",
+          "toteQty": 600,
+          "usedQty": 200,
+          "unusableQty": 2,
+          "mfcFulfilledQty": 180,
+          "storefulfilledQty": 20
+        },
+        {
+          "temperatureZone": "FROZEN",
+          "toteQty": 300,
+          "usedQty": 100,
+          "unusableQty": 3,
+          "mfcFulfilledQty": 90,
+          "storefulfilledQty": 10
+        }
+      ],
+      "partitionsAllowed": false
+    },
+    {
+      "toteType": "PRODUCT_TOTE",
+      "interiorDimensions": {
+        "height": 275,
+        "width": 375,
+        "depth": 575,
+        "uom": "MM"
+      },
+      "weight": {
+        "amount": 3175.15,
+        "uom": "GR"
+      },
+      "maxContentsWeight": {
+        "amount": 22679.6,
+        "uom": "GR"
+      },
+      "totalToteQty": 7000,
+      "totalUsedQty": 5000,
+      "totalUnusableQty": 10,
+      "toteTemperatureZoneUtilization": [
+        {
+          "temperatureZone": "AMBIENT",
+          "toteQty": 4900,
+          "usedQty": 3500,
+          "unusableQty": 3
+        },
+        {
+          "temperatureZone": "CHILLED",
+          "toteQty": 1400,
+          "usedQty": 1000,
+          "unusableQty": 4
+        },
+        {
+          "temperatureZone": "FROZEN",
+          "toteQty": 700,
+          "usedQty": 500,
+          "unusableQty": 5
+        }
+      ],
+      "partitionsAllowed": true,
+      "partitionUtilization": [
+        {
+          "partitionsPerTote": 1,
+          "partitionInteriorDimensions": {
+            "height": 275,
+            "width": 375,
+            "depth": 575,
+            "uom": "MM"
+          },
+          "totalPartitionQty": 3500,
+          "totalUsedPartitionQty": 2500,
+          "totalUnusablePartitionQty": 60,
+          "partitionTemperatureZoneUtilization": [
+            {
+              "temperatureZone": "AMBIENT",
+              "partitionQty": 2450,
+              "usedPartitionQty": 1750,
+              "unusablePartitionQty": 6
+            },
+            {
+              "temperatureZone": "CHILLED",
+              "partitionQty": 700,
+              "usedPartitionQty": 500,
+              "unusablePartitionQty": 5
+            },
+            {
+              "temperatureZone": "FROZEN",
+              "partitionQty": 350,
+              "usedPartitionQty": 250,
+              "unusablePartitionQty": 4
+            }
+          ]
+        },
+        {
+          "partitionsPerTote": 3,
+          "partitionInteriorDimensions": {
+            "height": 275,
+            "width": 375,
+            "depth": 190.5,
+            "uom": "MM"
+          },
+          "totalPartitionQty": 10500,
+          "totalUsedPartitionQty": 4500,
+          "totalUnusablePartitionQty": 15,
+          "partitionTemperatureZoneUtilization": [
+            {
+              "temperatureZone": "AMBIENT",
+              "partitionQty": 7350,
+              "usedPartitionQty": 3150,
+              "unusablePartitionQty": 2
+            },
+            {
+              "temperatureZone": "CHILLED",
+              "partitionQty": 2100,
+              "usedPartitionQty": 900,
+              "unusablePartitionQty": 3
+            },
+            {
+              "temperatureZone": "FROZEN",
+              "partitionQty": 1050,
+              "usedPartitionQty": 450,
+              "unusablePartitionQty": 4
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

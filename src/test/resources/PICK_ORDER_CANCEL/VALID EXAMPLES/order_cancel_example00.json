@@ -1,0 +1,17 @@
+{
+  "orders": [
+    {
+      "orderId": "665250372",
+      "reason": {
+        "code": "3",
+        "description": "Expired"
+      },
+      "lines": [
+        {
+          "lineNbr": 999,
+          "reason": "3"
+        }
+      ]
+    }
+  ]
+}

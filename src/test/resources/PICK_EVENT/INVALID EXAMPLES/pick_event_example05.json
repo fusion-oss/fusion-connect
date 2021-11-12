@@ -1,0 +1,24 @@
+{
+  "pickEventActivities": [
+    {
+      "orderId": "21531632152141",
+      "lineNbr": 3,
+      "pickByType": "EACH",
+      "pickGtin": "0007501058639",
+      "pickedUser": "testUsr",
+      "pickDisplayTs": "2021-04-01T12:22:32.000Z",
+      "pickedTs": "2021-04-01T12:22:32.000Z",
+      "pickEachUom": "EA",
+      "pickEachQty": 6,
+      "pickEachCurrency": "USD",
+      "containerId": "520032",
+      "pickLocation": "STATION01",
+      "activations": [
+        {
+          "activationType": "SERIAL",
+          "activationValue": "31456125653"
+        }
+      ]
+    }
+  ]
+}

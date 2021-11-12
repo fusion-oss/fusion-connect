@@ -1,0 +1,168 @@
+{
+  "pickCompleteDetails": [
+    {
+      "orderId": "881618855157723",
+      "lines": [
+        {
+          "lineNbr": 1,
+          "pickDetails": [
+            {
+              "pickByType": "EACH",
+              "pickGtin": "00075010586392",
+              "pickedUser": "abc123",
+              "pickDisplayTs": "2021-04-01T12:22:32.000Z",
+              "pickedTs": "2021-04-01T12:22:32.000Z",
+              "pickEachUom": "EA",
+              "pickEachQty": 6,
+              "pickEachCurrency": "USD",
+              "pickEachUnitOrdePrice": 22.84,
+              "containers": [
+                {
+                  "pickQty": 6,
+                  "containerId": "520032"
+                }
+              ],
+              "pickLocation": "STATION01"
+            }
+          ]
+        },
+        {
+          "lineNbr": 2,
+          "pickDetails": [
+            {
+              "pickByType": "WEIGHTED",
+              "pickGtin": "00075010586392",
+              "pickedUser": "abc123",
+              "pickDisplayTs": "2021-04-01T12:22:32.000Z",
+              "pickedTs": "2021-04-01T12:22:32.000Z",
+              "pickWeightUom": "GR",
+              "pickWeightQty": 3.00,
+              "pickWeightCurrency": "USD",
+              "unitPrice": 1.84,
+              "containers": [
+                {
+                  "pickWeight": 3.0,
+                  "containerId": "520032"
+                }
+              ],
+              "pickLocation": "STATION01"
+            }
+          ]
+        },
+        {
+          "lineNbr": 3,
+          "lineFinalize": true,
+          "pickDetails": [
+            {
+              "pickByType": "PREFQTY",
+              "pickGtin": "00075010586392",
+              "pickedUser": "abc123",
+              "pickDisplayTs": "2021-04-01T12:22:32.000Z",
+              "pickedTs": "2021-04-01T12:22:32.000Z",
+              "pickWeightUom": "GR",
+              "pickWeightQty": 3.00,
+              "pickWeightCurrency": "USD",
+              "containers": [
+                {
+                  "containerId": "520032",
+                  "pickWeight": 3.0
+                }
+              ],
+              "pickLocation": "STATION02"
+            }
+          ]
+        },
+        {
+          "lineNbr": 4,
+          "pickDetails": [
+            {
+              "pickByType": "EACHWEIGHTED",
+          "pickGtin": "00075010586392",
+          "pickedUser": "abc123",
+          "pickDisplayTs": "2021-04-01T12:22:32.000Z",
+          "pickedTs": "2021-04-01T12:22:32.000Z",
+          "pickEachUom": "EA",
+          "pickEachQty": 6,
+          "pickWeightUom": "GR",
+          "pickWeightQty": 3.00,
+          "pickEachCurrency": "USD",
+          "pickWeightCurrency": "USD",
+          "containers": [
+            {
+              "containerId": "520032",
+              "pickQty": 6,
+              "pickWeight": 3.0
+            }
+          ],
+          "pickLocation": "STATION02"
+            }
+          ]
+        },
+        {
+          "lineNbr": 5,
+          "pickDetails": [
+            {
+              "pickByType": "EACH",
+              "pickGtin": "00750105863920",
+              "pickedUser": "abc123",
+              "pickDisplayTs": "2021-04-01T12:22:32.000Z",
+              "pickedTs": "2021-04-01T12:22:32.000Z",
+              "pickEachUom": "EA",
+              "pickEachQty": 6,
+              "pickEachCurrency": "USD",
+              "containers": [
+                {
+                  "containerId": "520033",
+                  "pickQty": 6
+                }
+              ],
+              "pickLocation": "STATION03"
+            }
+          ]
+        },
+        {
+          "lineNbr": 6,
+          "pickDetails": [
+            {
+              "pickByType": "EACH",
+              "pickGtin": "00750105863920",
+              "pickedUser": "abc123",
+              "pickDisplayTs": "2021-04-01T12:22:32.000Z",
+              "pickedTs": "2021-04-01T12:22:32.000Z",
+              "pickEachUom": "EA",
+              "pickEachQty": 6,
+              "pickEachCurrency": "USD",
+              "containers": [
+                {
+                  "containerId": "520034",
+                  "pickQty": 6
+                }
+              ],
+              "pickLocation": "STATION01",
+              "activations": [
+                {
+                  "activationType": "SERIAL",
+                  "activationValue": "31456125653"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "carrierBags": {
+        "bagCountStartTime": "2021-04-01T12:22:32.000Z",
+        "bagCountEndTime": "2021-04-01T12:22:32.000Z",
+        "bags": [
+          {
+            "bagCount": 1,
+            "containerId": "520032"
+          },
+          {
+            "bagCount": 2,
+            "containerId": "520033"
+          }
+        ]
+      }
+    }
+  ]
+}

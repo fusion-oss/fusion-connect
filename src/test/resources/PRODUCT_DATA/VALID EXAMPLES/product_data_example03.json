@@ -1,0 +1,10 @@
+{
+  "products": [
+    {
+      "action": "DELETE",
+      "productId": "6PPE34RGNGEY",
+      "deleteEffectiveDate": "2021-11-20",
+      "pullDate": "2021-12-20"
+    }
+  ]  
+}

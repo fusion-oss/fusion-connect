@@ -1,0 +1,25 @@
+{
+  "batchId": 1,
+  "dispenseTerminalId": "AD1",
+  "containers": [
+    {
+      "containerId": "A23456",
+      "containsReturns": true,
+      "placementSequence": 1,
+      "temperatureZone": "CHILLED"
+    },
+    {
+      "containerId": "B23456",
+      "containsReturns": false,
+      "placementSequence": 2,
+      "temperatureZone": "CHILLED"
+    },
+    {
+      "containerId": "C23456",
+      "containsReturns": false,
+      "placementSequence": 3,
+      "temperatureZone": "CHILLED"
+    }
+  ]
+}
+

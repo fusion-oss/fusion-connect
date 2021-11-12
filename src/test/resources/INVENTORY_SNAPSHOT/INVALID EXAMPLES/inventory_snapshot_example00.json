@@ -1,0 +1,31 @@
+{
+  "sourceCreationTimestamp": "2021-07-21T17:10:07.002Z",
+  "inventory": [
+    {
+      "productId": "0VJ66F6JX4K4",
+      "gtin": "00078742369983",
+      "quantityUom": "EA",
+      "quantities": [
+        {
+          "state": "AVAILABLE",
+          "quantity": 43.00
+        },
+        {
+          "state": "HOLD",
+          "quantity": 27.00
+        }
+      ]
+    },
+    {
+      "productId": "379VJ4AMO3EX",
+      "gtin": "00080153032837",
+      "quantityUom": "GR",
+      "quantities": [
+        {
+          "state": "AVAILABLE",
+          "quantity": 20174.20
+        }
+      ]
+    }
+  ]
+}

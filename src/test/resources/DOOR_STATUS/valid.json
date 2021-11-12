@@ -1,0 +1,13 @@
+{
+  "dispenseTerminalId": "AD1",
+  "doors": [
+    {
+      "doorId": "DOOR1",
+      "available": true
+    },
+    {
+      "doorId": "DOOR2",
+      "available": true
+    }
+  ]  
+}

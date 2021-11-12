@@ -1,0 +1,165 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+    {
+      "batchId": 1,
+      "dispenseTerminalId": "AD1",
+      "doorId": "DOOR1",
+      "containers": [
+        {
+          "containerId": "A23456",
+          "placementSequence": 1,
+          "temperatureZone": "CHILLED"
+        },
+        {
+          "containerId": "B23456",
+          "placementSequence": 2,
+          "temperatureZone": "CHILLED"
+        },
+        {
+          "containerId": "C23456",
+          "placementSequence": 3,
+          "temperatureZone": "CHILLED"
+        }
+      ]
+    }
+  ],
+  "required": [
+    "batchId",
+    "dispenseTerminalId",
+    "doorId",
+    "containers"
+  ],
+  "properties": {
+    "batchId": {
+      "$id": "#/properties/batchId",
+      "type": "integer",
+      "title": "Batch ID",
+      "description": "Batch ID.",
+      "default": 0,
+      "examples": [
+        1
+      ],
+      "minimum": 0
+    },
+    "dispenseTerminalId": {
+      "$id": "#/properties/dispenseTerminalId",
+      "type": "string",
+      "title": "Dispense Terminal ID",
+      "description": "Dispense terminal id which is unique for each terminal in the store.",
+      "default": "",
+      "examples": [
+        "AD1"
+      ],
+      "maxLength": 20
+    },
+    "doorId": {
+      "$id": "#/properties/doorId",
+      "type": "string",
+      "title": "Door ID",
+      "description": "Door id of the terminal.",
+      "default": "",
+      "examples": [
+        "DOOR1"
+      ],
+      "maxLength": 10
+    },
+    "containers": {
+      "$id": "#/properties/orders/items/anyOf/0/properties/containers",
+      "type": "array",
+      "title": "Containers",
+      "description": "List of containers in the batch.",
+      "default": [],
+      "examples": [
+        [
+          {
+            "containerId": "A23456",
+            "placementSequence": 1,
+            "temperatureZone": "CHILLED"
+          },
+          {
+            "containerId": "B23456",
+            "placementSequence": 2,
+            "temperatureZone": "CHILLED"
+          }
+        ]
+      ],
+      "additionalItems": true,
+      "items": {
+        "$id": "#/properties/orders/items/anyOf/0/properties/containers/items",
+        "anyOf": [
+          {
+            "$id": "#/properties/orders/items/anyOf/0/properties/containers/items/anyOf/0",
+            "type": "object",
+            "title": "The first anyOf schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+              {
+                "containerId": "A23456",
+                "placementSequence": 1,
+                "temperatureZone": "CHILLED"
+              }
+            ],
+            "required": [
+              "containerId",
+              "placementSequence",
+              "temperatureZone"
+            ],
+            "properties": {
+              "containerId": {
+                "$id": "#/properties/orders/items/anyOf/0/properties/containers/items/anyOf/0/properties/containerId",
+                "type": "string",
+                "title": "Container ID",
+                "description": "Container number items were placed in.",
+                "default": "",
+                "examples": [
+                  "A23456"
+                ],
+                "maxLength": 20
+              },
+              "placementSequence": {
+                "$id": "#/properties/orders/items/anyOf/0/properties/containers/items/anyOf/0/properties/placementSequence",
+                "type": "integer",
+                "title": "Placement Sequence",
+                "description": "Position of the tote where it will be placed. 1-LEFT 2-CENTER 3-RIGHT this is only provided for the 'BATCH_READY' Event Type.",
+                "default": 0,
+                "examples": [
+                  1
+                ],
+                "minimum": 0,
+                "enum": [
+                  1,
+                  2,
+                  3
+                ]
+              },
+              "temperatureZone": {
+                "$id": "#/properties/orders/items/anyOf/0/properties/containers/items/anyOf/0/properties/temperatureZone",
+                "type": "string",
+                "title": "Temperature Zone",
+                "description": "Temperature Zone.",
+                "default": "",
+                "examples": [
+                  "CHILLED"
+                ],
+                "enum": [
+                  "FROZEN",
+                  "CHILLED",
+                  "AMBIENT"
+                ]
+              }
+            },
+            "additionalProperties": true
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": true
+}

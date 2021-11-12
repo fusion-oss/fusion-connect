@@ -29,6 +29,10 @@ package com.scoperetail.fusion.transform.template.engine;
 import java.io.StringWriter;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+
+
+import freemarker.ext.beans.BeansWrapper;
+import freemarker.template.TemplateModel;
 import org.apache.camel.CamelContext;
 import org.apache.camel.component.freemarker.FreemarkerComponent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +63,15 @@ public class FreemarkerTemplateEngine implements TemplateEngine {
       final Template template =
           freemarkerComponent.getConfiguration().getTemplate(StringUtils.cleanPath(templatePath));
       final StringWriter writer = new StringWriter();
+
+      // TEST
+      BeansWrapper w = new BeansWrapper();
+      TemplateModel statics = w.getStaticModels();
+      params.put("statics", statics);
+      //
+
       template.process(params, writer);
+
       final String text = writer.toString();
       log.trace(
           "Generated text for \nEvent: {} \nTemplate: {} \nText: {}", event, templatePath, text);

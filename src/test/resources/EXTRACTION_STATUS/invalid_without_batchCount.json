@@ -1,0 +1,12 @@
+{
+  "dispenseTerminalId": "AD1",
+  "status": "INITIATED",
+  "containers": [
+    "A123456",
+    "B234567",
+    "C123321",
+    "P123456",
+    "Q234567",
+    "R123321"
+  ]
+}

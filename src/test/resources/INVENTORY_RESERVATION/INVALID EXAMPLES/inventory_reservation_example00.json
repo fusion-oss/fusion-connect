@@ -1,0 +1,14 @@
+{
+  "orderId": "100001",
+  "allowPartialReservation": false,
+  "items": [
+    {
+      "lineNbr": 3,
+      "gtins": [
+        "00260416000005"
+      ],
+      "weight": 375.30,
+      "uom": "GR"
+    }
+  ]  
+}

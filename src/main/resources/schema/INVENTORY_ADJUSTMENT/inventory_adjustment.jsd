@@ -1,0 +1,316 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "Inventory Adjustment",
+  "description": "The “Inventory Adjustment” interface notifies Walmart that inventory quantity has been adjusted either due to a correction due to a discrepancy or when removing it from the MFC back to Walmart for handling.",
+  "default": {},
+  "examples": [
+    {
+      "sourceCreationTimestamp": "2021-07-21T17:10:07.002Z",
+      "containerId": "546191213_20191106_719468_VENDOR_US_00091900003094981490",
+      "revision": 0,
+      "userId": "abc1234",
+      "items": [
+        {
+          "productId": "379VJ4AMO3EX",
+          "gtin": "00080153032837",
+          "quantityUom": "EA",
+          "state": "AVAILABLE",
+          "stockQtyChange": [
+            {
+              "quantity": -5.0,
+              "reasonCode": "CYCLE_COUNT",
+              "reasonDesc": "Cycle count performed"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "required": [
+    "sourceCreationTimestamp",
+    "userId",
+    "items"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "items": {
+            "items": {
+              "anyOf": [
+                {
+                  "properties": {
+                    "state": {
+                      "const": "RESERVED"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "then": {
+        "required": [
+          "containerId",
+          "revision"
+        ]
+      }
+    }
+  ],
+  "properties": {
+    "sourceCreationTimestamp": {
+      "$id": "#/properties/sourceCreationTimestamp",
+      "type": "string",
+      "title": "Source Creation Timestamp",
+      "description": "Date and time that the inventory adjustment occurred in the MFC.",
+      "default": "",
+      "examples": [
+        "2021-07-21T17:10:07.002Z"
+      ],
+      "format": "date-time"
+    },
+    "containerId": {
+      "$id": "#/properties/containerId",
+      "type": "string",
+      "title": "Container ID",
+      "description": "Unique identifier of the container being handed over to the MFC. It is generally a case or pallet ID, which is the delivery ID in Walmart enterprise inventory.",
+      "default": "",
+      "examples": [
+        "546191213_20191106_719468_VENDOR_US_00091900003094981490"
+      ],
+      "maxLength": 128
+    },
+    "revision": {
+      "$id": "#/properties/revision",
+      "type": "integer",
+      "title": "Revision",
+      "description": "Version of the inbound document. This will be used in case of mismatch of the quantity and ASN resent with same ID.",
+      "default": 0,
+      "examples": [
+        0
+      ],
+      "minimum": 0
+    },
+    "userId": {
+      "$id": "#/properties/userId",
+      "type": "string",
+      "title": "User ID",
+      "description": "The user ID of the person who performed the adjustment.",
+      "default": "",
+      "examples": [
+        "abc1234"
+      ],
+      "maxLength": 7
+    },
+    "items": {
+      "$id": "#/properties/items",
+      "type": "array",
+      "title": "Items",
+      "description": "List of all items.",
+      "default": [],
+      "examples": [
+        [
+          {
+            "productId": "379VJ4AMO3EX",
+            "gtin": "00080153032837",
+            "quantityUom": "EA",
+            "state": "AVAILABLE",
+            "stockQtyChange": [
+              {
+                "quantity": -5.0,
+                "reasonCode": "CYCLE_COUNT",
+                "reasonDesc": "Cycle count performed"
+              }
+            ]
+          }
+        ]
+      ],
+      "additionalItems": true,
+      "items": {
+        "$id": "#/properties/items/items",
+        "anyOf": [
+          {
+            "$id": "#/properties/items/items/anyOf/0",
+            "type": "object",
+            "title": "The first anyOf schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+              {
+                "productId": "379VJ4AMO3EX",
+                "gtin": "00080153032837",
+                "quantityUom": "EA",
+                "state": "AVAILABLE",
+                "stockQtyChange": [
+                  {
+                    "quantity": -5.0,
+                    "reasonCode": "CYCLE_COUNT",
+                    "reasonDesc": "Cycle count performed"
+                  }
+                ]
+              }
+            ],
+            "required": [
+              "productId",
+              "gtin",
+              "quantityUom",
+              "state",
+              "stockQtyChange"
+            ],
+            "properties": {
+              "productId": {
+                "$id": "#/properties/items/items/anyOf/0/properties/productId",
+                "type": "string",
+                "title": "Product ID",
+                "description": "Unique identifier of the product that has had a quantity adjustment.",
+                "default": "",
+                "examples": [
+                  "379VJ4AMO3EX"
+                ],
+                "maxLength": 12
+              },
+              "gtin": {
+                "$id": "#/properties/items/items/anyOf/0/properties/gtin",
+                "type": "string",
+                "title": "GTIN",
+                "description": "GTIN of the product that has had a quantity adjustment.",
+                "default": "",
+                "examples": [
+                  "00080153032837"
+                ],
+                "maxLength": 14
+              },
+              "quantityUom": {
+                "$id": "#/properties/items/items/anyOf/0/properties/quantityUom",
+                "type": "string",
+                "title": "Quantity Unit of Measure",
+                "description": "Unit of measure used for the quantity amount.",
+                "default": "",
+                "examples": [
+                  "EA"
+                ],
+                "enum": [
+                  "EA",
+                  "GR"
+                ]
+              },
+              "state": {
+                "$id": "#/properties/items/items/anyOf/0/properties/state",
+                "type": "string",
+                "title": "State",
+                "description": "State of the inventory being adjusted. Provided so that Walmart knows which bucket of inventory to adjust..",
+                "default": "",
+                "examples": [
+                  "AVAILABLE"
+                ],
+                "enum": [
+                  "AVAILABLE",
+                  "HOLD",
+                  "RESERVED"
+                ]
+              },
+              "stockQtyChange": {
+                "$id": "#/properties/items/items/anyOf/0/properties/stockQtyChange",
+                "type": "array",
+                "title": "Stock Quantity change",
+                "description": "List of all adjusted quantities by state.",
+                "default": [],
+                "examples": [
+                  [
+                    {
+                      "quantity": -5.0,
+                      "reasonCode": "CYCLE_COUNT",
+                      "reasonDesc": "Cycle count performed"
+                    }
+                  ]
+                ],
+                "additionalItems": true,
+                "items": {
+                  "$id": "#/properties/items/items/anyOf/0/properties/stockQtyChange/items",
+                  "anyOf": [
+                    {
+                      "$id": "#/properties/items/items/anyOf/0/properties/stockQtyChange/items/anyOf/0",
+                      "type": "object",
+                      "title": "The first anyOf schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": {},
+                      "examples": [
+                        {
+                          "quantity": -5.0,
+                          "reasonCode": "CYCLE_COUNT",
+                          "reasonDesc": "Cycle count performed"
+                        }
+                      ],
+                      "required": [
+                        "quantity",
+                        "reasonCode",
+                        "reasonDesc"
+                      ],
+                      "properties": {
+                        "quantity": {
+                          "$id": "#/properties/items/items/anyOf/0/properties/stockQtyChange/items/anyOf/0/properties/quantity",
+                          "type": "number",
+                          "title": "The quantity schema",
+                          "description": "Positive or negative quantity that has been adjusted. Unit is based on the provided 'Quantity Unit of Measure'.",
+                          "default": 0.0,
+                          "examples": [
+                            -5.0
+                          ],
+                          "multipleOf": 0.01
+                        },
+                        "reasonCode": {
+                          "$id": "#/properties/items/items/anyOf/0/properties/stockQtyChange/items/anyOf/0/properties/reasonCode",
+                          "type": "string",
+                          "title": "The reasonCode schema",
+                          "description": "Reason that the quantity adjustment has been made.",
+                          "default": "",
+                          "examples": [
+                            "CYCLE_COUNT"
+                          ],
+                          "enum": [
+                            "CYCLE_COUNT",
+                            "MISSING",
+                            "DISASTER",
+                            "CORRECTION",
+                            "HW_FAIL",
+                            "EXPIRED",
+                            "DAMAGED",
+                            "RECALLED",
+                            "FRESHNESS_EXPIRATION",
+                            "COLD_CHAIN",
+                            "INSPECTION_FAIL",
+                            "HOSPITAL"
+                          ]
+                        },
+                        "reasonDesc": {
+                          "$id": "#/properties/items/items/anyOf/0/properties/stockQtyChange/items/anyOf/0/properties/reasonDesc",
+                          "type": "string",
+                          "title": "Reason Description",
+                          "description": "Description of the reason that the quantity adjustment has been made.",
+                          "default": "",
+                          "examples": [
+                            "Cycle count performed"
+                          ],
+                          "maxLength": 50
+                        }
+                      },
+                      "additionalProperties": true
+                    }
+                  ]
+                }
+              }
+            },
+            "additionalProperties": true
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": true
+}

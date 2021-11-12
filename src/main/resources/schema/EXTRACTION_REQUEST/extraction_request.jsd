@@ -1,0 +1,72 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "type": "object",
+    "title": "The root schema",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "examples": [
+        {
+            "dispenseTerminalId": "AD1",
+            "containers": [
+                "A123456",
+                "B234567",
+                "C123321",
+                "P123456",
+                "Q234567",
+                "R123321"
+            ]
+        }
+    ],
+    "required": [
+        "dispenseTerminalId",
+        "containers"
+    ],
+    "properties": {
+        "dispenseTerminalId": {
+            "$id": "#/properties/dispenseTerminalId",
+            "type": "string",
+            "title": "The dispenseTerminalId schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "AD1"
+            ],
+	        "maxLength": 20,
+	        "pattern": "^[a-zA-Z0-9]*$"
+        },
+        "containers": {
+            "$id": "#/properties/containers",
+            "type": "array",
+            "title": "The containers schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    "A123456",
+                    "B234567"
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/containers/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/containers/items/anyOf/0",
+                        "type": "string",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "A123456",
+                            "B234567"
+                        ],
+                        "maxLength": 20,
+                        "pattern": "^[a-zA-Z0-9]*$"
+                    }
+                ]
+            }
+        }
+    },
+    "additionalProperties": true
+}

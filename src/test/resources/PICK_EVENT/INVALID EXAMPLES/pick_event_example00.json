@@ -1,0 +1,19 @@
+{
+  "pickEventActivities": [
+    {
+      "orderId": "881618855157723",
+      "lineNbr": 1,
+      "pickByType": "EACH",
+      "pickGtin": "0007501058639",
+      "pickedUser": "abc1234",
+      "pickDisplayTs": "2021-04-01T12:22:32.000Z",
+      "pickedTs": "2021-04-01T12:22:32.000Z",
+      "pickEachUom": "EA",
+      "pickEachQty": 6,
+      "pickEachCurrency": "USD",
+      "pickEachUnitPrice": 22.84,
+      "containerId": "520032",
+      "pickLocation": "STATION01"
+    }
+  ]
+}
