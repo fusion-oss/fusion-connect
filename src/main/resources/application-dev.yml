@@ -40,6 +40,7 @@ fusion:
           format: json
           eventTypePath: eventType
       headers:
+        mandatoryHeaders: eventType, messageId, correlationId, facilityNum, facilityCountryCode
         configLookupKey: configLookupKey/configLookupKey.ftl
         idempotencyKey: idempotency/idempotency.ftl
         actions: 'direct:validate,direct:dedupe,direct:transform'
@@ -51,6 +52,7 @@ fusion:
             continueOnDuplicate: true
             transformationRequired: true
             transformerTemplateUri: 'templates/ERROR_NOTIFICATION/error_notification_message.ftl'
+            targetUri: 'activemq:queue:mfc_default'
         ERROR_NOTIFICATION_2142_US:
             targetUri: 'activemq:queue:mfc_2142_US'
 
