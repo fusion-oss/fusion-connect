@@ -156,6 +156,11 @@
             <artifactId>camel-cassandraql-starter</artifactId>
 			<version>${camel-spring-boot-starter.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-elasticsearch-rest-starter</artifactId>
+            <version>${camel-spring-boot-starter.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
