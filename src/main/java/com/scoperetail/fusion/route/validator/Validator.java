@@ -12,10 +12,10 @@ package com.scoperetail.fusion.route.validator;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -29,28 +29,18 @@ package com.scoperetail.fusion.route.validator;
 import static org.apache.camel.LoggingLevel.DEBUG;
 import static org.apache.camel.LoggingLevel.ERROR;
 import static org.apache.camel.LoggingLevel.INFO;
-
-import com.networknt.schema.JsonSchemaFactory;
-import com.networknt.schema.SpecVersion;
-import com.networknt.schema.ValidationMessage;
+import static org.apache.commons.lang3.StringUtils.LF;
+import java.util.Set;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.ValidationException;
 import org.apache.camel.builder.RouteBuilder;
-import org.apache.camel.component.jsonvalidator.JsonSchemaLoader;
 import org.apache.camel.component.jsonvalidator.JsonValidationException;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-import java.util.Set;
+import com.networknt.schema.ValidationMessage;
 
 @Component
 public class Validator extends RouteBuilder {
-
-  @Bean(name = "mySchemaLoader")
-  public JsonSchemaLoader mySchemaLoader() {
-    return (camelContext, schemaStream) -> JsonSchemaFactory.getInstance(SpecVersion.VersionFlag.V7)
-            .getSchema(schemaStream);
-  }
 
   @Override
   public void configure() throws Exception {
@@ -67,25 +57,26 @@ public class Validator extends RouteBuilder {
         .toD("${exchangeProperty.validatorUri}")
         .log(DEBUG, "Message Validated successfully")
         .doCatch(ValidationException.class)
-            .process(new Processor() {
+        .process(
+            new Processor() {
               @Override
-              public void process(Exchange exchange) throws Exception {
-                final Throwable ex = exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);
-                String message = ex.getMessage();
-                if (ex.getClass() == JsonValidationException.class) {
-                  message += "\n";
-                  // Cast
-                  JsonValidationException jsonEx = (JsonValidationException) ex;
-                  // Get errors
-                  Set<ValidationMessage> errors = jsonEx.getErrors();
-                  for(ValidationMessage error : errors){
-                    message += error.getMessage() + "\n";
+              public void process(final Exchange exchange) throws Exception {
+                final Throwable throwable =
+                    exchange.getProperty(Exchange.EXCEPTION_CAUGHT, Throwable.class);
+                final StringBuilder messageBuilder = new StringBuilder(throwable.getMessage());
+                if (throwable.getClass() == JsonValidationException.class) {
+                  messageBuilder.append(LF);
+                  final JsonValidationException jsonValidationException = (JsonValidationException) throwable;
+                  final Set<ValidationMessage> errors = jsonValidationException.getErrors();
+                  for (final ValidationMessage error : errors) {
+                    messageBuilder.append(error.getMessage());
+                    messageBuilder.append(LF);
                   }
                 }
-                exchange.getIn().setBody(message);
+                exchange.getIn().setBody(messageBuilder.toString());
               }
             })
-            .log(ERROR, "VALIDATION ERROR:\n${body}")
+        .log(ERROR, "VALIDATION ERROR:\n${body}")
         .log(
             ERROR,
             "Validation Failed - Sending message to URI: "
