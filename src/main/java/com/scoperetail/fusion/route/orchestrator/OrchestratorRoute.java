@@ -29,6 +29,8 @@ package com.scoperetail.fusion.route.orchestrator;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import org.apache.camel.CamelContext;
+import org.apache.camel.Exchange;
+import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -63,6 +65,13 @@ public class OrchestratorRoute {
     @Override
     public void configure() {
       from(source.getUri())
+          .process(
+              new Processor() {
+                @Override
+                public void process(final Exchange exchange) throws Exception {
+                  exchange.getMessage().setBody(exchange.getIn().getBody(String.class));
+                }
+              })
           .setProperty("source", constant(source))
           .bean(EventFinder.class)
           .choice()

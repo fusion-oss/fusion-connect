@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.scoperetail.fusion</groupId>
     <artifactId>fusion-connect</artifactId>
-    <version>0.5-SNAPSHOT</version>
+    <version>0.6-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <description>Fusion connect</description>
     <url>https://github.com/scoperetail-io/${project.artifactId}</url>
@@ -104,6 +104,11 @@
             <artifactId>camel-kafka-starter</artifactId>
             <version>${camel-spring-boot-starter.version}</version>
         </dependency>
+		<dependency>
+			<groupId>org.apache.camel.springboot</groupId>
+			<artifactId>camel-netty-http-starter</artifactId>
+			<version>${camel-spring-boot-starter.version}</version>
+		</dependency>
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
@@ -150,6 +155,11 @@
             <groupId>org.apache.camel.springboot</groupId>
             <artifactId>camel-cassandraql-starter</artifactId>
 			<version>${camel-spring-boot-starter.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.springboot</groupId>
+            <artifactId>camel-elasticsearch-rest-starter</artifactId>
+            <version>${camel-spring-boot-starter.version}</version>
         </dependency>
     </dependencies>
 
