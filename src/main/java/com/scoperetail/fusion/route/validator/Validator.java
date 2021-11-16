@@ -73,9 +73,10 @@ public class Validator extends RouteBuilder {
                     messageBuilder.append(LF);
                   }
                 }
+                exchange.setProperty("validationErrors", messageBuilder.toString());
               }
             })
-        .log(ERROR, "VALIDATION ERROR:\n${body}")
+        .log(ERROR, "VALIDATION ERROR:\n${exchangeProperty.validationErrors}")
         .log(
             ERROR,
             "Validation Failed - Sending message to URI: "
