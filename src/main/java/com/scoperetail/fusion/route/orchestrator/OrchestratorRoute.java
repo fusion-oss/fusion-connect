@@ -26,20 +26,22 @@ package com.scoperetail.fusion.route.orchestrator;
  * =====
  */
 
-import java.util.List;
-import javax.annotation.PostConstruct;
+import com.scoperetail.fusion.config.FusionConfig;
+import com.scoperetail.fusion.config.Source;
+import com.scoperetail.fusion.route.event.EventFinder;
+import com.scoperetail.fusion.route.filter.FilterAction;
+import com.scoperetail.fusion.route.header.BuildAction;
+import com.scoperetail.fusion.route.header.BuildConfigSpec;
+import com.scoperetail.fusion.route.header.ComputeHeader;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Exchange;
 import org.apache.camel.Processor;
 import org.apache.camel.builder.RouteBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import com.scoperetail.fusion.config.FusionConfig;
-import com.scoperetail.fusion.config.Source;
-import com.scoperetail.fusion.route.event.EventFinder;
-import com.scoperetail.fusion.route.header.BuildAction;
-import com.scoperetail.fusion.route.header.BuildConfigSpec;
-import com.scoperetail.fusion.route.header.ComputeHeader;
+
+import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Component
 public class OrchestratorRoute {
@@ -82,6 +84,8 @@ public class OrchestratorRoute {
           .end()
           .bean(ComputeHeader.class)
           .bean(BuildConfigSpec.class)
+          .filter()
+          .method(FilterAction.class, "filter")
           .choice()
           .when(simple("${exchangeProperty.actionExecution} == 'sequence'"))
           .log("Executing actions sequentially")

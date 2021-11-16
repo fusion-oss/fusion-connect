@@ -12,10 +12,10 @@ package com.scoperetail.fusion.route.event.matcher;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,11 +26,13 @@ package com.scoperetail.fusion.route.event.matcher;
  * =====
  */
 
-import org.springframework.stereotype.Component;
 import com.jayway.jsonpath.DocumentContext;
 import com.jayway.jsonpath.JsonPath;
 import com.jayway.jsonpath.PathNotFoundException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 @Component
 @Slf4j
@@ -45,6 +47,19 @@ public class JsonEventMatcher implements EventMatcher {
       isMatched = eventType.equalsIgnoreCase(object.toString());
     } catch (final PathNotFoundException e) {
       log.error("Unable to match eventType: {} expression: {}", eventType, expression);
+    }
+    return isMatched;
+  }
+
+  @Override
+  public boolean contains(List<String> configurations, String expression, String payload) {
+    boolean isMatched = false;
+    final DocumentContext documentContext = JsonPath.parse(payload);
+    try {
+      final Object object = documentContext.read(expression);
+      isMatched = configurations.contains(object.toString());
+    } catch (final PathNotFoundException e) {
+      log.error("Unable to match configurations: {} expression: {}", configurations, expression);
     }
     return isMatched;
   }
