@@ -73,7 +73,6 @@ public class Validator extends RouteBuilder {
                     messageBuilder.append(LF);
                   }
                 }
-                exchange.getIn().setBody(messageBuilder.toString());
               }
             })
         .log(ERROR, "VALIDATION ERROR:\n${body}")
