@@ -33,6 +33,9 @@ fusion:
       - name: mfc
         uri: ${URI_MFC_SOURCE}
         bo: ${URI_MFC_SOURCE_BO}
+      - name: walmart_sync
+        uri: ${URI_WALMART_SOURCE_SYNC}
+        bo: ${URI_WALMART_SOURCE_SYNC_BO}        
   events:
     - eventType: ERROR_NOTIFICATION
       spec:
@@ -70,26 +73,7 @@ fusion:
             transformationRequired: true
             transformerTemplateUri: 'templates/ERROR_NOTIFICATION/error_notification_message.ftl'
             targetUri: ${URI_WALMART_US}
-                                           
-    - eventType: ERROR_NOTIFICATION
-      spec:
-          source: walmart
-          format: xml
-          eventTypePath: eventType
-      headers:
-        configLookupKey: configLookupKey/configLookupKey.ftl 
-        idempotencyKey: idempotency/idempotency.ftl
-        actions: 'direct:validate, direct:transform'
-        actionExecution: sequence
-      configSpec:
-        default:
-            validatorUri: 'validator:schema/ERROR_NOTIFICATION/error_notification.xsd'
-            onValidationFailureUri: ${URI_WALMART_SOURCE_DEAD_LETTER}
-            transformationRequired: true
-            transformerTemplateUri: 'templates/ERROR_NOTIFICATION/error_notification_message.ftl'
-        ERROR_NOTIFICATION_2142_US:
-            targetUri: ${URI_MFC_2142_US}
-
+            
     - eventType: ORDER_DROP
       spec:
         source: walmart
@@ -517,3 +501,22 @@ fusion:
           transformationRequired: true
           transformerTemplateUri: 'templates/DECANT_COMPLETE/decant_complete_message.ftl'
           targetUri: ${URI_WALMART_US}
+          
+    - eventType: ERROR_NOTIFICATION
+      spec:
+          source: walmart_sync
+          format: json
+          eventTypePath: eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl 
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate,direct:dedupe'
+        actionExecution: sequence
+      configSpec:
+        default:
+            validatorUri: 'json-validator:schema/ERROR_NOTIFICATION/error_notification.jsd?schemaLoader=#bean:customJsonSchemaLoader'
+            onValidationFailureUri: ${URI_WALMART_SOURCE_SYNC_DEAD_LETTER}
+            continueOnDuplicate: true
+            targetUri: ${URI_MFC_SYNC}
+        ERROR_NOTIFICATION_2142_US:
+            targetUri: ${URI_MFC_SYNC_2142_US}

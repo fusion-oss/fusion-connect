@@ -58,25 +58,6 @@ fusion:
             targetUri: 'activemq:queue:mfc_default'
         ERROR_NOTIFICATION_2142_US:
             targetUri: 'activemq:queue:mfc_2142_US'
-
-    - eventType: ERROR_NOTIFICATION
-      spec:
-          source: walmart_sync
-          format: json
-          eventTypePath: eventType
-      headers:
-        configLookupKey: configLookupKey/configLookupKey.ftl 
-        idempotencyKey: idempotency/idempotency.ftl
-        actions: 'direct:validate,direct:dedupe'
-        actionExecution: sequence
-      configSpec:
-        default:
-            validatorUri: 'json-validator:schema/ERROR_NOTIFICATION/error_notification.jsd'
-            onValidationFailureUri: 'activemq:queue:walmart_source_sync_dead_letter'
-            continueOnDuplicate: true
-            targetUri: 'netty-http:http://httpbin.org/anything'
-        ERROR_NOTIFICATION_2142_US:
-            targetUri: 'netty-http:http://httpbin.org/anything'
             
     - eventType: ERROR_NOTIFICATION
       spec:
@@ -94,26 +75,7 @@ fusion:
             transformationRequired: true
             transformerTemplateUri: 'templates/ERROR_NOTIFICATION/error_notification_message.ftl'
             targetUri: 'activemq:queue:walmart_US'
-
-    - eventType: ERROR_NOTIFICATION
-      spec:
-          source: walmart
-          format: xml
-          eventTypePath: eventType
-      headers:
-        configLookupKey: configLookupKey/configLookupKey.ftl
-        idempotencyKey: idempotency/idempotency.ftl
-        actions: 'direct:validate, direct:transform'
-        actionExecution: sequence
-      configSpec:
-        default:
-            validatorUri: 'validator:schema/ERROR_NOTIFICATION/error_notification.xsd'
-            onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
-            transformationRequired: true
-            transformerTemplateUri: 'templates/ERROR_NOTIFICATION/error_notification_message.ftl'
-        ERROR_NOTIFICATION_2142_US:
-            targetUri: 'activemq:queue:mfc_2142_US'
-
+            
     - eventType: ORDER_DROP
       spec:
         source: walmart
@@ -541,3 +503,22 @@ fusion:
           transformationRequired: true
           transformerTemplateUri: 'templates/DECANT_COMPLETE/decant_complete_message.ftl'
           targetUri: 'activemq:queue:walmart_US'
+
+    - eventType: ERROR_NOTIFICATION
+      spec:
+          source: walmart_sync
+          format: json
+          eventTypePath: eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl 
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate,direct:dedupe'
+        actionExecution: sequence
+      configSpec:
+        default:
+            validatorUri: 'json-validator:schema/ERROR_NOTIFICATION/error_notification.jsd?schemaLoader=#bean:customJsonSchemaLoader'
+            onValidationFailureUri: 'activemq:queue:walmart_source_sync_dead_letter'
+            continueOnDuplicate: true
+            targetUri: 'netty-http:http://httpbin.org/anything'
+        ERROR_NOTIFICATION_2142_US:
+            targetUri: 'netty-http:http://httpbin.org/anything'
