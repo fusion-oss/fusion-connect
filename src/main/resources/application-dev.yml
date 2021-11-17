@@ -519,6 +519,6 @@ fusion:
             validatorUri: 'json-validator:schema/ERROR_NOTIFICATION/error_notification.jsd?schemaLoader=#bean:customJsonSchemaLoader'
             onValidationFailureUri: 'activemq:queue:walmart_source_sync_dead_letter'
             continueOnDuplicate: true
-            targetUri: 'netty-http:http://httpbin.org/anything'
+            targetUri: 'netty-http:http://httpbin.org'
         ERROR_NOTIFICATION_2142_US:
-            targetUri: 'netty-http:http://httpbin.org/anything'
+            targetUri: 'netty-http:http://httpbin.org'
