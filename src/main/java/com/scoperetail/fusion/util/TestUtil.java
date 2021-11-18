@@ -30,6 +30,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 //import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.SimpleHash;
+import freemarker.template.SimpleScalar;
 import freemarker.template.SimpleSequence;
 import freemarker.template.TemplateModelException;
 
@@ -83,12 +84,21 @@ public class TestUtil {
     public static String sequenceToString(SimpleSequence seq) throws TemplateModelException {
         String json = "[";
         for (int i = 0; i < seq.size(); i++) {
-            SimpleHash current = (SimpleHash) seq.get(i);
-            json += TestUtil.hashToString(current);
+            Object current = seq.get(i);
+
+            if (current.getClass() == SimpleHash.class) {
+                SimpleHash currentHash = (SimpleHash) seq.get(i);
+                json += TestUtil.hashToString(currentHash);
+            }
+
+            if (current.getClass() == SimpleScalar.class)
+                json += current.toString();
+
             if (i < seq.size() - 1)
                 json += ",";
         }
         json += "]";
         return json;
+
     }
 }
