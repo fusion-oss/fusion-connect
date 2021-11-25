@@ -470,26 +470,7 @@ fusion:
           transformationRequired: true
           transformerTemplateUri: 'templates/DECANT_COMPLETE/decant_complete_message.ftl'
           targetUri: 'activemq:queue:walmart_US'
-
-    - eventType: ERROR_NOTIFICATION
-      spec:
-          source: walmart_sync
-          format: json
-          eventTypePath: eventType
-      headers:
-        configLookupKey: configLookupKey/configLookupKey.ftl 
-        idempotencyKey: idempotency/idempotency.ftl
-        actions: 'direct:validate,direct:dedupe'
-        actionExecution: sequence
-      configSpec:
-        default:
-            validatorUri: 'json-validator:schema/ERROR_NOTIFICATION/error_notification.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-            onValidationFailureUri: 'activemq:queue:walmart_source_sync_dead_letter'
-            continueOnDuplicate: true
-            targetUri: 'netty-http:http://httpbin.org'
-        ERROR_NOTIFICATION_2142_US:
-            targetUri: 'netty-http:http://httpbin.org'
-
+          
     - eventType: AUTO_STAGE_REQUEST
       spec:
         source: mfc_sync
@@ -508,27 +489,6 @@ fusion:
           continueOnDuplicate: true
           targetUri: 'netty-http:http://httpbin.org'
 
-    - eventType: AUTO_STAGE_RESPONSE
-      spec:
-        source: walmart_sync
-        format: json
-        eventTypePath: eventType
-      headers:
-        configLookupKey: configLookupKey/configLookupKey.ftl
-        idempotencyKey: idempotency/idempotency.ftl
-        actions: 'direct:validate, direct:transform, direct:dedupe'
-        actionExecution: sequence
-      configSpec:
-        default:
-          validatorUri: 'json-validator:schema/AUTO_STAGE_RESPONSE/auto_stage_response.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: 'activemq:queue:walmart_source_sync_dead_letter'
-          transformationRequired: true
-          transformerTemplateUri: 'templates/AUTO_STAGE_RESPONSE/auto_stage_response_message.ftl'
-          continueOnDuplicate: true
-          targetUri: 'netty-http:http://httpbin.org'
-        AUTO_STAGE_RESPONSE_2142_US:
-          targetUri: 'netty-http:http://httpbin.org'
-
     - eventType: ORDER_INFO_REQUEST
       spec:
         source: mfc_sync
@@ -545,27 +505,6 @@ fusion:
           transformationRequired: true
           transformerTemplateUri: 'templates/ORDER_INFO_REQUEST/order_info_request_message.ftl'
           continueOnDuplicate: true
-          targetUri: 'netty-http:http://httpbin.org'
-
-    - eventType: ORDER_INFO_RESPONSE
-      spec:
-        source: walmart_sync
-        format: json
-        eventTypePath: eventType
-      headers:
-        configLookupKey: configLookupKey/configLookupKey.ftl
-        idempotencyKey: idempotency/idempotency.ftl
-        actions: 'direct:validate, direct:transform, direct:dedupe'
-        actionExecution: sequence
-      configSpec:
-        default:
-          validatorUri: 'json-validator:schema/ORDER_INFO_RESPONSE/order_info_response.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: 'activemq:queue:walmart_source_sync_dead_letter'
-          transformationRequired: true
-          transformerTemplateUri: 'templates/ORDER_INFO_RESPONSE/order_info_response_message.ftl'
-          continueOnDuplicate: true
-          targetUri: 'netty-http:http://httpbin.org'
-        ORDER_INFO_RESPONSE_2142_US:
           targetUri: 'netty-http:http://httpbin.org'
 
     - eventType: INVENTORY_RESERVATION
@@ -587,22 +526,4 @@ fusion:
           continueOnDuplicate: true
           targetUri: 'netty-http:http://httpbin.org'
         INVENTORY_RESERVATION_2142_US:
-          targetUri: 'netty-http:http://httpbin.org'
-
-    - eventType: INVENTORY_RESERVATION_STATUS
-      spec:
-        source: mfc_sync
-        format: json
-        eventTypePath: eventType
-      headers:
-        idempotencyKey: idempotency/idempotency.ftl
-        actions: 'direct:validate, direct:transform, direct:dedupe'
-        actionExecution: sequence
-      configSpec:
-        default:
-          validatorUri: 'json-validator:schema/INVENTORY_RESERVATION_STATUS/inventory_reservation_status.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: 'activemq:queue:walmart_source_sync_dead_letter'
-          transformationRequired: true
-          transformerTemplateUri: 'templates/INVENTORY_RESERVATION_STATUS/inventory_reservation_status_message.ftl'
-          continueOnDuplicate: true
           targetUri: 'netty-http:http://httpbin.org'
