@@ -16,7 +16,7 @@
               {
                 "pickByType": "${pickDetail.pickUom}",
                 "pickGtin": "${TestUtils.getGtinFromUpc(pickDetail.pickUpcNbr)}",
-                "pickedUser": "${pickDetail.pickedUser}",
+                "userId": "${pickDetail.pickedUser}",
                 "pickDisplayTs": "${pickDetail.pickDisplayTs}",
                 "pickedTs": "${pickDetail.pickedTs}",
                 "pickEachUom": "EA",
@@ -45,7 +45,7 @@
             {
               "pickByType": "${pickDetail.pickUom}",
               "pickGtin": "${TestUtils.getGtinFromUpc(pickDetail.pickUpcNbr)}",
-              "pickedUser": "${pickDetail.pickedUser}",
+              "userId": "${pickDetail.pickedUser}",
               "pickDisplayTs": "${pickDetail.pickDisplayTs}",
               "pickedTs": "${pickDetail.pickedTs}",
               "pickEachUom": "EA",

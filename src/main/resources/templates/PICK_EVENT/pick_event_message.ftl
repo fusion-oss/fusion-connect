@@ -11,7 +11,7 @@
         </#if>
 
             "pickGtin": "${activation.pickGtin}",
-            "pickedUser": "${activation.pickedUser}",
+            "userId": "${activation.userId}",
             "pickDisplayTs": "${activation.pickDisplayTs}",
             "pickedTs": "${activation.pickedTs}",
 

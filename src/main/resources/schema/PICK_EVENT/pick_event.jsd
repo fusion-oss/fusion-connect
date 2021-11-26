@@ -29,48 +29,87 @@
                             "lineNbr",
                             "pickByType",
                             "pickGtin",
-                            "pickedUser",
+                            "userId",
                             "pickDisplayTs",
                             "pickedTs",
                             "containerId"
                         ],
-						"allOf": [
-							{
-								"if": {
-									"properties": { "pickByType": { "const": "PREFQTY" } },
-									"required": ["pickByType"]
-								},
-								"then": {
-									"required": ["lineFinalize", "pickWeightQty", "pickWeightUom"]
-								}
-							},
-							{
-								"if": {
-									"properties": { "pickByType": { "const": "EACH" } },
-									"required": ["pickByType"]
-								},
-								"then": {
-									"required": ["pickEachQty", "pickEachUom"]
-								}
-							},
-							{
-								"if": {
-									"properties": { "pickByType": { "const": "EACHWEIGHTED" } },
-									"required": ["pickByType"]
-								},
-								"then": {
-									"required": ["pickEachQty", "pickEachUom", "pickWeightQty", "pickWeightUom"]
-								}
-							},
-							{
-								"if": {
-									"properties": { "pickByType": { "const": "WEIGHTED" } },
-									"required": ["pickByType"]
-								},
-								"then": {
-									"required": ["pickWeightQty", "pickWeightUom"]
-								}
-							}
+                        "allOf": [
+                            {
+                                "if": {
+                                    "properties": {
+                                        "pickByType": {
+                                            "const": "PREFQTY"
+                                        }
+                                    },
+                                    "required": [
+                                        "pickByType"
+                                    ]
+                                },
+                                "then": {
+                                    "required": [
+                                        "lineFinalize",
+                                        "pickWeightQty",
+                                        "pickWeightUom"
+                                    ]
+                                }
+                            },
+                            {
+                                "if": {
+                                    "properties": {
+                                        "pickByType": {
+                                            "const": "EACH"
+                                        }
+                                    },
+                                    "required": [
+                                        "pickByType"
+                                    ]
+                                },
+                                "then": {
+                                    "required": [
+                                        "pickEachQty",
+                                        "pickEachUom"
+                                    ]
+                                }
+                            },
+                            {
+                                "if": {
+                                    "properties": {
+                                        "pickByType": {
+                                            "const": "EACHWEIGHTED"
+                                        }
+                                    },
+                                    "required": [
+                                        "pickByType"
+                                    ]
+                                },
+                                "then": {
+                                    "required": [
+                                        "pickEachQty",
+                                        "pickEachUom",
+                                        "pickWeightQty",
+                                        "pickWeightUom"
+                                    ]
+                                }
+                            },
+                            {
+                                "if": {
+                                    "properties": {
+                                        "pickByType": {
+                                            "const": "WEIGHTED"
+                                        }
+                                    },
+                                    "required": [
+                                        "pickByType"
+                                    ]
+                                },
+                                "then": {
+                                    "required": [
+                                        "pickWeightQty",
+                                        "pickWeightUom"
+                                    ]
+                                }
+                            }
                         ],
                         "properties": {
                             "orderId": {
@@ -98,7 +137,12 @@
                             "pickByType": {
                                 "$id": "#/properties/pickEventActivities/items/anyOf/0/properties/pickByType",
                                 "type": "string",
-                                "enum": ["EACH", "WEIGHTED", "EACHWEIGHTED", "PREFQTY"],
+                                "enum": [
+                                    "EACH",
+                                    "WEIGHTED",
+                                    "EACHWEIGHTED",
+                                    "PREFQTY"
+                                ],
                                 "title": "The pickByType schema",
                                 "description": "Type indicating how items should be picked (based on the Order Drop).",
                                 "default": "",
@@ -127,10 +171,10 @@
                                     "750105863920"
                                 ]
                             },
-                            "pickedUser": {
-                                "$id": "#/properties/pickEventActivities/items/anyOf/0/properties/pickedUser",
+                            "userId": {
+                                "$id": "#/properties/pickEventActivities/items/anyOf/0/properties/userId",
                                 "type": "string",
-                                "title": "The pickedUser schema",
+                                "title": "The userId schema",
                                 "description": "Unique identifier of the user who performed the pick event.",
                                 "default": "",
                                 "maxLength": 7,
@@ -144,7 +188,7 @@
                                 "title": "The pickDisplayTs schema",
                                 "description": "Date and time that the pick information was dispayed to the user so that they could begin picking.",
                                 "default": "",
-								"format": "date-time",
+                                "format": "date-time",
                                 "examples": [
                                     "2021-04-01T12:22:32.000Z"
                                 ]
@@ -155,7 +199,7 @@
                                 "title": "The pickedTs schema",
                                 "description": "Date and time that the item was picked/scanned.",
                                 "default": "",
-								"format": "date-time",
+                                "format": "date-time",
                                 "examples": [
                                     "2021-04-01T12:22:32.000Z"
                                 ]
@@ -163,7 +207,9 @@
                             "pickEachUom": {
                                 "$id": "#/properties/pickEventActivities/items/anyOf/0/properties/pickEachUom",
                                 "type": "string",
-                                "enum": ["EA"],
+                                "enum": [
+                                    "EA"
+                                ],
                                 "title": "The pickEachUom schema",
                                 "description": "Unit of measure for the Pick Each Quantity.",
                                 "examples": [
@@ -184,7 +230,9 @@
                             "pickWeightUom": {
                                 "$id": "#/properties/pickEventActivities/items/anyOf/0/properties/pickWeightUom",
                                 "type": "string",
-                                "enum": ["GR"],
+                                "enum": [
+                                    "GR"
+                                ],
                                 "title": "The pickWeightUom schema",
                                 "description": "Unit of measure for the Pick Weight Quantity.",
                                 "examples": [
@@ -196,7 +244,7 @@
                                 "type": "number",
                                 "title": "The pickWeightQty schema",
                                 "description": "Weight that was picked.",
-								"multipleOf": 0.01,
+                                "multipleOf": 0.01,
                                 "minimum": 0.0,
                                 "examples": [
                                     6.12
@@ -217,7 +265,7 @@
                                 "type": "number",
                                 "title": "The pickEachUnitPrice schema",
                                 "description": "Unit price of the item based on each quantity.",
-								"multipleOf": 0.01,
+                                "multipleOf": 0.01,
                                 "examples": [
                                     4.32
                                 ]
@@ -237,7 +285,7 @@
                                 "type": "number",
                                 "title": "The pickWeightUnitPrice schema",
                                 "description": "Unit price of item based on weight.",
-                                "multipleOf": 0.01,
+                                "multipleOf": 0.00001,
                                 "examples": [
                                     4.32
                                 ]
@@ -287,7 +335,13 @@
                                                 "activationType": {
                                                     "$id": "#/properties/pickEventActivities/items/anyOf/0/properties/activations/items/anyOf/0/properties/activationType",
                                                     "type": "string",
-                                                    "enum": ["DISA", "SERIAL", "INCOMM", "UAB", "GIFTCARD"],
+                                                    "enum": [
+                                                        "DISA",
+                                                        "SERIAL",
+                                                        "INCOMM",
+                                                        "UAB",
+                                                        "GIFTCARD"
+                                                    ],
                                                     "title": "The activationType schema",
                                                     "description": "Type of activation.",
                                                     "default": "",
