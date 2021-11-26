@@ -8,12 +8,14 @@
   "examples": [
     {
       "status": "INVALID_VALUE",
-      "reason": "Invalid value in productId attribute."
+      "reason": "Invalid value in productId attribute.",
+      "failedMessagePayload": "{\r\n \"products\": [{\r\n \"action\": \"ADD\",\r\n \"productId\": 12345,\r\n\"productName\": \"Wonderful Value Crunchy Peanut Butter, 18 ounces\",\r\n \"eachDimensions\": {\r\n \"height\": 125\r\n }\r\n }]\r\n}"
     }
   ],
   "required": [
     "status",
-    "reason"
+    "reason",
+    "failedMessagePayload"
   ],
   "properties": {
     "status": {
@@ -37,6 +39,17 @@
         "Invalid value in productId attribute."
       ],
       "maxLength": 500
+    },
+    "failedMessagePayload": {
+      "$id": "#/properties/failedMessagePayload",
+      "type": "string",
+      "title": "The failedMessagePayload schema",
+      "description": "Payload of the message that resulted in an error.",
+      "default": "",
+      "examples": [
+        "{\r\n \"products\": [{\r\n \"action\": \"ADD\",\r\n \"productId\": 12345,\r\n\"productName\": \"Wonderful Value Crunchy Peanut Butter, 18 ounces\",\r\n \"eachDimensions\": {\r\n \"height\": 125\r\n }\r\n }]\r\n}"
+      ],
+      "maxLength": 100000
     }
   },
   "additionalProperties": true

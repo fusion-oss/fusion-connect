@@ -1,4 +1,5 @@
 {
     "status": "${status}",
-    "reason": "${reason}"
+    "reason": "${reason}",
+    "failedMessagePayload": "${failedMessagePayload}"
 }

@@ -1,5 +1,5 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
+    "$schema": "http://json-schema.org/draft-04/schema",
     "$id": "http://example.com/example.json",
     "type": "object",
     "title": "The root schema",
@@ -10,6 +10,7 @@
             "batchCount": 6,
             "dispenseTerminalId": "AD1",
             "status": "INITIATED",
+            "eta": 300,
             "containers": [
                 "A123456",
                 "B234567",
@@ -52,13 +53,28 @@
         "status": {
             "$id": "#/properties/status",
             "type": "string",
-            "enum": ["INITIATED", "DELIVERED"],
+            "enum": [
+                "INITIATED",
+                "DELIVERED",
+                "TERMINATED"
+            ],
             "title": "The status schema",
             "description": "Status of the order being extracted.",
             "default": "",
             "examples": [
                 "INITIATED"
             ]
+        },
+        "eta": {
+            "$id": "#/properties/eta",
+            "type": "integer",
+            "title": "Estimated Time eta of Arrival (ETA)",
+            "description": "Amount of time in seconds it is expected for the first batch to be delivered to the dispense terminal.",
+            "default": 300,
+            "examples": [
+                300
+            ],
+            "minimum": 0
         },
         "containers": {
             "$id": "#/properties/containers",
