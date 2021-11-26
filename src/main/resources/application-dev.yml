@@ -26,19 +26,18 @@ logging:
     com:
       scoperetail: DEBUG
 fusion:
+  dedupe:
+    dbType: Relational
   sources:
       - name: walmart
         uri: 'activemq:queue:walmart_source'
         bo: 'activemq:queue:walmart_source_bo'
-      - name: walmart_sync
-        uri: 'netty-http:proxy://0.0.0.0:8081'
-        bo: 'activemq:queue:walmart_source_sync_bo'
       - name: mfc
         uri: 'activemq:queue:mfc_source'
         bo: 'activemq:queue:mfc_source_bo'
-      - name: mfc_sync
-        uri: 'netty-http:proxy://0.0.0.0:8082'
-        bo: 'activemq:queue:mfc_source_sync_bo'
+      - name: sync_proxy
+        uri: 'netty-http:proxy://0.0.0.0:8081'
+        bo: 'activemq:queue:walmart_source_sync_bo'        
   events:
     - eventType: ERROR_NOTIFICATION
       spec:
@@ -473,7 +472,7 @@ fusion:
           
     - eventType: AUTO_STAGE_REQUEST
       spec:
-        source: mfc_sync
+        source: sync_proxy
         format: json
         eventTypePath: eventType
       headers:
@@ -491,7 +490,7 @@ fusion:
 
     - eventType: ORDER_INFO_REQUEST
       spec:
-        source: mfc_sync
+        source: sync_proxy
         format: json
         eventTypePath: eventType
       headers:
@@ -509,7 +508,7 @@ fusion:
 
     - eventType: INVENTORY_RESERVATION
       spec:
-        source: walmart_sync
+        source: sync_proxy
         format: json
         eventTypePath: eventType
       headers:

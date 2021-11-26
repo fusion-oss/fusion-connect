@@ -1,4 +1,4 @@
-package com.scoperetail.fusion.transform.impl;
+package com.alertinnovation.fusion;
 
 /*-
  * *****
@@ -26,13 +26,14 @@ package com.scoperetail.fusion.transform.impl;
  * =====
  */
 
-import org.springframework.stereotype.Component;
-import com.scoperetail.fusion.transform.template.engine.FreemarkerTemplateEngine;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@Component
-public class DomainToHashKeyJsonFtlTemplateTransformer
-    extends AbstractDomainToHashKeyJsonTemplateTransformer {
-  public DomainToHashKeyJsonFtlTemplateTransformer(final FreemarkerTemplateEngine templateEngine) {
-    super(templateEngine);
-  }
+@SpringBootApplication
+public class FusionApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(FusionApplication.class, args);
+	}
+
 }

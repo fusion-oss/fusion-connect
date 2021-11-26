@@ -1,4 +1,4 @@
-package com.scoperetail.fusion.dedupe;
+package com.alertinnovation.fusion.config;
 
 /*-
  * *****
@@ -26,9 +26,9 @@ package com.scoperetail.fusion.dedupe;
  * =====
  */
 
-import org.apache.camel.Exchange;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
-public interface DuplicateCheckUseCase {
-
-  void isDuplicate(final Exchange exchange) throws Exception;
-}
+@Configuration
+@EnableWebMvc
+public class WebMvcConfig {}
