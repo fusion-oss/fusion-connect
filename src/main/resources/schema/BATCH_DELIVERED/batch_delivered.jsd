@@ -11,6 +11,10 @@
       "dispenseTerminalId": "AD1",
       "doorId": "DOOR1",
       "containsReturns": true,
+      "temperatureZonesForReturns": [
+        "CHILLED",
+        "FROZEN"
+      ],
       "containers": [
         {
           "containerId": "A23456",
@@ -33,6 +37,25 @@
     "doorId",
     "containsReturns",
     "containers"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "containsReturns": {
+            "const": true
+          }
+        },
+        "required": [
+          "containsReturns"
+        ]
+      },
+      "then": {
+        "required": [
+          "temperatureZonesForReturns"
+        ]
+      }
+    }
   ],
   "properties": {
     "batchId": {
@@ -77,6 +100,41 @@
       "examples": [
         true
       ]
+    },
+    "temperatureZonesForReturns": {
+      "$id": "#/properties/temperatureZonesForReturns",
+      "type": "array",
+      "title": "The temperatureZonesForReturns schema",
+      "description": "Temperature zones of any products that are being returned. Note that these products may be from a previous batch and the customer may have placed them in any of the containers.",
+      "default": [],
+      "examples": [
+        [
+          "CHILLED",
+          "FROZEN"
+        ]
+      ],
+      "additionalItems": true,
+      "items": {
+        "$id": "#/properties/temperatureZonesForReturns/items",
+        "anyOf": [
+          {
+            "$id": "#/properties/temperatureZonesForReturns/items/anyOf/0",
+            "type": "string",
+            "title": "The first anyOf schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "CHILLED",
+              "FROZEN"
+            ],
+            "enum": [
+              "FROZEN",
+              "CHILLED",
+              "AMBIENT"
+            ]
+          }
+        ]
+      }
     },
     "containers": {
       "$id": "#/properties/orders/items/anyOf/0/properties/containers",
