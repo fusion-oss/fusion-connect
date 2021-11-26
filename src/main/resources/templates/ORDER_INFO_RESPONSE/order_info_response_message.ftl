@@ -1,4 +1,4 @@
-<#assign TestUtils=statics['com.scoperetail.fusion.connect.core.common.util.TestUtil']>
+<#assign TestUtils=statics['com.alertinnovation.fusion.plugin.TestUtil']>
 
 {
   "details": ${TestUtils.sequenceToString(details)}

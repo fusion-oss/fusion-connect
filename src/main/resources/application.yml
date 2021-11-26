@@ -5,6 +5,3 @@ camel:
 spring:
   profiles:
     active: dev
-    
-server:
-  port: 8082
