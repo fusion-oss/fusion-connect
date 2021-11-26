@@ -1,14 +1,16 @@
 {
   <#if (productId?has_content)>
-  "productId": "${productId}", 
+  "productId": "${productId}",
   </#if>
   "gtin": "${gtin}",
   <#if (lotNumber?has_content)>
-  "lotNumber": "${lotNumber}", 
+  "lotNumber": "${lotNumber}",
   </#if>
   <#if (countryOfOrigin?has_content)>
   "countryOfOrigin": "${countryOfOrigin}",
   </#if>
   "currentState": "${currentState}",
-  "newState": "${newState}"
+  "newState": "${newState}",
+  "reasonCode": "${reasonCode}",
+  "reasonDesc": "${reasonDesc}"
 }
