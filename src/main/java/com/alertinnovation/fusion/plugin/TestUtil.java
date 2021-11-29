@@ -88,7 +88,7 @@ public class TestUtil {
         json += TestUtil.hashToString(currentHash);
       }
 
-      if (current.getClass() == SimpleScalar.class) json += current.toString();
+      if (current.getClass() == SimpleScalar.class) json += '"'+current.toString()+'"';
 
       if (i < seq.size() - 1) json += ",";
     }

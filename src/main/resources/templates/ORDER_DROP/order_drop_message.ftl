@@ -4,7 +4,7 @@
     <hdr:SubId>SUB-EIC-UPDPICK-V1</hdr:SubId>
     <hdr:CnsmrId>CON-NODE-UPDPICK-V1</hdr:CnsmrId>
     <hdr:SrvcNm>UpdateFulfillmentPicking.subSystemOrderRelease</hdr:SrvcNm>
-    <hdr:TranId>${order.orderId}</hdr:TranId>
+    <hdr:TranId>${orderId}</hdr:TranId>
     <hdr:Version>1.0</hdr:Version>
   </hdr:MessageHeader>
   <MessageBody>
@@ -29,29 +29,29 @@
         <countryCode>--</countryCode>
       </node>
       <fulfillmentOrder>
-        <orderNbr>${order.orderId}</orderNbr>
+        <orderNbr>${orderId}</orderNbr>
         <orderPriority>
-            <#if order.orderPriority=="REGULAR">
+            <#if orderPriority=="REGULAR">
               <code>1</code>
             <#else>
               <code>2</code>
             </#if>
           <description>Grocery Pickup Default</description>
         </orderPriority>
-        <type code="6" name="${order.orderPriority}"/>
-        <destinationBusinessUnit destBannerName="Walmart Grocery" destDivisonNumber="${order.divisionNbr}"/>
-        <pickDueTime>${order.pickDueTime?datetime.iso?string["yyyy-MM-dd'T'HH:mm:ss.SSS Z"]}</pickDueTime>
-        <expectedOrderPickupTime>${order.expectedOrderPickupTime?datetime.iso?string["yyyy-MM-dd'T'HH:mm:ss.SSS Z"]}</expectedOrderPickupTime>
-          <#if order.earliestPickTime?has_content>
-            <earliestPickTime>${order.earliestPickTime?datetime.iso?string["yyyy-MM-dd'T'HH:mm:ss.SSS Z"]}</earliestPickTime>
+        <type code="6" name="${orderPriority}"/>
+        <destinationBusinessUnit destBannerName="Walmart Grocery" destDivisonNumber="${divisionNbr}"/>
+        <pickDueTime>${pickDueTime?datetime.iso?string["yyyy-MM-dd'T'HH:mm:ss.SSS Z"]}</pickDueTime>
+        <expectedOrderPickupTime>${expectedOrderPickupTime?datetime.iso?string["yyyy-MM-dd'T'HH:mm:ss.SSS Z"]}</expectedOrderPickupTime>
+          <#if earliestPickTime?has_content>
+            <earliestPickTime>${earliestPickTime?datetime.iso?string["yyyy-MM-dd'T'HH:mm:ss.SSS Z"]}</earliestPickTime>
           </#if>
-        <orderSequenceNumber>${order.osn}</orderSequenceNumber>
-        <loadGroupNumber>${order.loadNbr}</loadGroupNumber>
-        <carrierBagAllowed>${order.carrierBagAllowed?string}</carrierBagAllowed>
-        <recordCarrierBagCount>${order.recordCarrierBagCount?string}</recordCarrierBagCount>
+        <orderSequenceNumber>${osn}</orderSequenceNumber>
+        <loadGroupNumber>${loadNbr}</loadGroupNumber>
+        <carrierBagAllowed>${carrierBagAllowed?string}</carrierBagAllowed>
+        <recordCarrierBagCount>${recordCarrierBagCount?string}</recordCarrierBagCount>
 
         <lines>
-            <#list order.lines as line>
+            <#list lines as line>
               <line>
                 <lineNbr>${line.lineNbr}</lineNbr>
                 <upc>${line.gtin}</upc>

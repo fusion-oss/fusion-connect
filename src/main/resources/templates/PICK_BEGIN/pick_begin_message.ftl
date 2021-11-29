@@ -8,9 +8,9 @@
       {
       "orderId": "${order.orderNbr}",
         <#if order.priorityCode=="1">
-          "orderPriority": "REGULAR"
+      "orderPriority": "REGULAR"
         <#else>
-          "orderPriority": "EXPRESS"
+      "orderPriority": "EXPRESS"
         </#if>
       "userId": "${order.userId}"
       }<#if order_has_next>,</#if>
@@ -20,9 +20,9 @@
   {
   "orderId": "${MessageBody.orderBeginEvent.fulfillmentOrders.fulfillmentOrder.orderNbr}",
     <#if MessageBody.orderBeginEvent.fulfillmentOrders.fulfillmentOrder.priorityCode=="1">
-      "orderPriority": "REGULAR"
+  "orderPriority": "REGULAR"
     <#else>
-      "orderPriority": "EXPRESS"
+  "orderPriority": "EXPRESS"
     </#if>
   "userId": "${MessageBody.orderBeginEvent.fulfillmentOrders.fulfillmentOrder.userId}"
   }
