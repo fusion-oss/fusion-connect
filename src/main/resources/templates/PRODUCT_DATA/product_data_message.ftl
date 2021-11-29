@@ -8,7 +8,7 @@
 <#--}-->
 
 {
-"products": ${TestUtils.sequenceToString(products)}
+  "products": ${TestUtils.sequenceToString(products)}
 }
 
 

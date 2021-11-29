@@ -12,11 +12,16 @@
           "containerId": "A12345",
           "orderId": "440459283",
           "osn": 123,
-          "loadGroupNbr": "456",
-          "destStoreNbr": 2142,
-          "temperatureBandCode": "AMBIENT",
-          "pickupTime": "'2021-07-21T17:10:07.002Z",
-          "autoStageAllowed": true
+          "loadNbr": "456",
+          "deliveryNodeId": 2142,
+          "temperatureZones": [
+            "AMBIENT",
+            "CHILLED"
+          ],
+          "expectedOrderPickupTime": "'2021-07-21T17:10:07.002Z",
+          "autoStageAllowed": true,
+          "responseCode": "62",
+          "responseText": "container number is not in right status (DISPENSED)"
         }
       ]
     }
@@ -37,11 +42,16 @@
             "containerId": "A12345",
             "orderId": "440459283",
             "osn": 123,
-            "loadGroupNbr": "456",
-            "destStoreNbr": 2142,
-            "temperatureBandCode": "AMBIENT",
-            "pickupTime": "'2021-07-21T17:10:07.002Z",
-            "autoStageAllowed": true
+            "loadNbr": "456",
+            "deliveryNodeId": 2142,
+            "temperatureZones": [
+              "AMBIENT",
+              "CHILLED"
+            ],
+            "expectedOrderPickupTime": "'2021-07-21T17:10:07.002Z",
+            "autoStageAllowed": true,
+            "responseCode": "62",
+            "responseText": "container number is not in right status (DISPENSED)"
           }
         ]
       ],
@@ -60,21 +70,26 @@
                 "containerId": "A12345",
                 "orderId": "440459283",
                 "osn": 123,
-                "loadGroupNbr": "456",
-                "destStoreNbr": 2142,
-                "temperatureBandCode": "AMBIENT",
-                "pickupTime": "'2021-07-21T17:10:07.002Z",
-                "autoStageAllowed": true
+                "loadNbr": "456",
+                "deliveryNodeId": 2142,
+                "temperatureZones": [
+                  "AMBIENT",
+                  "CHILLED"
+                ],
+                "expectedOrderPickupTime": "'2021-07-21T17:10:07.002Z",
+                "autoStageAllowed": true,
+                "responseCode": "62",
+                "responseText": "container number is not in right status (DISPENSED)"
               }
             ],
             "required": [
               "containerId",
               "orderId",
               "osn",
-              "loadGroupNbr",
-              "destStoreNbr",
-              "temperatureBandCode",
-              "pickupTime",
+              "loadNbr",
+              "deliveryNodeId",
+              "temperatureZones",
+              "expectedOrderPickupTime",
               "autoStageAllowed"
             ],
             "properties": {
@@ -111,8 +126,8 @@
                 ],
                 "maxLength": 10
               },
-              "loadGroupNbr": {
-                "$id": "#/properties/details/items/anyOf/0/properties/loadGroupNbr",
+              "loadNbr": {
+                "$id": "#/properties/details/items/anyOf/0/properties/loadNbr",
                 "type": "string",
                 "title": "Load Group Number",
                 "description": "The number associated with a load (group of orders) transferred between nodes.",
@@ -122,8 +137,8 @@
                 ],
                 "maxLength": 10
               },
-              "destStoreNbr": {
-                "$id": "#/properties/details/items/anyOf/0/properties/destStoreNbr",
+              "deliveryNodeId": {
+                "$id": "#/properties/details/items/anyOf/0/properties/deliveryNodeId",
                 "type": "number",
                 "title": "Destination Store Number",
                 "description": "The destination store where customer will pick up an order.",
@@ -134,23 +149,43 @@
                 "minimum": 0,
                 "maxLength": 6
               },
-              "temperatureBandCode": {
-                "$id": "#/properties/details/items/anyOf/0/properties/temperatureBandCode",
-                "type": "string",
-                "title": "Temperature Zone",
-                "description": "Temperature Zone.",
-                "default": "",
+              "temperatureZones": {
+                "$id": "#/properties/temperatureZones",
+                "type": "array",
+                "title": "The temperatureZones schema",
+                "description": "Temperature zones where the container may be stored. The zones are listed in preference, meaning the first zone is the preferred one.",
+                "default": [],
                 "examples": [
-                  "AMBIENT"
+                  [
+                    "CHILLED",
+                    "FROZEN"
+                  ]
                 ],
-                "enum": [
-                  "FROZEN",
-                  "CHILLED",
-                  "AMBIENT"
-                ]
+                "additionalItems": true,
+                "items": {
+                  "$id": "#/properties/temperatureZones/items",
+                  "anyOf": [
+                    {
+                      "$id": "#/properties/temperatureZones/items/anyOf/0",
+                      "type": "string",
+                      "title": "The first anyOf schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": "",
+                      "examples": [
+                        "CHILLED",
+                        "FROZEN"
+                      ],
+                      "enum": [
+                        "FROZEN",
+                        "CHILLED",
+                        "AMBIENT"
+                      ]
+                    }
+                  ]
+                }
               },
-              "pickupTime": {
-                "$id": "#/properties/details/items/anyOf/0/properties/pickupTime",
+              "expectedOrderPickupTime": {
+                "$id": "#/properties/details/items/anyOf/0/properties/expectedOrderPickupTime",
                 "type": "string",
                 "title": "Pickup Time",
                 "description": "Time details when customer has scheduled to pick up an order.",
@@ -169,6 +204,28 @@
                 "examples": [
                   true
                 ]
+              },
+              "responseCode": {
+                "$id": "#/properties/details/items/anyOf/0/properties/responseCode",
+                "type": "string",
+                "title": "Response Code",
+                "description": "Response code for when the container cannot be auto-staged. Codes are used for troubleshooting and are not expected to drive specific actions in the MFC.",
+                "default": "",
+                "examples": [
+                  "62"
+                ],
+                "maxLength": 10
+              },
+              "Response Text": {
+                "$id": "#/properties/details/items/anyOf/0/properties/responseText",
+                "type": "string",
+                "title": "Response Text",
+                "description": "Response text for when the container cannot be auto-staged.",
+                "default": "",
+                "examples": [
+                  "container number is not in right status (DISPENSED)"
+                ],
+                "maxLength": 250
               }
             },
             "additionalProperties": true

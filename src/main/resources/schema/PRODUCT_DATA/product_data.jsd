@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema",
   "$id": "http://example.com/example.json",
   "type": "object",
-  "title": "TProduct Data",
+  "title": "Product Data",
   "description": "The “Product Data” interface is used for adding, updating, and deleting products aligned for fulfillment to the MFC.",
   "default": {},
   "examples": [
@@ -24,6 +24,7 @@
           "requiresContainerWashing": false,
           "requiresInspectionWhileInStorage": false,
           "imageUrl": "https://i5.walmartimages.com/asr/9ea36bf3-d02c-42f1-856c-6f3d928e41eb_1.b4e2828d77603bc27600c695de28f77b.jpeg",
+          "isVariableWeightInd": false,
           "hasPriceEmbeddedBarcode": false,
           "looseBulkMerchandise": false,
           "hasSecurityTagInd": false,
@@ -41,10 +42,6 @@
             "amount": 544.0,
             "uom": "GR"
           },
-          "allowedPartitionsPerTote": [
-            1,
-            3
-          ],
           "gtins": [
             {
               "gtin": "00078742369983",
@@ -62,7 +59,11 @@
                   "caseWeight": {
                     "amount": 6713.0,
                     "uom": "GR"
-                  }
+                  },
+                  "allowedPartitionsPerTote": [
+                    1,
+                    3
+                  ]
                 },
                 {
                   "activeConfiguration": false,
@@ -77,7 +78,11 @@
                   "caseWeight": {
                     "amount": 3360.0,
                     "uom": "GR"
-                  }
+                  },
+                  "allowedPartitionsPerTote": [
+                    1,
+                    3
+                  ]
                 }
               ]
             }
@@ -116,6 +121,7 @@
             "requiresContainerWashing": false,
             "requiresInspectionWhileInStorage": false,
             "imageUrl": "https://i5.walmartimages.com/asr/9ea36bf3-d02c-42f1-856c-6f3d928e41eb_1.b4e2828d77603bc27600c695de28f77b.jpeg",
+            "isVariableWeightInd": false,
             "hasPriceEmbeddedBarcode": false,
             "looseBulkMerchandise": false,
             "hasSecurityTagInd": false,
@@ -133,10 +139,6 @@
               "amount": 544.0,
               "uom": "GR"
             },
-            "allowedPartitionsPerTote": [
-              1,
-              3
-            ],
             "gtins": [
               {
                 "gtin": "00078742369983",
@@ -154,7 +156,11 @@
                     "caseWeight": {
                       "amount": 6713.0,
                       "uom": "GR"
-                    }
+                    },
+                    "allowedPartitionsPerTote": [
+                      1,
+                      3
+                    ]
                   },
                   {
                     "activeConfiguration": false,
@@ -169,7 +175,11 @@
                     "caseWeight": {
                       "amount": 3360.0,
                       "uom": "GR"
-                    }
+                    },
+                    "allowedPartitionsPerTote": [
+                      1,
+                      3
+                    ]
                   }
                 ]
               }
@@ -206,6 +216,7 @@
                 "requiresContainerWashing": false,
                 "requiresInspectionWhileInStorage": false,
                 "imageUrl": "https://i5.walmartimages.com/asr/9ea36bf3-d02c-42f1-856c-6f3d928e41eb_1.b4e2828d77603bc27600c695de28f77b.jpeg",
+                "isVariableWeightInd": false,
                 "hasPriceEmbeddedBarcode": false,
                 "looseBulkMerchandise": false,
                 "hasSecurityTagInd": false,
@@ -223,10 +234,6 @@
                   "amount": 544.0,
                   "uom": "GR"
                 },
-                "allowedPartitionsPerTote": [
-                  1,
-                  3
-                ],
                 "gtins": [
                   {
                     "gtin": "00078742369983",
@@ -244,7 +251,11 @@
                         "caseWeight": {
                           "amount": 6713.0,
                           "uom": "GR"
-                        }
+                        },
+                        "allowedPartitionsPerTote": [
+                          1,
+                          3
+                        ]
                       },
                       {
                         "activeConfiguration": false,
@@ -259,7 +270,11 @@
                         "caseWeight": {
                           "amount": 3360.0,
                           "uom": "GR"
-                        }
+                        },
+                        "allowedPartitionsPerTote": [
+                          1,
+                          3
+                        ]
                       }
                     ]
                   }
@@ -295,6 +310,7 @@
                     "requiresContainerWashing",
                     "requiresInspectionWhileInStorage",
                     "imageUrl",
+                    "isVariableWeightInd",
                     "hasPriceEmbeddedBarcode",
                     "looseBulkMerchandise",
                     "isExpirationDateTracked",
@@ -569,6 +585,16 @@
                 ],
                 "maxLength": 250
               },
+              "isVariableWeightInd": {
+                "$id": "#/properties/products/items/anyOf/0/properties/isVariableWeightInd",
+                "type": "boolean",
+                "title": "The isVariableWeightInd schema",
+                "description": "An explanation about the purpose of this instance.",
+                "default": false,
+                "examples": [
+                  false
+                ]
+              },
               "hasPriceEmbeddedBarcode": {
                 "$id": "#/properties/products/items/anyOf/0/properties/hasPriceEmbeddedBarcode",
                 "type": "boolean",
@@ -771,37 +797,6 @@
                 },
                 "additionalProperties": true
               },
-              "allowedPartitionsPerTote": {
-                "$id": "#/properties/products/items/anyOf/0/properties/allowedPartitionsPerTote",
-                "type": "array",
-                "title": "The allowedPartitionsPerTote schema",
-                "description": "An explanation about the purpose of this instance.",
-                "default": [],
-                "examples": [
-                  [
-                    1,
-                    3
-                  ]
-                ],
-                "additionalItems": true,
-                "items": {
-                  "$id": "#/properties/products/items/anyOf/0/properties/allowedPartitionsPerTote/items",
-                  "anyOf": [
-                    {
-                      "$id": "#/properties/products/items/anyOf/0/properties/allowedPartitionsPerTote/items/anyOf/0",
-                      "type": "integer",
-                      "title": "The first anyOf schema",
-                      "description": "An explanation about the purpose of this instance.",
-                      "default": 0,
-                      "examples": [
-                        1,
-                        3
-                      ],
-                      "minimum": 0
-                    }
-                  ]
-                }
-              },
               "gtins": {
                 "$id": "#/properties/products/items/anyOf/0/properties/gtins",
                 "type": "array",
@@ -826,7 +821,11 @@
                           "caseWeight": {
                             "amount": 6713.0,
                             "uom": "GR"
-                          }
+                          },
+                          "allowedPartitionsPerTote": [
+                            1,
+                            3
+                          ]
                         },
                         {
                           "activeConfiguration": false,
@@ -841,7 +840,11 @@
                           "caseWeight": {
                             "amount": 3360.0,
                             "uom": "GR"
-                          }
+                          },
+                          "allowedPartitionsPerTote": [
+                            1,
+                            3
+                          ]
                         }
                       ]
                     }
@@ -874,7 +877,11 @@
                               "caseWeight": {
                                 "amount": 6713.0,
                                 "uom": "GR"
-                              }
+                              },
+                              "allowedPartitionsPerTote": [
+                                1,
+                                3
+                              ]
                             },
                             {
                               "activeConfiguration": false,
@@ -889,7 +896,11 @@
                               "caseWeight": {
                                 "amount": 3360.0,
                                 "uom": "GR"
-                              }
+                              },
+                              "allowedPartitionsPerTote": [
+                                1,
+                                3
+                              ]
                             }
                           ]
                         }
@@ -929,7 +940,11 @@
                                 "caseWeight": {
                                   "amount": 6713.0,
                                   "uom": "GR"
-                                }
+                                },
+                                "allowedPartitionsPerTote": [
+                                  1,
+                                  3
+                                ]
                               },
                               {
                                 "activeConfiguration": false,
@@ -944,7 +959,11 @@
                                 "caseWeight": {
                                   "amount": 3360.0,
                                   "uom": "GR"
-                                }
+                                },
+                                "allowedPartitionsPerTote": [
+                                  1,
+                                  3
+                                ]
                               }
                             ]
                           ],
@@ -972,7 +991,11 @@
                                     "caseWeight": {
                                       "amount": 6713.0,
                                       "uom": "GR"
-                                    }
+                                    },
+                                    "allowedPartitionsPerTote": [
+                                      1,
+                                      3
+                                    ]
                                   }
                                 ],
                                 "required": [],
@@ -1117,6 +1140,37 @@
                                       }
                                     },
                                     "additionalProperties": true
+                                  },
+                                  "allowedPartitionsPerTote": {
+                                    "$id": "#/properties/products/items/anyOf/0/properties/gtins/items/anyOf/0/properties/caseConfigurations/items/anyOf/0/properties/allowedPartitionsPerTote",
+                                    "type": "array",
+                                    "title": "The allowedPartitionsPerTote schema",
+                                    "description": "An explanation about the purpose of this instance.",
+                                    "default": [],
+                                    "examples": [
+                                      [
+                                        1,
+                                        3
+                                      ]
+                                    ],
+                                    "additionalItems": true,
+                                    "items": {
+                                      "$id": "#/properties/products/items/anyOf/0/properties/gtins/items/anyOf/0/properties/caseConfigurations/items/anyOf/0/properties/allowedPartitionsPerTote/items",
+                                      "anyOf": [
+                                        {
+                                          "$id": "#/properties/products/items/anyOf/0/properties/gtins/items/anyOf/0/properties/caseConfigurations/items/anyOf/0/properties/allowedPartitionsPerTote/items/anyOf/0",
+                                          "type": "integer",
+                                          "title": "The first anyOf schema",
+                                          "description": "An explanation about the purpose of this instance.",
+                                          "default": 0,
+                                          "examples": [
+                                            1,
+                                            3
+                                          ],
+                                          "minimum": 0
+                                        }
+                                      ]
+                                    }
                                   }
                                 },
                                 "additionalProperties": true
