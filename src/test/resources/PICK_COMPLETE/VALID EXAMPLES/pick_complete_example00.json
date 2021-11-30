@@ -9,20 +9,31 @@
             {
               "pickByType": "EACH",
               "pickGtin": "00075010586392",
-              "pickedUser": "abc123",
+              "userId": "abc123",
               "pickDisplayTs": "2021-04-01T12:22:32.000Z",
               "pickedTs": "2021-04-01T12:22:32.000Z",
               "pickEachUom": "EA",
               "pickEachQty": 6,
+              "pickWeightUom": "GR",
+              "pickWeightQty": 3.00,
               "pickEachCurrency": "USD",
-              "pickEachUnitOrdePrice": 22.84,
+              "pickEachUnitPrice": 22.84,
+              "pickWeightCurrency": "USD",
+              "pickWeightUnitPrice": 6.76,
               "containers": [
                 {
+                  "containerId": "520032",
                   "pickQty": 6,
-                  "containerId": "520032"
+                  "pickWeight": 3.00
                 }
               ],
-              "pickLocation": "STATION01"
+              "pickLocation": "STATION01",
+              "activations": [
+                {
+                  "activationType": "SERIAL",
+                  "activationValue": "31456125653"
+                }
+              ]
             }
           ]
         },
@@ -31,8 +42,8 @@
           "pickDetails": [
             {
               "pickByType": "WEIGHTED",
-              "pickGtin": "00075010586392",
-              "pickedUser": "abc123",
+              "pickGtin": "00026041600000",
+              "userId": "abc123",
               "pickDisplayTs": "2021-04-01T12:22:32.000Z",
               "pickedTs": "2021-04-01T12:22:32.000Z",
               "pickWeightUom": "GR",
@@ -55,8 +66,8 @@
           "pickDetails": [
             {
               "pickByType": "PREFQTY",
-              "pickGtin": "00075010586392",
-              "pickedUser": "abc123",
+              "pickGtin": "00026041600021",
+              "userId": "abc123",
               "pickDisplayTs": "2021-04-01T12:22:32.000Z",
               "pickedTs": "2021-04-01T12:22:32.000Z",
               "pickWeightUom": "GR",
@@ -77,24 +88,23 @@
           "pickDetails": [
             {
               "pickByType": "EACHWEIGHTED",
-          "pickGtin": "00075010586392",
-          "pickedUser": "abc123",
-          "pickDisplayTs": "2021-04-01T12:22:32.000Z",
-          "pickedTs": "2021-04-01T12:22:32.000Z",
-          "pickEachUom": "EA",
-          "pickEachQty": 6,
-          "pickWeightUom": "GR",
-          "pickWeightQty": 3.00,
-          "pickEachCurrency": "USD",
-          "pickWeightCurrency": "USD",
-          "containers": [
-            {
-              "containerId": "520032",
-              "pickQty": 6,
-              "pickWeight": 3.0
-            }
-          ],
-          "pickLocation": "STATION02"
+              "pickGtin": "00075010586392",
+              "userId": "abc123",
+              "pickDisplayTs": "2021-04-01T12:22:32.000Z",
+              "pickedTs": "2021-04-01T12:22:32.000Z",
+              "pickEachUom": "EA",
+              "pickEachQty": 6,
+              "pickWeightUom": "GR",
+              "pickWeightQty": 3.00,
+              "pickWeightCurrency": "USD",
+              "containers": [
+                {
+                  "containerId": "520032",
+                  "pickQty": 6,
+                  "pickWeight": 3.0
+                }
+              ],
+              "pickLocation": "STATION02"
             }
           ]
         },
@@ -104,7 +114,7 @@
             {
               "pickByType": "EACH",
               "pickGtin": "00750105863920",
-              "pickedUser": "abc123",
+              "userId": "abc123",
               "pickDisplayTs": "2021-04-01T12:22:32.000Z",
               "pickedTs": "2021-04-01T12:22:32.000Z",
               "pickEachUom": "EA",
@@ -125,8 +135,8 @@
           "pickDetails": [
             {
               "pickByType": "EACH",
-              "pickGtin": "00750105863920",
-              "pickedUser": "abc123",
+              "pickGtin": "0075010586789",
+              "userId": "abc123",
               "pickDisplayTs": "2021-04-01T12:22:32.000Z",
               "pickedTs": "2021-04-01T12:22:32.000Z",
               "pickEachUom": "EA",

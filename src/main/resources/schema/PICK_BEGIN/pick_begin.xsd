@@ -104,6 +104,7 @@
     		<xsd:element name="orderNbr" type="xsd:long"></xsd:element>
 		    <xsd:element name="priorityCode" type="xsd:long" minOccurs="0"></xsd:element>
     		<xsd:element name="assignedPickUserId" type="Alpha20" minOccurs="0"></xsd:element>
+			<xsd:element name="userId" type="Alpha20" minOccurs="0"></xsd:element>
     	</xsd:sequence>
     </xsd:complexType>
 

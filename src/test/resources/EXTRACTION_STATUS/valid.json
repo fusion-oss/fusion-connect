@@ -2,6 +2,7 @@
   "batchCount": 6,
   "dispenseTerminalId": "AD1",
   "status": "INITIATED",
+  "eta": 300,
   "containers": [
     "A123456",
     "B234567",

@@ -2,17 +2,23 @@
   "batchId": 1,
   "dispenseTerminalId": "AD1",
   "doorId": "DOOR1",
-  "containsReturns": false,
+  "containsReturns": true,
+  "temperatureZonesForReturns": [
+    "CHILLED",
+    "FROZEN"
+  ],
   "containers": [
     {
       "containerId": "A23456",
       "temperatureZone": "CHILLED"
     },
     {
+
       "containerId": "B23456",
       "temperatureZone": "CHILLED"
     },
     {
+
       "containerId": "C23456",
       "temperatureZone": "CHILLED"
     }

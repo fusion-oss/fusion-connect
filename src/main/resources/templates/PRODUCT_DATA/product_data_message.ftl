@@ -1,4 +1,4 @@
-<#assign TestUtils=statics['com.scoperetail.fusion.util.TestUtil']>
+<#assign TestUtils=statics['com.alertinnovation.fusion.plugin.TestUtil']>
 <#--{-->
 <#--  "products": [-->
 <#--  <#list products as product>-->
@@ -8,7 +8,7 @@
 <#--}-->
 
 {
-"products": ${TestUtils.sequenceToString(products)}
+  "products": ${TestUtils.sequenceToString(products)}
 }
 
 

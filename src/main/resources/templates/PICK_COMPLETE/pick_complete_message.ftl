@@ -1,4 +1,4 @@
-<#assign TestUtils=statics['com.scoperetail.fusion.util.TestUtil']>
+<#assign TestUtils=statics['com.alertinnovation.fusion.plugin.TestUtil']>
 
 {
   "pickCompleteDetails": [
@@ -16,7 +16,7 @@
               {
                 "pickByType": "${pickDetail.pickUom}",
                 "pickGtin": "${TestUtils.getGtinFromUpc(pickDetail.pickUpcNbr)}",
-                "pickedUser": "${pickDetail.pickedUser}",
+                "userId": "${pickDetail.pickedUser}",
                 "pickDisplayTs": "${pickDetail.pickDisplayTs}",
                 "pickedTs": "${pickDetail.pickedTs}",
                 "pickEachUom": "EA",
@@ -45,7 +45,7 @@
             {
               "pickByType": "${pickDetail.pickUom}",
               "pickGtin": "${TestUtils.getGtinFromUpc(pickDetail.pickUpcNbr)}",
-              "pickedUser": "${pickDetail.pickedUser}",
+              "userId": "${pickDetail.pickedUser}",
               "pickDisplayTs": "${pickDetail.pickDisplayTs}",
               "pickedTs": "${pickDetail.pickedTs}",
               "pickEachUom": "EA",

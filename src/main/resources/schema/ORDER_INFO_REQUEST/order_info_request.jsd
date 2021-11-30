@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "Order Info Request",
+  "description": "The “Order Info Request” interface allows the MFC to request information about and order for a store-picked tote that is being stored.",
+  "default": {},
+  "examples": [
+    {
+      "containers": [
+        "A12345",
+        "A23456"
+      ]
+    }
+  ],
+  "required": [
+    "containers"
+  ],
+  "properties": {
+    "containers": {
+      "$id": "#/properties/containers",
+      "type": "array",
+      "title": "Containers",
+      "description": "List of containers for which an order info requested",
+      "default": [],
+      "examples": [
+        [
+          "A12345",
+          "A23456"
+        ]
+      ],
+      "additionalItems": true,
+      "items": {
+        "$id": "#/properties/containers/items",
+        "anyOf": [
+          {
+            "$id": "#/properties/containers/items/anyOf/0",
+            "type": "string",
+            "title": "The first anyOf schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+              "A12345",
+              "A23456"
+            ],
+            "maxLength": 20,
+            "pattern": "^[a-zA-Z0-9]*$"
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": true
+}

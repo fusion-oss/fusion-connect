@@ -33,22 +33,21 @@
                 <lines>
                     <line>
                         <lineNbr>1</lineNbr>
-                        <pickEachQty>1.0</pickEachQty>
+                        <orderedQty>1.0</orderedQty>
                         <pickDetails>
                             <pickDisplayTs>2021-09-24T18:03:06.603 +0000</pickDisplayTs>
-                            <pickType>EACH</pickType>
-                            <pickEachQty>1.0</pickEachQty>
-                            <pickUom>EA</pickUom>
+                            <pickType>ORDERED</pickType>
+                            <pickQty>1.0</pickQty>
+                            <pickUom>EACH</pickUom>
                             <pickedUser>ALPHA</pickedUser>
                             <pickedTs>2021-09-24T18:03:10.200 +0000</pickedTs>
-                            <pickGtin>1090000028</pickGtin>
+                            <pickUpcNbr>1090000028</pickUpcNbr>
                             <container>
                                 <tempBandCd>1</tempBandCd>
                                 <containerNbr>A09157</containerNbr>
                                 <location>Alpha</location>
                             </container>
-                            <pickEachUnitPrice>0.0</pickEachUnitPrice>
-
+                            <unitPrice>0.0</unitPrice>
                         </pickDetails>
                     </line>
                 </lines>

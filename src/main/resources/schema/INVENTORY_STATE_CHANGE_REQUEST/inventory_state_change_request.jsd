@@ -12,13 +12,17 @@
       "lotNumber": "B-21550725",
       "countryOfOrigin": "CN",
       "currentState": "AVAILABLE",
-      "newState": "HOLD"
+      "newState": "HOLD",
+      "reasonCode": "DAMAGED",
+      "reasonDesc": "Product is damaged"
     }
   ],
   "required": [
     "gtin",
     "currentState",
-    "newState"
+    "newState",
+    "reasonCode",
+    "reasonDesc"
   ],
   "properties": {
     "productId": {
@@ -93,6 +97,40 @@
       "examples": [
         "HOLD"
       ]
+    },
+    "reasonCode": {
+      "$id": "#/properties/reasonCode",
+      "type": "string",
+      "enum": [
+        "EXPIRED",
+        "DAMAGED",
+        "RECALLED",
+        "HW_FAIL",
+        "FRESHNESS_EXPIRATION",
+        "TOTE_ISSUE",
+        "DIRTY_PRODUCT_OR_TOTE",
+        "WRONG_PRODUCT",
+        "BOT_ISSUE",
+        "COLD_CHAIN",
+        "HOSPITAL"
+      ],
+      "title": "Reason Code",
+      "description": "Reason that the state change has been requested. This is provided so that a value can be included in the “Inventory State Change” that is sent in response.",
+      "default": "",
+      "examples": [
+        "DAMAGED"
+      ]
+    },
+    "reasonDesc": {
+      "$id": "#/properties/reasonDesc",
+      "type": "string",
+      "title": "Reason Description",
+      "description": "Description of the reason that the state change has been requested. This is provided so that a value can be included in the “Inventory State Change” that is sent in response.",
+      "default": "",
+      "examples": [
+        "Product is damaged"
+      ],
+      "maxLength": 50
     }
   },
   "additionalProperties": true

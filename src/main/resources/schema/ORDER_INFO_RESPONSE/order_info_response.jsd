@@ -1,0 +1,238 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "Order Info Response",
+  "description": "The “Order Info Response” interface provides details back the MFC about whether a store-picked tote can be staged or not.",
+  "default": {},
+  "examples": [
+    {
+      "details": [
+        {
+          "containerId": "A12345",
+          "orderId": "440459283",
+          "osn": 123,
+          "loadNbr": "456",
+          "deliveryNodeId": 2142,
+          "temperatureZones": [
+            "AMBIENT",
+            "CHILLED"
+          ],
+          "expectedOrderPickupTime": "'2021-07-21T17:10:07.002Z",
+          "autoStageAllowed": true,
+          "responseCode": "62",
+          "responseText": "container number is not in right status (DISPENSED)"
+        }
+      ]
+    }
+  ],
+  "required": [
+    "details"
+  ],
+  "properties": {
+    "details": {
+      "$id": "#/properties/details",
+      "type": "array",
+      "title": "Details",
+      "description": "Details about containers.",
+      "default": [],
+      "examples": [
+        [
+          {
+            "containerId": "A12345",
+            "orderId": "440459283",
+            "osn": 123,
+            "loadNbr": "456",
+            "deliveryNodeId": 2142,
+            "temperatureZones": [
+              "AMBIENT",
+              "CHILLED"
+            ],
+            "expectedOrderPickupTime": "'2021-07-21T17:10:07.002Z",
+            "autoStageAllowed": true,
+            "responseCode": "62",
+            "responseText": "container number is not in right status (DISPENSED)"
+          }
+        ]
+      ],
+      "additionalItems": true,
+      "items": {
+        "$id": "#/properties/details/items",
+        "anyOf": [
+          {
+            "$id": "#/properties/details/items/anyOf/0",
+            "type": "object",
+            "title": "The first anyOf schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+              {
+                "containerId": "A12345",
+                "orderId": "440459283",
+                "osn": 123,
+                "loadNbr": "456",
+                "deliveryNodeId": 2142,
+                "temperatureZones": [
+                  "AMBIENT",
+                  "CHILLED"
+                ],
+                "expectedOrderPickupTime": "'2021-07-21T17:10:07.002Z",
+                "autoStageAllowed": true,
+                "responseCode": "62",
+                "responseText": "container number is not in right status (DISPENSED)"
+              }
+            ],
+            "required": [
+              "containerId",
+              "orderId",
+              "osn",
+              "loadNbr",
+              "deliveryNodeId",
+              "temperatureZones",
+              "expectedOrderPickupTime",
+              "autoStageAllowed"
+            ],
+            "properties": {
+              "containerId": {
+                "$id": "#/properties/details/items/anyOf/0/properties/containerId",
+                "type": "string",
+                "title": "Container ID",
+                "description": "Container ID for which order information was requested.",
+                "default": "",
+                "examples": [
+                  "A12345"
+                ],
+                "maxLength": 20
+              },
+              "orderId": {
+                "$id": "#/properties/details/items/anyOf/0/properties/orderId",
+                "type": "string",
+                "title": "Order ID",
+                "description": "Order ID for the container.",
+                "default": "",
+                "examples": [
+                  "440459283"
+                ],
+                "maxLength": 8
+              },
+              "osn": {
+                "$id": "#/properties/details/items/anyOf/0/properties/osn",
+                "type": "number",
+                "title": "Order Sequence Number",
+                "description": "Order Sequence Number is the order in which this container should be loaded into a vehicle relative to the Load Group number.",
+                "default": 0,
+                "examples": [
+                  123
+                ],
+                "maxLength": 10
+              },
+              "loadNbr": {
+                "$id": "#/properties/details/items/anyOf/0/properties/loadNbr",
+                "type": "string",
+                "title": "Load Group Number",
+                "description": "The number associated with a load (group of orders) transferred between nodes.",
+                "default": "",
+                "examples": [
+                  "456"
+                ],
+                "maxLength": 10
+              },
+              "deliveryNodeId": {
+                "$id": "#/properties/details/items/anyOf/0/properties/deliveryNodeId",
+                "type": "number",
+                "title": "Destination Store Number",
+                "description": "The destination store where customer will pick up an order.",
+                "default": 0,
+                "examples": [
+                  2142
+                ],
+                "minimum": 0,
+                "maxLength": 6
+              },
+              "temperatureZones": {
+                "$id": "#/properties/temperatureZones",
+                "type": "array",
+                "title": "The temperatureZones schema",
+                "description": "Temperature zones where the container may be stored. The zones are listed in preference, meaning the first zone is the preferred one.",
+                "default": [],
+                "examples": [
+                  [
+                    "CHILLED",
+                    "FROZEN"
+                  ]
+                ],
+                "additionalItems": true,
+                "items": {
+                  "$id": "#/properties/temperatureZones/items",
+                  "anyOf": [
+                    {
+                      "$id": "#/properties/temperatureZones/items/anyOf/0",
+                      "type": "string",
+                      "title": "The first anyOf schema",
+                      "description": "An explanation about the purpose of this instance.",
+                      "default": "",
+                      "examples": [
+                        "CHILLED",
+                        "FROZEN"
+                      ],
+                      "enum": [
+                        "FROZEN",
+                        "CHILLED",
+                        "AMBIENT"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "expectedOrderPickupTime": {
+                "$id": "#/properties/details/items/anyOf/0/properties/expectedOrderPickupTime",
+                "type": "string",
+                "title": "Pickup Time",
+                "description": "Time details when customer has scheduled to pick up an order.",
+                "default": "",
+                "examples": [
+                  "2021-07-21T17:10:07.002Z"
+                ],
+                "format": "date-time"
+              },
+              "autoStageAllowed": {
+                "$id": "#/properties/details/items/anyOf/0/properties/autoStageAllowed",
+                "type": "boolean",
+                "title": "Auto-Stage Allowed",
+                "description": "Whether or not the tote is allowed to be auto-staged in the MFC.",
+                "default": true,
+                "examples": [
+                  true
+                ]
+              },
+              "responseCode": {
+                "$id": "#/properties/details/items/anyOf/0/properties/responseCode",
+                "type": "string",
+                "title": "Response Code",
+                "description": "Response code for when the container cannot be auto-staged. Codes are used for troubleshooting and are not expected to drive specific actions in the MFC.",
+                "default": "",
+                "examples": [
+                  "62"
+                ],
+                "maxLength": 10
+              },
+              "Response Text": {
+                "$id": "#/properties/details/items/anyOf/0/properties/responseText",
+                "type": "string",
+                "title": "Response Text",
+                "description": "Response text for when the container cannot be auto-staged.",
+                "default": "",
+                "examples": [
+                  "container number is not in right status (DISPENSED)"
+                ],
+                "maxLength": 250
+              }
+            },
+            "additionalProperties": true
+          }
+        ]
+      }
+    }
+  },
+  "additionalProperties": true
+}
