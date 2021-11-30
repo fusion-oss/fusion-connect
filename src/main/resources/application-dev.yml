@@ -28,6 +28,10 @@ logging:
 fusion:
   dedupe:
     dbType: Relational
+  sourceTypes:
+    netty-http: sync
+    activemq: async
+    kafka: aysnc
   sources:
       - name: walmart
         uri: 'activemq:queue:walmart_source'
@@ -39,6 +43,16 @@ fusion:
         uri: 'netty-http:proxy://0.0.0.0:8081'
         bo: 'activemq:queue:walmart_source_sync_bo'
   events:
+    - eventType: UNKNOWN
+      headers:
+        configLookupKey: default
+        actions: 'direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+            errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
+            onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
+              
     - eventType: ERROR_NOTIFICATION
       spec:
           source: walmart
@@ -56,6 +70,7 @@ fusion:
             onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
             continueOnDuplicate: true
             transformationRequired: true
+            errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
             transformerTemplateUri: 'templates/ERROR_NOTIFICATION/error_notification_message.ftl'
             targetUri: 'activemq:queue:mfc_default'
         ERROR_NOTIFICATION_2142_US:
@@ -77,6 +92,7 @@ fusion:
             transformationRequired: true
             transformerTemplateUri: 'templates/ERROR_NOTIFICATION/error_notification_message.ftl'
             targetUri: 'activemq:queue:walmart_US'
+            errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'            
 
     - eventType: ORDER_DROP
       spec:
@@ -487,6 +503,7 @@ fusion:
           transformerTemplateUri: 'templates/CONTAINER_LOCATION_UPDATE/container_location_update_message.ftl'
           continueOnDuplicate: true
           targetUri: 'netty-http:http://httpbin.org'
+          errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'          
 
     - eventType: ORDER_INFO_REQUEST
       spec:
@@ -505,6 +522,7 @@ fusion:
           transformerTemplateUri: 'templates/ORDER_INFO_REQUEST/order_info_request_message.ftl'
           continueOnDuplicate: true
           targetUri: 'netty-http:http://httpbin.org'
+          errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'          
 
     - eventType: INVENTORY_RESERVATION
       spec:
@@ -524,5 +542,6 @@ fusion:
           transformerTemplateUri: 'templates/INVENTORY_RESERVATION/inventory_reservation_message.ftl'
           continueOnDuplicate: true
           targetUri: 'netty-http:http://httpbin.org'
+          errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
         INVENTORY_RESERVATION_2142_US:
           targetUri: 'netty-http:http://httpbin.org'

@@ -16,7 +16,7 @@
 	<description>Fusion connect</description>
 
 	<properties>
-		<fusion.connect.core.version>0.7</fusion.connect.core.version>
+		<fusion.connect.core.version>0.10</fusion.connect.core.version>
 	</properties>
 
 	<dependencies>
