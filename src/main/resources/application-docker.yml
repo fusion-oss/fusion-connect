@@ -33,9 +33,45 @@ fusion:
       - name: mfc
         uri: ${URI_MFC_SOURCE}
         bo: ${URI_MFC_SOURCE_BO}
-      - name: walmart_sync
+      - name: walmart_2142_order_fulfillment
+        uri: ${URI_WALMART_2142_ORDER_FULFILLMENT}
+        bo: ${URI_WALMART_2142_ORDER_FULFILLMENT_BO}
+      - name: walmart_2142_catalog_data
+        uri: ${URI_WALMART_2142_CATALOG_DATA}
+        bo: ${URI_WALMART_2142_CATALOG_DATA_BO}
+      - name: walmart_2142_inventory_reservation
+        uri: ${URI_WALMART_2142_INVENTORY_RESERVATION}
+        bo: ${URI_WALMART_2142_INVENTORY_RESERVATION_BO}
+      - name: walmart_2142_inventory_snapshot_request
+        uri: ${URI_WALMART_2142_INVENTORY_SNAPSHOT_REQUEST}
+        bo: ${URI_WALMART_2142_INVENTORY_SNAPSHOT_REQUEST_BO}
+      - name: walmart_2142_inventory_state_change_request
+        uri: ${URI_WALMART_2142_INVENTORY_STATE_CHANGE_REQUEST}
+        bo: ${URI_WALMART_2142_INVENTORY_STATE_CHANGE_REQUEST_BO}
+      - name: walmart_2142_capacity_util_request
+        uri: ${URI_WALMART_2142_CAPACITY_UTIL_REQUEST}
+        bo: ${URI_WALMART_2142_CAPACITY_UTIL_REQUEST_BO}
+      - name: walmart_2142_load_extract_request
+        uri: ${URI_WALMART_2142_LOAD_EXTRACT_REQUEST}
+        bo: ${URI_WALMART_2142_LOAD_EXTRACT_REQUEST_BO}
+      - name: walmart_2142_door_status_request
+        uri: ${URI_WALMART_2142_DOOR_STATUS_REQUEST}
+        bo: ${URI_WALMART_2142_DOOR_STATUS_REQUEST_BO}
+      - name: walmart_2142_order_extract_request
+        uri: ${URI_WALMART_2142_ORDER_EXTRACT_REQUEST}
+        bo: ${URI_WALMART_2142_ORDER_EXTRACT_REQUEST_BO}
+      - name: walmart_2142_batch_status_delivered
+        uri: ${URI_WALMART_2142_BATCH_STATUS_DELIVERED}
+        bo: ${URI_WALMART_2142_BATCH_STATUS_DELIVERED_BO}
+      - name: walmart_2142_dispense-terminated
+        uri: ${URI_WALMART_2142_DISPENSE_TERMINATED}
+        bo: ${URI_WALMART_2142_DISPENSE_TERMINATED_BO}
+      - name: walmart_2142_failure_resolution
+        uri: ${URI_WALMART_2142_FAILURE_RESOLUTION}
+        bo: ${URI_WALMART_2142_FAILURE_RESOLUTION_BO}
+      - name: sync_proxy
         uri: ${URI_WALMART_SOURCE_SYNC}
-        bo: ${URI_WALMART_SOURCE_SYNC_BO}        
+        bo: ${URI_WALMART_SOURCE_SYNC_BO}
   events:
     - eventType: ERROR_NOTIFICATION
       spec:
@@ -76,7 +112,7 @@ fusion:
             
     - eventType: ORDER_DROP
       spec:
-        source: walmart
+        source: walmart_2142_order_fulfillment
         format: json
         eventTypePath: eventType
       headers:
@@ -87,7 +123,7 @@ fusion:
       configSpec:
         default:
           validatorUri: 'json-validator:schema/ORDER_DROP/order_drop.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: ${URI_WALMART_SOURCE_DEAD_LETTER}
+          onValidationFailureUri: ${URI_WALMART_2142_ORDER_FULFILLMENT_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/ORDER_DROP/order_drop_message.ftl'
         ORDER_DROP_2142_US:
@@ -108,7 +144,7 @@ fusion:
           onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/PICK_BEGIN/pick_begin_message.ftl'
-          targetUri: ${URI_WALMART_US}
+          targetUri: ${URI_ALERT_PICKING_EVENTS}
 
     - eventType: PICK_COMPLETE
       spec:
@@ -125,7 +161,7 @@ fusion:
           onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/PICK_COMPLETE/pick_complete_message.ftl'
-          targetUri: ${URI_WALMART_US}
+          targetUri: ${URI_ALERT_PICKING_EVENTS}
 
     - eventType: PICK_EVENT
       spec:
@@ -142,11 +178,11 @@ fusion:
           onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/PICK_EVENT/pick_event_message.ftl'
-          targetUri: ${URI_WALMART_US}
+          targetUri: ${URI_ALERT_PICKING_EVENTS}
 
     - eventType: PICK_ORDER_CANCEL
       spec:
-        source: walmart
+        source: walmart_2142_order_fulfillment
         format: json
         eventTypePath: eventType
       headers:
@@ -157,7 +193,7 @@ fusion:
       configSpec:
         default:
           validatorUri: 'json-validator:schema/PICK_ORDER_CANCEL/pick_order_cancel.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: ${URI_WALMART_SOURCE_DEAD_LETTER}
+          onValidationFailureUri: ${URI_WALMART_2142_ORDER_FULFILLMENT_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/PICK_ORDER_CANCEL/pick_order_cancel_message.ftl'
         PICK_ORDER_CANCEL_2142_US:
@@ -165,7 +201,7 @@ fusion:
 
     - eventType: INVENTORY_RESERVATION
       spec:
-        source: walmart
+        source: walmart_2142_inventory_reservation
         format: json
         eventTypePath: eventType
       headers:
@@ -176,7 +212,7 @@ fusion:
       configSpec:
         default:
           validatorUri: 'json-validator:schema/INVENTORY_RESERVATION/inventory_reservation.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: ${URI_WALMART_SOURCE_DEAD_LETTER}
+          onValidationFailureUri: ${URI_WALMART_2142_INVENTORY_RESERVATION_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_RESERVATION/inventory_reservation_message.ftl'
         INVENTORY_RESERVATION_2142_US:
@@ -197,11 +233,11 @@ fusion:
           onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_RESERVATION_STATUS/inventory_reservation_status_message.ftl'
-          targetUri: ${URI_WALMART_US}
+          targetUri: ${URI_ALERT_INVENTORY_RESERVATION_STATUS}
 
     - eventType: INVENTORY_SNAPSHOT_REQUEST
       spec:
-        source: walmart
+        source: walmart_2142_inventory_snapshot_request
         format: json
         eventTypePath: eventType
       headers:
@@ -212,7 +248,7 @@ fusion:
       configSpec:
         default:
           validatorUri: 'json-validator:schema/INVENTORY_SNAPSHOT_REQUEST/inventory_snapshot_request.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: ${URI_WALMART_SOURCE_DEAD_LETTER}
+          onValidationFailureUri: ${URI_WALMART_2142_INVENTORY_SNAPSHOT_REQUEST_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_SNAPSHOT_REQUEST/inventory_snapshot_request_message.ftl'
         INVENTORY_SNAPSHOT_REQUEST_2142_US:
@@ -233,7 +269,7 @@ fusion:
           onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_SNAPSHOT/inventory_snapshot_message.ftl'
-          targetUri: ${URI_WALMART_US}
+          targetUri: ${URI_ALERT_INVENTORY_SNAPSHOT_RESPONSE}
 
     - eventType: INVENTORY_ADJUSTMENT
       spec:
@@ -250,7 +286,7 @@ fusion:
           onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_ADJUSTMENT/inventory_adjustment_message.ftl'
-          targetUri: ${URI_WALMART_US}
+          targetUri: ${URI_ALERT_MISC_INVENTORY_MSG_RESPONSE}
 
     - eventType: INVENTORY_REMOVAL
       spec:
@@ -267,7 +303,7 @@ fusion:
           onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_ADJUSTMENT/inventory_adjustment_message.ftl'
-          targetUri: ${URI_WALMART_US}
+          targetUri: ${URI_ALERT_MISC_INVENTORY_MSG_RESPONSE}
 
     - eventType: INVENTORY_STATE_CHANGE
       spec:
@@ -284,7 +320,7 @@ fusion:
           onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_STATE_CHANGE/inventory_state_change_message.ftl'
-          targetUri: ${URI_WALMART_US}
+          targetUri: ${URI_ALERT_MISC_INVENTORY_MSG_RESPONSE}
 
     - eventType: DECANTING
       spec:
@@ -301,11 +337,11 @@ fusion:
           onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_STATE_CHANGE/inventory_state_change_message.ftl'
-          targetUri: ${URI_WALMART_US}
+          targetUri: ${URI_ALERT_MISC_INVENTORY_MSG_RESPONSE}
 
     - eventType: INVENTORY_STATE_CHANGE_REQUEST
       spec:
-        source: walmart
+        source: walmart_2142_inventory_state_change_request
         format: json
         eventTypePath: eventType
       headers:
@@ -316,7 +352,7 @@ fusion:
       configSpec:
         default:
           validatorUri: 'json-validator:schema/INVENTORY_STATE_CHANGE_REQUEST/inventory_state_change_request.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: ${URI_WALMART_SOURCE_DEAD_LETTER}
+          onValidationFailureUri: ${URI_WALMART_2142_INVENTORY_STATE_CHANGE_REQUEST_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_STATE_CHANGE_REQUEST/inventory_state_change_request_message.ftl'
         INVENTORY_STATE_CHANGE_REQUEST_2142_US:
@@ -324,7 +360,7 @@ fusion:
 
     - eventType: CAPACITY_UTILIZATION_REQUEST
       spec:
-        source: walmart
+        source: walmart_2142_capacity_util_request
         format: json
         eventTypePath: eventType
       headers:
@@ -335,7 +371,7 @@ fusion:
       configSpec:
         default:
           validatorUri: 'json-validator:schema/CAPACITY_UTILIZATION_REQUEST/capacity_utilization_request.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: ${URI_WALMART_SOURCE_DEAD_LETTER}
+          onValidationFailureUri: ${URI_WALMART_2142_CAPACITY_UTILIZATION_REQUEST_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/CAPACITY_UTILIZATION_REQUEST/capacity_utilization_request_message.ftl'
         CAPACITY_UTILIZATION_REQUEST_2142_US:
@@ -356,11 +392,11 @@ fusion:
           onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/CAPACITY_UTILIZATION/capacity_utilization_message.ftl'
-          targetUri: ${URI_WALMART_US}
+          targetUri: ${URI_ALERT_CAPACITY_UTIL_RESPONSE}
 
     - eventType: DOOR_STATUS_REQUEST
       spec:
-        source: walmart
+        source: walmart_2142_door_status_request
         format: json
         eventTypePath: eventType
       headers:
@@ -371,7 +407,7 @@ fusion:
       configSpec:
         default:
           validatorUri: 'json-validator:schema/DOOR_STATUS_REQUEST/door_status_request.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: ${URI_WALMART_SOURCE_DEAD_LETTER}
+          onValidationFailureUri: ${URI_WALMART_2142_DOOR_STATUS_REQUEST_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/DOOR_STATUS_REQUEST/door_status_request_message.ftl'
         DOOR_STATUS_REQUEST_2142_US:
@@ -392,11 +428,11 @@ fusion:
           onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/DOOR_STATUS/door_status_message.ftl'
-          targetUri: ${URI_WALMART_US}
+          targetUri: ${URI_ALERT_DOOR_STATUS_RESPONSE}
 
     - eventType: EXTRACTION_REQUEST
       spec:
-        source: walmart
+        source: walmart_2142_order_extract_request
         format: json
         eventTypePath: eventType
       headers:
@@ -407,7 +443,7 @@ fusion:
       configSpec:
         default:
           validatorUri: 'json-validator:schema/EXTRACTION_REQUEST/extraction_request.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: ${URI_WALMART_SOURCE_DEAD_LETTER}
+          onValidationFailureUri: ${URI_WALMART_2142_ORDER_EXTRACT_REQUEST_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/EXTRACTION_REQUEST/extraction_request_message.ftl'
         EXTRACTION_REQUEST_2142_US:
@@ -428,11 +464,11 @@ fusion:
           onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/EXTRACTION_STATUS/extraction_status_message.ftl'
-          targetUri: ${URI_WALMART_US}
+          targetUri: ${URI_ALERT_ORDER_STATUS_RESPONSE}
 
     - eventType: BATCH_DELIVERED
       spec:
-        source: walmart
+        source: walmart_2142_batch_status_delivered
         format: json
         eventTypePath: eventType
       headers:
@@ -443,7 +479,7 @@ fusion:
       configSpec:
         default:
           validatorUri: 'json-validator:schema/BATCH_DELIVERED/batch_delivered.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: ${URI_WALMART_SOURCE_DEAD_LETTER}
+          onValidationFailureUri: ${URI_WALMART_2142_BATCH_STATUS_DELIVERED_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/BATCH_DELIVERED/batch_delivered_message.ftl'
         BATCH_DELIVERED_2142_US:
@@ -464,11 +500,11 @@ fusion:
           onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/BATCH_READY/batch_ready_message.ftl'
-          targetUri: ${URI_WALMART_US}
+          targetUri: ${URI_ALERT_BATCH_STATUS_READY}
 
     - eventType: PRODUCT_DATA
       spec:
-        source: walmart
+        source: walmart_2142_catalog_data
         format: json
         eventTypePath: eventType
       headers:
@@ -479,7 +515,7 @@ fusion:
       configSpec:
         default:
           validatorUri: 'json-validator:schema/PRODUCT_DATA/product_data.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: ${URI_WALMART_SOURCE_DEAD_LETTER}
+          onValidationFailureUri: ${URI_WALMART_2142_CATALOG_DATA_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/PRODUCT_DATA/product_data_message.ftl'
         PRODUCT_DATA_2142_US:
@@ -500,4 +536,61 @@ fusion:
           onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
           transformationRequired: true
           transformerTemplateUri: 'templates/DECANT_COMPLETE/decant_complete_message.ftl'
-          targetUri: ${URI_WALMART_US}
+          targetUri: ${URI_ALERT_MISC_INVENTORY_MSG_RESPONSE}
+
+    - eventType: AUTO_STAGE_REQUEST
+      spec:
+        source: sync_proxy
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform, direct:dedupe'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/AUTO_STAGE_REQUEST/auto_stage_request.jsd?schemaLoader=#bean:customJsonSchemaLoader'
+          onValidationFailureUri: ${URI_WALMART_SOURCE_SYNC_DEAD_LETTER}
+          transformationRequired: true
+          transformerTemplateUri: 'templates/AUTO_STAGE_REQUEST/auto_stage_request_message.ftl'
+          continueOnDuplicate: true
+          targetUri: ${URI_MFC_SYNC}
+
+    - eventType: ORDER_INFO_REQUEST
+      spec:
+        source: sync_proxy
+        format: json
+        eventTypePath: eventType
+      headers:
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform, direct:dedupe'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/ORDER_INFO_REQUEST/order_info_request.jsd?schemaLoader=#bean:customJsonSchemaLoader'
+          onValidationFailureUri: ${URI_WALMART_SOURCE_SYNC_DEAD_LETTER}
+          transformationRequired: true
+          transformerTemplateUri: 'templates/ORDER_INFO_REQUEST/order_info_request_message.ftl'
+          continueOnDuplicate: true
+          targetUri: ${URI_MFC_SYNC}
+
+    - eventType: INVENTORY_RESERVATION
+      spec:
+        source: sync_proxy
+        format: json
+        eventTypePath: eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform, direct:dedupe'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/INVENTORY_RESERVATION/inventory_reservation.jsd?schemaLoader=#bean:customJsonSchemaLoader'
+          onValidationFailureUri: ${URI_WALMART_SOURCE_SYNC_DEAD_LETTER}
+          transformationRequired: true
+          transformerTemplateUri: 'templates/INVENTORY_RESERVATION/inventory_reservation_message.ftl'
+          continueOnDuplicate: true
+          targetUri: ${URI_MFC_SYNC}
+        INVENTORY_RESERVATION_2142_US:
+          targetUri: ${URI_MFC_SYNC_2142_US}

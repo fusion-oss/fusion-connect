@@ -37,7 +37,7 @@ fusion:
         bo: 'activemq:queue:mfc_source_bo'
       - name: sync_proxy
         uri: 'netty-http:proxy://0.0.0.0:8081'
-        bo: 'activemq:queue:walmart_source_sync_bo'        
+        bo: 'activemq:queue:walmart_source_sync_bo'
   events:
     - eventType: ERROR_NOTIFICATION
       spec:
