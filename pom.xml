@@ -19,6 +19,14 @@
 		<fusion.connect.core.version>0.10</fusion.connect.core.version>
 	</properties>
 
+	<scm>
+		<developerConnection>
+			scm:git:git@github.com:scoperetail-io/${project.artifactId}.git
+		</developerConnection>
+		<tag>${project.artifactId}-${project.version}</tag>
+		<url>https://github.com/scoperetail-io/${project.artifactId}</url>
+	</scm>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.scoperetail.fusion</groupId>
