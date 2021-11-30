@@ -4,5 +4,7 @@
   "lotNumber": "B-21550725",
   "countryOfOrigin": "CN",
   "currentState": "AVAILABLE",
-  "newState": "HOLD"
+  "newState": "HOLD",
+  "reasonCode": "DAMAGED",
+  "reasonDesc": "Product is damaged"
 }

@@ -1,12 +1,41 @@
 {
-  "orderId": "100001",
+  "orderId": "594775128",
   "items": [
     {
       "lineNbr": 1,
       "gtin": "00078742369983",
-      "quantity": 2,
-      "weight": 2.30,
+      "quantity": 2.00,
       "uom": "EA"
+    },
+    {
+      "lineNbr": 2,
+      "gtin": "00261634000006",
+      "quantity": 1.00,
+      "uom": "EA"
+    },
+    {
+      "lineNbr": 3,
+      "gtin": "00000000048019",
+      "weight": 453.59,
+      "uom": "GR"
+    },
+    {
+      "lineNbr": 4,
+      "gtin": "00000000034685",
+      "quantity": 1902.29,
+      "uom": "GR"
+    },
+    {
+      "lineNbr": 4,
+      "gtin": "00024425032835",
+      "quantity": 815.27,
+      "uom": "GR"
+    },
+    {
+      "lineNbr": 5,
+      "gtin": "00000000040679",
+      "quantity": 660.00,
+      "uom": "GR"
     }
   ]
 }

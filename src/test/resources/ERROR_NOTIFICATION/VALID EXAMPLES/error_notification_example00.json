@@ -1,4 +1,5 @@
 {
 	"status": "INVALID_VALUE",
-	"reason": "Invalid value in productId attribute."
+	"reason": "Invalid value in productId attribute.",
+	"failedMessagePayload": "{\r\n \"products\": [{\r\n \"action\": \"ADD\",\r\n \"productId\": 12345,\r\n\"productName\": \"Wonderful Value Crunchy Peanut Butter, 18 ounces\",\r\n \"eachDimensions\": {\r\n \"height\": 125\r\n }\r\n }]\r\n}"
 }

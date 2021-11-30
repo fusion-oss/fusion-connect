@@ -16,6 +16,7 @@
       "requiresContainerWashing": false,
       "requiresInspectionWhileInStorage": false,
       "imageUrl": "https://i5.walmartimages.com/asr/9ea36bf3-d02c-42f1-856c-6f3d928e41eb_1.b4e2828d77603bc27600c695de28f77b.jpeg",
+      "isVariableWeightInd": false,
       "hasPriceEmbeddedBarcode": false,
       "looseBulkMerchandise": false,
       "hasSecurityTagInd": false,
@@ -33,10 +34,6 @@
         "amount": 544.00,
         "uom": "GR"
       },
-      "allowedPartitionsPerTote": [
-        1,
-        3
-      ],
       "gtins": [
         {
           "gtin": "00078742369983",
@@ -54,7 +51,11 @@
               "caseWeight": {
                 "amount": 6713.00,
                 "uom": "GR"
-              }
+              },
+              "allowedPartitionsPerTote": [
+                1,
+                3
+              ]
             },
             {
               "activeConfiguration": false,
@@ -69,14 +70,15 @@
               "caseWeight": {
                 "amount": 3360.00,
                 "uom": "GR"
-              }
+              },
+              "allowedPartitionsPerTote": [
+                1,
+                3
+              ]
             }
           ]
         }
-      ],
-      "deleteEffectiveDate": "2021-11-20",
-      "pullDate": "2021-12-20"
+      ]
     }
   ]
 }
-

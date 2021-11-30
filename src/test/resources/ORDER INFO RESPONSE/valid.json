@@ -1,0 +1,17 @@
+{
+  "details": [
+    {
+      "containerId": "A12345",
+      "orderId": "440459283",
+      "osn": "123",
+      "loadNbr": "456",
+      "deliveryNodeId": 2142,
+      "temperatureZones": [
+        "AMBIENT",
+        "CHILLED"
+      ],
+      "expectedOrderPickupTime": "'2021-07-21T17:10:07.002Z",
+      "autoStageAllowed": true
+    }
+  ]
+}
