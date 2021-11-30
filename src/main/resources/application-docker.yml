@@ -538,7 +538,7 @@ fusion:
           transformerTemplateUri: 'templates/DECANT_COMPLETE/decant_complete_message.ftl'
           targetUri: ${URI_ALERT_MISC_INVENTORY_MSG_RESPONSE}
 
-    - eventType: AUTO_STAGE_REQUEST
+    - eventType: CONTAINER_LOCATION_UPDATE
       spec:
         source: sync_proxy
         format: json
@@ -549,10 +549,10 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/AUTO_STAGE_REQUEST/auto_stage_request.jsd?schemaLoader=#bean:customJsonSchemaLoader'
+          validatorUri: 'json-validator:schema/CONTAINER_LOCATION_UPDATE/container_location_update.jsd?schemaLoader=#bean:customJsonSchemaLoader'
           onValidationFailureUri: ${URI_WALMART_SOURCE_SYNC_DEAD_LETTER}
           transformationRequired: true
-          transformerTemplateUri: 'templates/AUTO_STAGE_REQUEST/auto_stage_request_message.ftl'
+          transformerTemplateUri: 'templates/CONTAINER_LOCATION_UPDATE/container_location_update_message.ftl'
           continueOnDuplicate: true
           targetUri: ${URI_MFC_SYNC}
 

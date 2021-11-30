@@ -470,7 +470,7 @@ fusion:
           transformerTemplateUri: 'templates/DECANT_COMPLETE/decant_complete_message.ftl'
           targetUri: 'activemq:queue:walmart_US'
           
-    - eventType: AUTO_STAGE_REQUEST
+    - eventType: CONTAINER_LOCATION_UPDATE
       spec:
         source: sync_proxy
         format: json
@@ -481,10 +481,10 @@ fusion:
         actionExecution: sequence
       configSpec:
         default:
-          validatorUri: 'json-validator:schema/AUTO_STAGE_REQUEST/auto_stage_request.jsd?schemaLoader=#bean:customJsonSchemaLoader'
+          validatorUri: 'json-validator:schema/CONTAINER_LOCATION_UPDATE/container_location_update.jsd?schemaLoader=#bean:customJsonSchemaLoader'
           onValidationFailureUri: 'activemq:queue:walmart_source_sync_dead_letter'
           transformationRequired: true
-          transformerTemplateUri: 'templates/AUTO_STAGE_REQUEST/auto_stage_request_message.ftl'
+          transformerTemplateUri: 'templates/CONTAINER_LOCATION_UPDATE/container_location_update_message.ftl'
           continueOnDuplicate: true
           targetUri: 'netty-http:http://httpbin.org'
 
