@@ -4,4 +4,4 @@ camel:
 
 spring:
   profiles:
-    active: dev
+    active: docker
