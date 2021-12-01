@@ -113,7 +113,7 @@
 							</generatedSourcesDirectory>
 							<layers>
 								<enabled>true</enabled>
-								<configuration>src/main/resources/layers.xml</configuration>
+								<configuration>/home/circleci/project/src/main/resources/layers.xml</configuration>
 							</layers>
 						</configuration>
 						<executions>
