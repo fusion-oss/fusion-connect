@@ -1,4 +1,4 @@
-package com.alertinnovation.fusion.config;
+package com.scoperetail.fusion;
 
 /*-
  * *****
@@ -12,10 +12,10 @@ package com.alertinnovation.fusion.config;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,9 +26,13 @@ package com.alertinnovation.fusion.config;
  * =====
  */
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@Configuration
-@EnableWebMvc
-public class WebMvcConfig {}
+@SpringBootApplication
+public class FusionApplication {
+
+  public static void main(final String[] args) {
+    SpringApplication.run(FusionApplication.class, args);
+  }
+}

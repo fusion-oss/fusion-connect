@@ -1,4 +1,4 @@
-package com.alertinnovation.fusion.plugin;
+package com.scoperetail.fusion.plugin;
 
 /*-
  * *****
