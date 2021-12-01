@@ -113,7 +113,7 @@
 							</generatedSourcesDirectory>
 							<layers>
 								<enabled>true</enabled>
-								<configuration>${project.basedir}/src/main/resources/layers.xml</configuration>
+								<configuration>src/main/resources/layers.xml</configuration>
 							</layers>
 						</configuration>
 						<executions>
