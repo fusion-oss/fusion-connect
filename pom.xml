@@ -7,6 +7,7 @@
 		<version>2.5.5</version>
 		<relativePath />
 	</parent>
+
 	<groupId>com.alertinnovation.fusion</groupId>
 	<artifactId>fusion-connect</artifactId>
 	<version>0.22-SNAPSHOT</version>
