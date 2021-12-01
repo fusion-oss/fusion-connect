@@ -26,6 +26,12 @@ logging:
     com:
       scoperetail: DEBUG
 fusion:
+  dedupe:
+    dbType: Relational
+  sourceTypes:
+    netty-http: sync
+    activemq: async
+    kafka: aysnc
   sources:
       - name: walmart
         uri: ${URI_WALMART_SOURCE}
@@ -73,13 +79,24 @@ fusion:
         uri: ${URI_WALMART_SOURCE_SYNC}
         bo: ${URI_WALMART_SOURCE_SYNC_BO}
   events:
+    - eventType: UNKNOWN
+      headers:
+        configLookupKey: default
+        actions: 'direct:transform'
+        actionExecution: sequence
+      configSpec:
+        default:
+            errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
+            onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
+
     - eventType: ERROR_NOTIFICATION
       spec:
           source: walmart
           format: json
           eventTypePath: eventType
       headers:
-        configLookupKey: configLookupKey/configLookupKey.ftl 
+        mandatoryHeaders: eventType, messageId, correlationId, facilityNum, facilityCountryCode
+        configLookupKey: configLookupKey/configLookupKey.ftl
         idempotencyKey: idempotency/idempotency.ftl
         actions: 'direct:validate,direct:dedupe,direct:transform'
         actionExecution: sequence
@@ -89,7 +106,9 @@ fusion:
             onValidationFailureUri: ${URI_WALMART_SOURCE_DEAD_LETTER}
             continueOnDuplicate: true
             transformationRequired: true
+            errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
             transformerTemplateUri: 'templates/ERROR_NOTIFICATION/error_notification_message.ftl'
+            targetUri: 'activemq:queue:mfc_default'
         ERROR_NOTIFICATION_2142_US:
             targetUri: ${URI_MFC_2142_US}
             
@@ -109,7 +128,8 @@ fusion:
             transformationRequired: true
             transformerTemplateUri: 'templates/ERROR_NOTIFICATION/error_notification_message.ftl'
             targetUri: ${URI_WALMART_US}
-            
+            errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
+
     - eventType: ORDER_DROP
       spec:
         source: walmart_2142_order_fulfillment
@@ -198,42 +218,6 @@ fusion:
           transformerTemplateUri: 'templates/PICK_ORDER_CANCEL/pick_order_cancel_message.ftl'
         PICK_ORDER_CANCEL_2142_US:
           targetUri: ${URI_MFC_2142_US}
-
-    - eventType: INVENTORY_RESERVATION
-      spec:
-        source: walmart_2142_inventory_reservation
-        format: json
-        eventTypePath: eventType
-      headers:
-        configLookupKey: configLookupKey/configLookupKey.ftl
-        idempotencyKey: idempotency/idempotency.ftl
-        actions: 'direct:validate, direct:transform'
-        actionExecution: sequence
-      configSpec:
-        default:
-          validatorUri: 'json-validator:schema/INVENTORY_RESERVATION/inventory_reservation.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: ${URI_WALMART_2142_INVENTORY_RESERVATION_DEAD_LETTER}
-          transformationRequired: true
-          transformerTemplateUri: 'templates/INVENTORY_RESERVATION/inventory_reservation_message.ftl'
-        INVENTORY_RESERVATION_2142_US:
-          targetUri: ${URI_MFC_2142_US}
-
-    - eventType: INVENTORY_RESERVATION_STATUS
-      spec:
-        source: mfc
-        format: json
-        eventTypePath: eventType
-      headers:
-        idempotencyKey: idempotency/idempotency.ftl
-        actions: 'direct:validate, direct:transform'
-        actionExecution: sequence
-      configSpec:
-        default:
-          validatorUri: 'json-validator:schema/INVENTORY_RESERVATION_STATUS/inventory_reservation_status.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
-          transformationRequired: true
-          transformerTemplateUri: 'templates/INVENTORY_RESERVATION_STATUS/inventory_reservation_status_message.ftl'
-          targetUri: ${URI_ALERT_INVENTORY_RESERVATION_STATUS}
 
     - eventType: INVENTORY_SNAPSHOT_REQUEST
       spec:
@@ -555,6 +539,7 @@ fusion:
           transformerTemplateUri: 'templates/CONTAINER_LOCATION_UPDATE/container_location_update_message.ftl'
           continueOnDuplicate: true
           targetUri: ${URI_MFC_SYNC}
+          errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
 
     - eventType: ORDER_INFO_REQUEST
       spec:
@@ -573,6 +558,7 @@ fusion:
           transformerTemplateUri: 'templates/ORDER_INFO_REQUEST/order_info_request_message.ftl'
           continueOnDuplicate: true
           targetUri: ${URI_MFC_SYNC}
+          errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
 
     - eventType: INVENTORY_RESERVATION
       spec:
@@ -592,5 +578,6 @@ fusion:
           transformerTemplateUri: 'templates/INVENTORY_RESERVATION/inventory_reservation_message.ftl'
           continueOnDuplicate: true
           targetUri: ${URI_MFC_SYNC}
+          errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
         INVENTORY_RESERVATION_2142_US:
           targetUri: ${URI_MFC_SYNC_2142_US}
