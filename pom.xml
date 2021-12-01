@@ -17,6 +17,7 @@
 	<properties>
 		<fusion.connect.core.version>0.10</fusion.connect.core.version>
 		<spring.version>2.4.5</spring.version>
+		<java.version>11</java.version>
 	</properties>
 
 	<scm>
