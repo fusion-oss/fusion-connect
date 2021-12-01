@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.5</version>
+		<groupId>com.scoperetail.pom</groupId>
+		<artifactId>oss-parent-pom</artifactId>
+		<version>1.6</version>
 		<relativePath />
 	</parent>
 
@@ -16,6 +18,8 @@
 
 	<properties>
 		<fusion.connect.core.version>0.10</fusion.connect.core.version>
+		<spring.version>2.5.5</spring.version>
+		<spring-webmvc.version>5.3.13</spring-webmvc.version>
 	</properties>
 
 	<scm>
@@ -25,6 +29,16 @@
 		<tag>HEAD</tag>
 		<url>https://github.com/scoperetail-io/${project.artifactId}</url>
 	</scm>
+
+	<developers>
+		<developer>
+			<id>Scoperetail</id>
+			<name>Scoperetail Development Team</name>
+			<roles>
+				<role>Project Lead</role>
+			</roles>
+		</developer>
+	</developers>
 
 	<dependencies>
 		<dependency>
@@ -40,93 +54,15 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+			<version>${spring.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring-webmvc.version}</version>
+		</dependency>
+
 	</dependencies>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.liquibase</groupId>
-				<artifactId>liquibase-maven-plugin</artifactId>
-				<configuration>
-					<propertyFile>src/main/resources/liquibase/liquibase-maven-plugin.properties</propertyFile>
-					<changeLogFile>src/main/resources/changelog/changelog.xml</changeLogFile>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
-
-	<profiles>
-		<profile>
-			<id>release-spring</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-source-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>attach-sources</id>
-								<goals>
-									<goal>jar-no-fork</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-javadoc-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>attach-javadocs</id>
-								<goals>
-									<goal>jar</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-maven-plugin</artifactId>
-						<configuration>
-							<generatedSourcesDirectory>${project.build.directory}/generated-sources
-							</generatedSourcesDirectory>
-							<layers>
-								<enabled>true</enabled>
-								<configuration>${project.basedir}/src/main/resources/layers.xml</configuration>
-							</layers>
-						</configuration>
-						<executions>
-							<execution>
-								<goals>
-									<goal>build-info</goal>
-								</goals>
-								<configuration>
-									<additionalProperties>
-										<java.version>${java.version}</java.version>
-									</additionalProperties>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.springframework.boot</groupId>
-						<artifactId>spring-boot-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<goals>
-									<goal>repackage</goal>
-								</goals>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
 </project>
