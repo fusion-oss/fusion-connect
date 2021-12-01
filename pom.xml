@@ -10,7 +10,7 @@
 
 	<groupId>com.scoperetail.fusion</groupId>
 	<artifactId>fusion-connect</artifactId>
-	<version>0.37-SNAPSHOT</version>
+	<version>0.38-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<description>Fusion connect</description>
 
