@@ -8,7 +8,7 @@
 		<relativePath />
 	</parent>
 
-	<groupId>com.alertinnovation.fusion</groupId>
+	<groupId>com.scoperetail.fusion</groupId>
 	<artifactId>fusion-connect</artifactId>
 	<version>0.35-SNAPSHOT</version>
 	<name>${project.artifactId}</name>

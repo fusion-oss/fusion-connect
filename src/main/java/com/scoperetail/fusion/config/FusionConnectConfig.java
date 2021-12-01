@@ -1,4 +1,4 @@
-package com.alertinnovation.fusion;
+package com.scoperetail.fusion.config;
 
 /*-
  * *****
@@ -26,13 +26,12 @@ package com.alertinnovation.fusion;
  * =====
  */
 
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import com.scoperetail.fusion.connect.core.FusionConnectCoreConfig;
 
-@SpringBootApplication
-public class FusionApplication {
-
-  public static void main(final String[] args) {
-    SpringApplication.run(FusionApplication.class, args);
-  }
-}
+@Configuration
+@EnableConfigurationProperties
+@Import({FusionConnectCoreConfig.class})
+public class FusionConnectConfig {}

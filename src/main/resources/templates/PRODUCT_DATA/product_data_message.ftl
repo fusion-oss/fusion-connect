@@ -1,4 +1,4 @@
-<#assign TestUtils=statics['com.alertinnovation.fusion.plugin.TestUtil']>
+<#assign TestUtils=statics['com.scoperetail.fusion.plugin.TestUtil']>
 <#--{-->
 <#--  "products": [-->
 <#--  <#list products as product>-->

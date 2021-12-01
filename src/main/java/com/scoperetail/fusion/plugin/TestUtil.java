@@ -1,4 +1,4 @@
-package com.alertinnovation.fusion.plugin;
+package com.scoperetail.fusion.plugin;
 
 /*-
  * *****
@@ -73,7 +73,6 @@ public class TestUtil {
       return json;
     } catch (JsonProcessingException e) {
       // Return error
-      e.printStackTrace();
       return e.toString();
     }
   }
