@@ -2,21 +2,29 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.5.5</version>
+		<groupId>com.scoperetail.pom</groupId>
+		<artifactId>oss-parent-pom</artifactId>
+		<version>1.6</version>
 		<relativePath />
 	</parent>
 
 	<groupId>com.alertinnovation.fusion</groupId>
 	<artifactId>fusion-connect</artifactId>
-	<version>0.22-SNAPSHOT</version>
+	<version>0.34-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<description>Fusion connect</description>
 
 	<properties>
 		<fusion.connect.core.version>0.10</fusion.connect.core.version>
 	</properties>
+
+	<scm>
+		<developerConnection>
+			scm:git:git@github.com:scoperetail-io/${project.artifactId}.git
+		</developerConnection>
+		<tag>fusion-connect-0.22</tag>
+		<url>https://github.com/scoperetail-io/${project.artifactId}</url>
+	</scm>
 
 	<dependencies>
 		<dependency>
@@ -33,6 +41,7 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<version>2.4.5</version>
 		</dependency>
 	</dependencies>
 
@@ -52,4 +61,73 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<profiles>
+		<profile>
+			<id>release-spring</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<configuration>
+							<generatedSourcesDirectory>${project.build.directory}/generated-sources
+							</generatedSourcesDirectory>
+							<layers>
+								<enabled>true</enabled>
+								<configuration>${project.basedir}/src/main/resources/layers.xml</configuration>
+							</layers>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>build-info</goal>
+								</goals>
+								<configuration>
+									<additionalProperties>
+										<java.version>${java.version}</java.version>
+									</additionalProperties>
+								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<goals>
+									<goal>repackage</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
