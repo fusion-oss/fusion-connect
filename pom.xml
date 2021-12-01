@@ -12,7 +12,7 @@
 
 	<groupId>com.alertinnovation.fusion</groupId>
 	<artifactId>fusion-connect</artifactId>
-	<version>0.22-SNAPSHOT</version>
+	<version>0.32-SNAPSHOT</version>
 	<name>${project.artifactId}</name>
 	<description>Fusion connect</description>
 
