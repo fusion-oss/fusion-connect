@@ -10,7 +10,7 @@
     </application>
     <dependencies>
         <into layer="internal-dependencies">
-            <include>com.scoperetail.*:*:*</include>
+            <include>com.alertinnovation.*:*:*</include>
         </into>
         <into layer="snapshot-dependencies">
             <include>*:*:*SNAPSHOT</include>
