@@ -10,7 +10,7 @@
 
 	<groupId>com.scoperetail.fusion</groupId>
 	<artifactId>fusion-connect</artifactId>
-	<version>0.40-SNAPSHOT</version>
+	<version>0.40</version>
 	<name>${project.artifactId}</name>
 	<description>Fusion connect</description>
 
@@ -24,7 +24,7 @@
 		<developerConnection>
 			scm:git:git@github.com:scoperetail-io/${project.artifactId}.git
 		</developerConnection>
-		<tag>HEAD</tag>
+		<tag>fusion-connect-0.40</tag>
 		<url>https://github.com/scoperetail-io/${project.artifactId}</url>
 	</scm>
 
