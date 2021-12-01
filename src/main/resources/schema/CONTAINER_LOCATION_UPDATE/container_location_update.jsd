@@ -86,7 +86,7 @@
                 "examples": [
                   "MFC"
                 ],
-                "pattern": "^HOSPITAL|MFC|WORKSTATION_[0-9]{2}$"
+                "maxLength": 20
               }
             },
             "additionalProperties": true
