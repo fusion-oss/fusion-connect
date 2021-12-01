@@ -31,7 +31,7 @@ fusion:
   sourceTypes:
     netty-http: sync
     activemq: async
-    kafka: aysnc
+    kafka: async
   sources:
       - name: walmart
         uri: ${URI_WALMART_SOURCE}
