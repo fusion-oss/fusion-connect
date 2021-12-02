@@ -545,3 +545,25 @@ fusion:
           errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
         INVENTORY_RESERVATION_2142_US:
           targetUri: 'netty-http:http://httpbin.org'
+
+    - eventType: DOOR_MOTION
+      spec:
+        source: sync_proxy
+        format: json
+        eventTypePath: eventType
+      headers:
+        configLookupKey: configLookupKey/configLookupKey.ftl
+        idempotencyKey: idempotency/idempotency.ftl
+        actions: 'direct:validate, direct:transform, direct:dedupe'
+        actionExecution: sequence
+      configSpec:
+        default:
+          validatorUri: 'json-validator:schema/DOOR_MOTION/door_motion.jsd?schemaLoader=#bean:customJsonSchemaLoader'
+          onValidationFailureUri: 'activemq:queue:walmart_source_sync_dead_letter'
+          transformationRequired: true
+          transformerTemplateUri: 'templates/DOOR_MOTION/door_motion._message.ftl'
+          continueOnDuplicate: true
+          targetUri: 'netty-http:http://httpbin.org'
+          errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
+        DOOR_MOTION_2142_US:
+          targetUri: 'netty-http:http://httpbin.org'

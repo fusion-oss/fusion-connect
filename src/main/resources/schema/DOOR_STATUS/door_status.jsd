@@ -11,17 +11,19 @@
       "doors": [
         {
           "doorId": "DOOR1",
-          "available": true
+          "available": true,
+          "state": "OPEN"
         },
         {
           "doorId": "DOOR2",
-          "available": true
+          "state": "CLOSE"
         }
       ]
     }
   ],
   "required": [
-    "dispenseTerminalId"
+    "dispenseTerminalId",
+    "doors"
   ],
   "properties": {
     "dispenseTerminalId": {
@@ -45,11 +47,13 @@
         [
           {
             "doorId": "DOOR1",
-            "available": true
+            "available": true,
+            "state": "OPEN"
           },
           {
             "doorId": "DOOR2",
-            "available": true
+            "available": true,
+            "state": "OPEN"
           }
         ]
       ],
@@ -66,7 +70,8 @@
             "examples": [
               {
                 "doorId": "DOOR1",
-                "available": true
+                "available": true,
+                "state": "OPEN"
               }
             ],
             "required": [
@@ -93,6 +98,20 @@
                 "default": false,
                 "examples": [
                   true
+                ]
+              },
+              "state": {
+                "$id": "#/properties/doors/items/anyOf/0/properties/state",
+                "type": "string",
+                "title": "State",
+                "description": "Whether or not the door is state for dispense.",
+                "default": "",
+                "examples": [
+                  "OPEN"
+                ],
+                "enum": [
+                  "OPEN",
+                  "CLOSE"
                 ]
               }
             },

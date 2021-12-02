@@ -2,11 +2,12 @@
   "dispenseTerminalId": "${dispenseTerminalId}"
 <#if doors??>
   , "doors": [
-  <#list doors as doors>
+  <#list doors as door>
     {
-      "doorId": "${doors.doorId}",
-      "available": ${doors.available?c}
-    }<#if doors_has_next>,</#if>
+      "doorId": "${door.doorId}",
+      "available": ${door.available?c},
+      "state": "${door.state}"
+    }<#if door_has_next>,</#if>
   </#list>
   ]
 </#if>

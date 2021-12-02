@@ -3,11 +3,13 @@
   "doors": [
     {
       "doorId": "DOOR1",
-      "available": true
+      "available": true,
+      "state": "OPEN"
     },
     {
       "doorId": "DOOR2",
-      "available": true
+      "available": true,
+      "state": "CLOSE"
     }
-  ]  
+  ]
 }

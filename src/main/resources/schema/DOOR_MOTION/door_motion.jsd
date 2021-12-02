@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema",
+  "$id": "http://example.com/example.json",
+  "type": "object",
+  "title": "The root schema",
+  "description": "The root schema comprises the entire JSON document.",
+  "default": {},
+  "examples": [
+    {
+      "dispenseTerminalId": "AD1",
+      "doorId": "DOOR1",
+      "motion": "OPEN"
+    }
+  ],
+  "required": [
+    "dispenseTerminalId",
+    "doorId",
+    "motion"
+  ],
+  "properties": {
+    "dispenseTerminalId": {
+      "$id": "#/properties/dispenseTerminalId",
+      "type": "string",
+      "title": "The dispenseTerminalId schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": [
+        "AD1"
+      ],
+      "maxLength": 20
+    },
+    "doorId": {
+      "$id": "#/properties/doorId",
+      "type": "string",
+      "title": "The doorId schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": [
+        "DOOR1"
+      ],
+      "maxLength": 10
+    },
+    "motion": {
+      "$id": "#/properties/motion",
+      "type": "string",
+      "title": "The motion schema",
+      "description": "An explanation about the purpose of this instance.",
+      "default": "",
+      "examples": [
+        "OPEN"
+      ],
+      "enum": [
+        "OPEN",
+        "CLOSE"
+      ]
+    }
+  },
+  "additionalProperties": true
+}
