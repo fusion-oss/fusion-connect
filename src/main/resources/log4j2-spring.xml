@@ -2,7 +2,7 @@
 <Configuration monitorInterval="60">
 	<Properties>
 		<Property name="file-name-prefix">fusion-connect</Property>
-		<Property name="log-path">/appl/fusion/connect</Property>
+		<Property name="log-path">/Users/javier/appl/fusion/connect</Property>
 		<Property name="LOG_EXCEPTION_CONVERSION_WORD">%xwEx</Property>
 		<Property name="LOG_LEVEL_PATTERN">%5p</Property>
 		<Property name="LOG_DATEFORMAT_PATTERN">yyyy-MM-dd HH:mm:ss.SSS</Property>
@@ -39,7 +39,7 @@
 			<AppenderRef ref="App-File-Appender" />
 			<AppenderRef ref="App-Console-Appender"/>
 		</Logger>
-		<Logger name="com.alertinnovation" level="TRACE" additivity="false">
+		<Logger name="org.apache.camel" level="INFO" additivity="false">
 			<AppenderRef ref="App-File-Appender" />
 			<AppenderRef ref="App-Console-Appender"/>
 		</Logger>
@@ -49,11 +49,6 @@
 			<AppenderRef ref="App-Console-Appender"/>
 		</logger>
 		<Logger name="org.springframework.jdbc.core.JdbcTemplate"
-				level="TRACE" additivity="false">
-			<AppenderRef ref="App-File-Appender" />
-			<AppenderRef ref="App-Console-Appender"/>
-		</Logger>
-		<Logger name="org.zalando.logbook"
 				level="TRACE" additivity="false">
 			<AppenderRef ref="App-File-Appender" />
 			<AppenderRef ref="App-Console-Appender"/>

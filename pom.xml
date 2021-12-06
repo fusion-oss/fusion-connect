@@ -15,7 +15,7 @@
 	<description>Fusion connect</description>
 
 	<properties>
-		<fusion.connect.core.version>0.10</fusion.connect.core.version>
+		<fusion.connect.core.version>0.11-SNAPSHOT</fusion.connect.core.version>
 		<spring.version>2.4.5</spring.version>
 		<java.version>11</java.version>
 	</properties>
@@ -55,6 +55,17 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
 	</dependencies>
