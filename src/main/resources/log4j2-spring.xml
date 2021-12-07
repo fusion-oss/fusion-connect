@@ -39,7 +39,7 @@
 			<AppenderRef ref="App-File-Appender" />
 			<AppenderRef ref="App-Console-Appender"/>
 		</Logger>
-		<Logger name="com.alertinnovation" level="TRACE" additivity="false">
+		<Logger name="org.apache.camel" level="INFO" additivity="false">
 			<AppenderRef ref="App-File-Appender" />
 			<AppenderRef ref="App-Console-Appender"/>
 		</Logger>
@@ -49,11 +49,6 @@
 			<AppenderRef ref="App-Console-Appender"/>
 		</logger>
 		<Logger name="org.springframework.jdbc.core.JdbcTemplate"
-				level="TRACE" additivity="false">
-			<AppenderRef ref="App-File-Appender" />
-			<AppenderRef ref="App-Console-Appender"/>
-		</Logger>
-		<Logger name="org.zalando.logbook"
 				level="TRACE" additivity="false">
 			<AppenderRef ref="App-File-Appender" />
 			<AppenderRef ref="App-Console-Appender"/>

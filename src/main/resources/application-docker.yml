@@ -110,7 +110,7 @@ fusion:
             transformerTemplateUri: 'templates/ERROR_NOTIFICATION/error_notification_message.ftl'
             targetUri: 'activemq:queue:mfc_default'
         ERROR_NOTIFICATION_2142_US:
-            targetUri: ${URI_MFC_2142_US}
+            targetUri: ${URI_MFC_ERROR_NOTIFICATION_02142_US}
             
     - eventType: ERROR_NOTIFICATION
       spec:
@@ -127,7 +127,7 @@ fusion:
             onValidationFailureUri: ${URI_MFC_SOURCE_DEAD_LETTER}
             transformationRequired: true
             transformerTemplateUri: 'templates/ERROR_NOTIFICATION/error_notification_message.ftl'
-            targetUri: ${URI_WALMART_US}
+            targetUri: ${URI_WALMART_ERROR_NOTIFICATION_02142_US}
             errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
 
     - eventType: ORDER_DROP
@@ -147,7 +147,7 @@ fusion:
           transformationRequired: true
           transformerTemplateUri: 'templates/ORDER_DROP/order_drop_message.ftl'
         ORDER_DROP_2142_US:
-          targetUri: ${URI_MFC_2142_US}
+          targetUri: ${URI_MFC_ORDER_02142_US}
 
     - eventType: PICK_BEGIN
       spec:
@@ -503,7 +503,7 @@ fusion:
           transformationRequired: true
           transformerTemplateUri: 'templates/PRODUCT_DATA/product_data_message.ftl'
         PRODUCT_DATA_2142_US:
-          targetUri: ${URI_MFC_2142_US}
+          targetUri: ${URI_MFC_PRODUCT_DATA_2142_US}
 
     - eventType: DECANT_COMPLETE
       spec:
