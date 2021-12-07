@@ -35,24 +35,17 @@ fusion:
   sources:
       - name: walmart
         uri: 'activemq:queue:walmart_source'
-        bo: 'activemq:queue:walmart_source_bo'
+        errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
+        onValidationFailureUri: 'activemq:queue:walmart_source_error_queue'        
       - name: mfc
         uri: 'activemq:queue:mfc_source'
-        bo: 'activemq:queue:mfc_source_bo'
+        errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
+        onValidationFailureUri: 'activemq:queue:mfc_source_error_queue'  
       - name: sync_proxy
         uri: 'netty-http:proxy://0.0.0.0:8081'
-        bo: 'activemq:queue:walmart_source_sync_bo'
-  events:
-    - eventType: UNKNOWN
-      headers:
-        configLookupKey: default
-        actions: 'direct:transform'
-        actionExecution: sequence
-      configSpec:
-        default:
-            errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
-            onValidationFailureUri: 'activemq:queue:walmart_source_dead_letter'
-              
+        errorTemplateUri: 'templates/ERROR/error_notification_message.ftl'
+
+  events:          
     - eventType: ERROR_NOTIFICATION
       spec:
           source: walmart
@@ -522,7 +515,6 @@ fusion:
       configSpec:
         default:
           validatorUri: 'json-validator:schema/CONTAINER_LOCATION_UPDATE/container_location_update.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: 'activemq:queue:walmart_source_sync_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/CONTAINER_LOCATION_UPDATE/container_location_update_message.ftl'
           continueOnDuplicate: true
@@ -542,7 +534,6 @@ fusion:
       configSpec:
         default:
           validatorUri: 'json-validator:schema/ORDER_INFO_REQUEST/order_info_request.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: 'activemq:queue:walmart_source_sync_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/ORDER_INFO_REQUEST/order_info_request_message.ftl'
           continueOnDuplicate: true
@@ -563,7 +554,6 @@ fusion:
       configSpec:
         default:
           validatorUri: 'json-validator:schema/INVENTORY_RESERVATION/inventory_reservation.jsd?schemaLoader=#bean:customJsonSchemaLoader'
-          onValidationFailureUri: 'activemq:queue:walmart_source_sync_dead_letter'
           transformationRequired: true
           transformerTemplateUri: 'templates/INVENTORY_RESERVATION/inventory_reservation_message.ftl'
           continueOnDuplicate: true
