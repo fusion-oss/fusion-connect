@@ -3,6 +3,7 @@
   "batchId": ${batchId},
   "dispenseTerminalId": "${dispenseTerminalId}",
   "doorId": "${doorId}",
+  "status": "${status}",
   "containsReturns": ${containsReturns?c},
   <#if (containsReturns)>
   "temperatureZonesForReturns": ${TestUtils.sequenceToString(temperatureZonesForReturns)},

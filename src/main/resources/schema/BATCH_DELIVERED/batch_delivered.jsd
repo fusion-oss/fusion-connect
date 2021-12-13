@@ -10,6 +10,7 @@
       "batchId": 1,
       "dispenseTerminalId": "AD1",
       "doorId": "DOOR1",
+      "status": "CLOSE",
       "containsReturns": true,
       "temperatureZonesForReturns": [
         "CHILLED",
@@ -35,6 +36,7 @@
     "batchId",
     "dispenseTerminalId",
     "doorId",
+    "status",
     "containsReturns",
     "containers"
   ],
@@ -90,6 +92,20 @@
         "DOOR1"
       ],
       "maxLength": 10
+    },
+    "status": {
+      "$id": "#/properties/status",
+      "type": "string",
+      "title": "Door Status",
+      "description": "The status of the door.",
+      "default": "",
+      "examples": [
+        "CLOSE"
+      ],
+      "enum": [
+        "CLOSE",
+        "OPEN"
+      ]
     },
     "containsReturns": {
       "$id": "#/properties/containsReturns",

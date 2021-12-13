@@ -2,6 +2,7 @@
   "batchId": 1,
   "dispenseTerminalId": "AD1",
   "doorId": "DOOR1",
+  "status": "CLOSE",
   "containsReturns": true,
   "temperatureZonesForReturns": [
     "CHILLED",
