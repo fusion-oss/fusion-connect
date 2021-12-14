@@ -1,7 +1,0 @@
-camel:
-    springboot:
-        main-run-controller: true
-
-spring:
-  profiles:
-    active: docker

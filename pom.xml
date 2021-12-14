@@ -15,7 +15,7 @@
 	<description>Fusion connect</description>
 
 	<properties>
-		<fusion.connect.core.version>0.10</fusion.connect.core.version>
+		<fusion.connect.core.version>0.12</fusion.connect.core.version>
 		<spring.version>2.4.5</spring.version>
 		<java.version>11</java.version>
 	</properties>
@@ -51,6 +51,16 @@
 					<artifactId>camel-elasticsearch-rest-starter</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-config</artifactId>
+			<version>3.0.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+			<version>3.0.4</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

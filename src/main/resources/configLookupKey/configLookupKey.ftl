@@ -1,1 +1,0 @@
-${facilityNum}_${facilityCountryCode}
