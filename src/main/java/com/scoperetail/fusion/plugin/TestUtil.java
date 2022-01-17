@@ -72,7 +72,6 @@ public class TestUtil {
     try {
       // MAP -> JSON
       String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
-      System.out.println("JSON FTL: " + json);
       return json;
     } catch (JsonProcessingException e) {
       // Return error
