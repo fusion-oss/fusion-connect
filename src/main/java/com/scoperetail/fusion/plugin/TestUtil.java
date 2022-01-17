@@ -26,6 +26,7 @@ package com.scoperetail.fusion.plugin;
  * =====
  */
 
+import com.fasterxml.jackson.annotation.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.SimpleHash;
@@ -67,6 +68,7 @@ public class TestUtil {
     // Get Map from hash
     Map<String, String> map = hash.toMap();
     ObjectMapper mapper = new ObjectMapper();
+    mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
     try {
       // MAP -> JSON
       String json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(map);
