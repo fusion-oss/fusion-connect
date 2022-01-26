@@ -33,7 +33,6 @@
                     <orderNbr>784</orderNbr>
                     <priorityCode>1</priorityCode>
                     <assignedPickUserId>alpha</assignedPickUserId>
-                    <userId>123</userId>
                 </fulfillmentOrder>
             </fulfillmentOrders>
         </orderBeginEvent>
