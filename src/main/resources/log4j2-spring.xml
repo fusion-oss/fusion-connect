@@ -39,7 +39,7 @@
 			<AppenderRef ref="App-File-Appender" />
 			<AppenderRef ref="App-Console-Appender"/>
 		</Logger>
-		<Logger name="org.apache.camel" level="INFO" additivity="false">
+		<Logger name="org.apache.camel" level="DEBUG" additivity="false">
 			<AppenderRef ref="App-File-Appender" />
 			<AppenderRef ref="App-Console-Appender"/>
 		</Logger>
