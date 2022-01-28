@@ -35,12 +35,12 @@
             <lineNbr>1</lineNbr>
             <orderedQty>1.0</orderedQty>
             <pickDetails>
-              <pickDisplayTs>2021-09-24T18:03:06.603 +0000</pickDisplayTs>
+              <pickDisplayTs>2022-01-26T18:03:06.603Z</pickDisplayTs>
               <pickType>ORDERED</pickType>
               <pickQty>1.0</pickQty>
               <pickUom>EACH</pickUom>
               <pickedUser>ALPHA</pickedUser>
-              <pickedTs>2021-09-24T18:03:10.200 +0000</pickedTs>
+              <pickedTs>2022-01-26T18:03:10.200Z</pickedTs>
               <pickUpcNbr>1090000028</pickUpcNbr>
               <container>
                 <tempBandCd>1</tempBandCd>
