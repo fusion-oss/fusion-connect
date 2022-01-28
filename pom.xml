@@ -15,7 +15,7 @@
 	<description>Fusion connect</description>
 
 	<properties>
-		<fusion.connect.core.version>0.17</fusion.connect.core.version>
+		<fusion.connect.core.version>0.18</fusion.connect.core.version>
 		<spring.version>2.4.5</spring.version>
 		<java.version>11</java.version>
 	</properties>
