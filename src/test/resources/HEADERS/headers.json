@@ -1,0 +1,11 @@
+{
+  "eventType": "PRODUCT_DATA",
+  "messageId": "message-id",
+  "correlationId": "correlation-id",
+  "facilityNum": 5505,
+  "facilityCountryCode": "US",
+  "msgTimestamp": "2022-01-30T10:17:20.456Z",
+  "originatorId": "VENDOR_NAME",
+  "version": 1,
+  "heartbeatInd": "N"
+}
