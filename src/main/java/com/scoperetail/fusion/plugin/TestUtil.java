@@ -96,4 +96,10 @@ public class TestUtil {
     json += "]";
     return json;
   }
+
+  public static String gtinToHostUPC(String gtin)
+  {
+    gtin = gtin.replaceFirst("^0+(?!$)", "");
+    return gtin.substring(0, gtin.length() - 1);
+  }
 }

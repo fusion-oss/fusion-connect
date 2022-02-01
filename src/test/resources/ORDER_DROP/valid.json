@@ -14,21 +14,21 @@
   "pickEachCurrency": "USD",
   "lines": [{
     "lineNbr": 1,
-    "gtin": "00078742369983",
+    "gtins": ["00078742369983", "00261634000006", "00000000048019"],
     "pickByType": "EACH",
     "pickEachUnitPrice": 1.32,
     "pickEachUom": "EA",
     "pickEachQty": 2.00
   }, {
     "lineNbr": 2,
-    "gtin": "00261634000006",
+    "gtins": ["00261634000006"],
     "pickByType": "EACH",
     "pickEachUnitPrice": 10.74,
     "pickEachUom": "EA",
     "pickEachQty": 1.00
   }, {
     "lineNbr": 3,
-    "gtin": "00000000048019",
+    "gtins": ["00000000048019"],
     "pickByType": "WEIGHTED",
     "pickWeightUom": "GR",
     "pickWeightUnitPrice": 0.00414,
@@ -37,7 +37,7 @@
     "pickWeightMax": 476.27
   }, {
     "lineNbr": 4,
-    "gtin": "00000000034685",
+    "gtins": ["00000000034685"],
     "pickByType": "PREFQTY",
     "pickWeightUom": "GR",
     "pickWeightQty": 1902.29,
@@ -48,7 +48,7 @@
     "pickWeightMax": 1997.40
   }, {
     "lineNbr": 4,
-    "gtin": "00024425032835",
+    "gtins": ["00024425032835"],
     "pickByType": "PREFQTY",
     "pickWeightUom": "GR",
     "pickWeightQty": 815.27,
@@ -59,7 +59,7 @@
     "pickWeightMax": 856.03
   }, {
     "lineNbr": 5,
-    "gtin": "00000000040679",
+    "gtins": ["00000000040679"],
     "pickByType": "EACHWEIGHTED",
     "pickWeightUom": "GR",
     "pickWeightQty": 668.48,
