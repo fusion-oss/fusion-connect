@@ -5,6 +5,7 @@
       "productId": "0VJ66F6JX4K4",
       "gtin": "00078742369983",
       "quantityUom": "EA",
+      "reservedQty": 11.0,
       "quantities": [
         {
           "state": "AVAILABLE",
@@ -20,6 +21,7 @@
       "productId": "379VJ4AMO3EX",
       "gtin": "00080153032837",
       "quantityUom": "GR",
+      "reservedQty": 7.0,
       "quantities": [
         {
           "state": "AVAILABLE",

@@ -1,0 +1,129 @@
+{
+  "sourceCreationTimestamp": "2022-02-07T16:10:07.002Z",
+  "inventory": [
+    {
+      "productId": "0VJ66F6JX4K4",
+      "gtin": "00859078002627",
+      "quantityUom": "EA",
+      "reservedQty": 1.0,
+      "quantities": [
+        {
+          "state": "AVAILABLE",
+          "quantity": 43.00
+        },
+        {
+          "state": "HOLD",
+          "quantity": 27.00
+        }
+      ]
+    },
+    {
+      "productId": "379VJ4AMO3EX",
+      "gtin": "00067312005864",
+      "quantityUom": "GR",
+      "reservedQty": 25.0,
+      "quantities": [
+        {
+          "state": "AVAILABLE",
+          "quantity": 20174.20
+        }
+      ]
+    },
+    {
+      "productId": "379VJ4AMO3AK",
+      "gtin": "00859213005919",
+      "quantityUom": "EA",
+      "reservedQty": 15.0,
+      "quantities": [
+        {
+          "state": "AVAILABLE",
+          "quantity": 50.00
+        }
+      ]
+    },
+    {
+      "productId": "379VJ4AMO3BL",
+      "gtin": "00033383571058",
+      "quantityUom": "EA",
+      "reservedQty": 100.0,
+      "quantities": [
+        {
+          "state": "AVAILABLE",
+          "quantity": 150.00
+        }
+      ]
+    },
+    {
+      "productId": "379VJ4AMO3CM",
+      "gtin": "00031200028761",
+      "quantityUom": "EA",
+      "reservedQty": 22.0,
+      "quantities": [
+        {
+          "state": "AVAILABLE",
+          "quantity": 100.00
+        }
+      ]
+    },
+    {
+      "productId": "379VJ4AMO3DN",
+      "gtin": "00078742351346",
+      "quantityUom": "EA",
+      "reservedQty": 33.0,
+      "quantities": [
+        {
+          "state": "AVAILABLE",
+          "quantity": 567.00
+        }
+      ]
+    },
+    {
+      "productId": "379VJ4AMO3EO",
+      "gtin": "00078742295152",
+      "quantityUom": "EA",
+      "reservedQty": 11.0,
+      "quantities": [
+        {
+          "state": "AVAILABLE",
+          "quantity": 22.00
+        }
+      ]
+    },
+    {
+      "productId": "379VJ4AMO3FP",
+      "gtin": "00207130000003",
+      "quantityUom": "EA",
+      "reservedQty": 20.0,
+      "quantities": [
+        {
+          "state": "AVAILABLE",
+          "quantity": 30.00
+        }
+      ]
+    },
+    {
+      "productId": "379VJ4AMO3GQ",
+      "gtin": "00010900001366",
+      "quantityUom": "EA",
+      "reservedQty": 1.0,
+      "quantities": [
+        {
+          "state": "AVAILABLE",
+          "quantity": 22.00
+        }
+      ]
+    },
+    {
+      "productId": "379VJ4AMO3GQ",
+      "gtin": "00037071241018",
+      "quantityUom": "EA",
+      "reservedQty": 2.0,
+      "quantities": [
+        {
+          "state": "AVAILABLE",
+          "quantity": 5.00
+        }
+      ]
+    }
+  ]
+}
