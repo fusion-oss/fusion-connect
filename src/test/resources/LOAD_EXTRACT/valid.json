@@ -1,0 +1,10 @@
+{
+  "dispenseTerminalId": "HOSPITAL",
+  "loadNbr": "127",
+  "loadDate": "2021-08-20T16:00:00.000Z",
+  "containers": [
+    "P123456",
+    "Q234567",
+    "R123321"
+  ]
+}

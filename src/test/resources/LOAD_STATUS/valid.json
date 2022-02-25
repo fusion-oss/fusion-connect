@@ -1,0 +1,11 @@
+{
+  "dispenseTerminalId": "HOSPITAL",
+  "loadNbr": "127",
+  "loadDate": "2021-08-19T16:00:00.000Z",
+  "status": "INITIATED",
+  "containers": [
+    "P123456",
+    "Q234567",
+    "R123321"
+  ]
+}
