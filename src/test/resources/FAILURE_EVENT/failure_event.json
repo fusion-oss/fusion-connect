@@ -1,0 +1,12 @@
+{
+  "dispenseTerminalId": "AD1",
+  "containers": [
+    "A123456",
+    "B234567",
+    "C123321"
+  ],
+  "description": "Container Not Found",
+  "code": "CONTAINER_NOT_FOUND",
+  "notes": "Container cant be delivered",
+  "timestamp": "2020-09-24T21:24:35.000Z"
+}

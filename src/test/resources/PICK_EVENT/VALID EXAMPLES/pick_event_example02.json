@@ -6,7 +6,7 @@
       "pickByType": "PREFQTY",
       "lineFinalize": true,
       "pickGtin": "0007501058639",
-      "pickedUser": "abc123",
+      "userId": "abc123",
       "pickDisplayTs": "2021-04-01T12:22:32.000Z",
       "pickedTs": "2021-04-01T12:22:32.000Z",
       "pickWeightCurrency": "USD",

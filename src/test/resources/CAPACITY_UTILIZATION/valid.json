@@ -7,18 +7,18 @@
       "storageTemperatureZoneUtilization": [
         {
           "temperatureZone": "AMBIENT",
-          "positionQty": 8000,
-          "occupiedQty": 7000
+          "positionQty": 8000
         },
         {
+          "occupiedQty": 7000,
           "temperatureZone": "CHILLED",
-          "positionQty": 2500,
-          "occupiedQty": 2000
+          "positionQty": 2500
         },
         {
+          "occupiedQty": 2000,
           "temperatureZone": "FROZEN",
           "positionQty": 1500,
-          "occupiedQty": 1000
+          "occupiedQt": 1000
         }
       ]
     }
@@ -43,6 +43,21 @@
       "totalToteQty": 3000,
       "totalUsedQty": 1000,
       "totalUnusableQty": 10,
+      "toteUnusableDetails": [
+        {
+          "toteUnusableReason": "DAMAGED",
+          "unusableQty": 5
+        },
+        {
+          "toteUnusableReason": "PENDING_INSPECTION",
+          "unusableQty": 4
+        },
+        {
+          "toteUnusableReason": "CONTAINS_CUSTOMER_REJECTS",
+          "unusableQty": 1
+        }
+      ],
+      "totalBaggedTotesQty": 3500,
       "totalMfcFulfilledQty": 900,
       "totalStoreFulfilledQty": 100,
       "toteTemperatureZoneUtilization": [
@@ -50,7 +65,7 @@
           "temperatureZone": "AMBIENT",
           "toteQty": 2100,
           "usedQty": 700,
-          "unusableQty": 1,
+          "unusableQty": 7,
           "mfcFulfilledQty": 630,
           "storefulfilledQty": 70
         },
@@ -66,7 +81,7 @@
           "temperatureZone": "FROZEN",
           "toteQty": 300,
           "usedQty": 100,
-          "unusableQty": 3,
+          "unusableQty": 1,
           "mfcFulfilledQty": 90,
           "storefulfilledQty": 10
         }
@@ -91,25 +106,58 @@
       },
       "totalToteQty": 7000,
       "totalUsedQty": 5000,
-      "totalUnusableQty": 10,
+      "totalUnusableQty": 40,
+      "toteUnusableDetails": [
+        {
+          "toteUnusableReason": "NEEDS_WASHING",
+          "unusableQty": 20
+        },
+        {
+          "toteUnusableReason": "PENDING_INSPECTION",
+          "unusableQty": 10
+        },
+        {
+          "toteUnusableReason": "DAMAGED",
+          "unusableQty": 10
+        }
+      ],
+      "totalHoldQty": 10,
+      "toteHoldDetails": [
+        {
+          "toteHoldReason": "EXPIRED",
+          "holdQty": 5
+        },
+        {
+          "toteHoldReason": "FRESHNESS_EXPIRATION",
+          "holdQty": 3
+        },
+        {
+          "toteHoldReason": "RECALLED",
+          "holdQty": 1
+        },
+        {
+          "toteHoldReason": "HW_FAIL",
+          "holdQty": 1
+        }
+      ],
       "toteTemperatureZoneUtilization": [
         {
           "temperatureZone": "AMBIENT",
           "toteQty": 4900,
           "usedQty": 3500,
-          "unusableQty": 3
+          "unusableQty": 28
         },
         {
           "temperatureZone": "CHILLED",
           "toteQty": 1400,
           "usedQty": 1000,
-          "unusableQty": 4
+          "unusableQty": 8
         },
         {
           "temperatureZone": "FROZEN",
           "toteQty": 700,
           "usedQty": 500,
-          "unusableQty": 5
+          "unusableQty": 4
         }
       ],
       "partitionsAllowed": true,
@@ -122,27 +170,31 @@
             "depth": 575,
             "uom": "MM"
           },
+          "maxContentsWeightWithPartitions": {
+            "amount": 22679.6,
+            "uom": "GR"
+          },
           "totalPartitionQty": 3500,
           "totalUsedPartitionQty": 2500,
-          "totalUnusablePartitionQty": 60,
+          "totalUnusablePartitionQty": 20,
           "partitionTemperatureZoneUtilization": [
             {
               "temperatureZone": "AMBIENT",
               "partitionQty": 2450,
               "usedPartitionQty": 1750,
-              "unusablePartitionQty": 6
+              "unusablePartitionQty": 14
             },
             {
               "temperatureZone": "CHILLED",
               "partitionQty": 700,
               "usedPartitionQty": 500,
-              "unusablePartitionQty": 5
+              "unusablePartitionQty": 4
             },
             {
               "temperatureZone": "FROZEN",
               "partitionQty": 350,
               "usedPartitionQty": 250,
-              "unusablePartitionQty": 4
+              "unusablePartitionQty": 2
             }
           ]
         },
@@ -154,27 +206,31 @@
             "depth": 190.5,
             "uom": "MM"
           },
-          "totalPartitionQty": 10500,
+          "maxContentsWeightWithPartitions": {
+            "amount": 22452.82,
+            "uom": "GR"
+          },
+          "totalpartitionQty": 10500,
           "totalUsedPartitionQty": 4500,
-          "totalUnusablePartitionQty": 15,
+          "totalUnusablePartitionQty": 60,
           "partitionTemperatureZoneUtilization": [
             {
               "temperatureZone": "AMBIENT",
               "partitionQty": 7350,
               "usedPartitionQty": 3150,
-              "unusablePartitionQty": 2
+              "unusablePartitionQty": 42
             },
             {
               "temperatureZone": "CHILLED",
               "partitionQty": 2100,
               "usedPartitionQty": 900,
-              "unusablePartitionQty": 3
+              "unusablePartitionQty": 12
             },
             {
               "temperatureZone": "FROZEN",
               "partitionQty": 1050,
               "usedPartitionQty": 450,
-              "unusablePartitionQty": 4
+              "unusablePartitionQty": 6
             }
           ]
         }

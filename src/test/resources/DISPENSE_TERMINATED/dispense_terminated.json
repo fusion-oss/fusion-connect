@@ -1,0 +1,10 @@
+{
+  "dispenseTerminalId": "AD1",
+  "restage": true,
+  "containers": [
+    "P123456",
+    "Q234567",
+    "R123321"
+  ],
+  "code": "NO_RESPONSE"
+}

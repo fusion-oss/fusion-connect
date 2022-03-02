@@ -5,7 +5,7 @@
       "lineNbr": 3,
       "pickByType": "EACH",
       "pickGtin": "0007501058639",
-      "pickedUser": "testUsr",
+      "userId": "testUsr",
       "pickDisplayTs": "2021-04-01T12:22:32.000Z",
       "pickedTs": "2021-04-01T12:22:32.000Z",
       "pickEachUom": "EA",

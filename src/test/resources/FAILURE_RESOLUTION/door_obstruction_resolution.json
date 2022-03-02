@@ -1,0 +1,7 @@
+{
+  "dispenseTerminalId": "AD1",
+  "doors": ["DOOR1", "DOOR2"],
+  "code": "DOOR_OBSTRUCTION",
+  "resolution": "RESOLVED",
+  "timestamp": "2020-09-24T21:24:35.000Z"
+}
