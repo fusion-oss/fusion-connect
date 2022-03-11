@@ -13,7 +13,8 @@
       "pickEachCurrency": "USD",
       "pickEachUnitPrice": 22.84,
       "containerId": "520032",
-      "pickLocation": "STATION01"
+      "pickLocation": "STATION01",
+      "pickEventId": "eventId"
     }
   ]
 }
