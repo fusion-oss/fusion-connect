@@ -37,46 +37,24 @@
       "gtins": [
         {
           "gtin": "00078742369983",
-          "caseConfigurations": [
-            {
-              "activeConfiguration": true,
-              "orderablePackQty": 12,
-              "orderablePackQtyUom": "EA",
-              "caseDimensions": {
-                "height": 72.00,
-                "width": 229.00,
-                "depth": 312.00,
-                "uom": "MM"
-              },
-              "caseWeight": {
-                "amount": 6713.00,
-                "uom": "GR"
-              },
-              "allowedPartitionsPerTote": [
-                1,
-                3
-              ]
+          "caseConfiguration": {
+            "orderablePackQty": 12,
+            "orderablePackQtyUom": "EA",
+            "caseDimensions": {
+              "height": 72.00,
+              "width": 229.00,
+              "depth": 312.00,
+              "uom": "MM"
             },
-            {
-              "activeConfiguration": false,
-              "orderablePackQty": 6,
-              "orderablePackQtyUom": "EA",
-              "caseDimensions": {
-                "height": 72.00,
-                "width": 229.00,
-                "depth": 157.00,
-                "uom": "MM"
-              },
-              "caseWeight": {
-                "amount": 3360.00,
-                "uom": "GR"
-              },
-              "allowedPartitionsPerTote": [
-                1,
-                3
-              ]
-            }
-          ]
+            "caseWeight": {
+              "amount": 6713.00,
+              "uom": "GR"
+            },
+            "allowedPartitionsPerTote": [
+              1,
+              3
+            ]
+          }
         }
       ]
     }

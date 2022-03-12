@@ -45,6 +45,7 @@
               <container>
                 <tempBandCd>1</tempBandCd>
                 <containerNbr>A09157</containerNbr>
+                <pickEventId>pickEventID</pickEventId>
                 <location>Alpha</location>
               </container>
               <unitPrice>0.0</unitPrice>

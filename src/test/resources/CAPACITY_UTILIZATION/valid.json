@@ -7,7 +7,8 @@
       "storageTemperatureZoneUtilization": [
         {
           "temperatureZone": "AMBIENT",
-          "positionQty": 8000
+          "positionQty": 8000,
+          "occupiedQty": 650
         },
         {
           "occupiedQty": 7000,
@@ -17,8 +18,7 @@
         {
           "occupiedQty": 2000,
           "temperatureZone": "FROZEN",
-          "positionQty": 1500,
-          "occupiedQt": 1000
+          "positionQty": 1500
         }
       ]
     }
@@ -49,10 +49,6 @@
           "unusableQty": 5
         },
         {
-          "toteUnusableReason": "PENDING_INSPECTION",
-          "unusableQty": 4
-        },
-        {
           "toteUnusableReason": "CONTAINS_CUSTOMER_REJECTS",
           "unusableQty": 1
         }
@@ -67,7 +63,7 @@
           "usedQty": 700,
           "unusableQty": 7,
           "mfcFulfilledQty": 630,
-          "storefulfilledQty": 70
+          "storeFulfilledQty": 70
         },
         {
           "temperatureZone": "CHILLED",
@@ -75,7 +71,7 @@
           "usedQty": 200,
           "unusableQty": 2,
           "mfcFulfilledQty": 180,
-          "storefulfilledQty": 20
+          "storeFulfilledQty": 20
         },
         {
           "temperatureZone": "FROZEN",
@@ -83,7 +79,7 @@
           "usedQty": 100,
           "unusableQty": 1,
           "mfcFulfilledQty": 90,
-          "storefulfilledQty": 10
+          "storeFulfilledQty": 10
         }
       ],
       "partitionsAllowed": false
@@ -113,31 +109,8 @@
           "unusableQty": 20
         },
         {
-          "toteUnusableReason": "PENDING_INSPECTION",
-          "unusableQty": 10
-        },
-        {
           "toteUnusableReason": "DAMAGED",
           "unusableQty": 10
-        }
-      ],
-      "totalHoldQty": 10,
-      "toteHoldDetails": [
-        {
-          "toteHoldReason": "EXPIRED",
-          "holdQty": 5
-        },
-        {
-          "toteHoldReason": "FRESHNESS_EXPIRATION",
-          "holdQty": 3
-        },
-        {
-          "toteHoldReason": "RECALLED",
-          "holdQty": 1
-        },
-        {
-          "toteHoldReason": "HW_FAIL",
-          "holdQty": 1
         }
       ],
       "toteTemperatureZoneUtilization": [
@@ -177,6 +150,13 @@
           "totalPartitionQty": 3500,
           "totalUsedPartitionQty": 2500,
           "totalUnusablePartitionQty": 20,
+          "totalPartitionHoldQty": 10,
+          "partitionHoldDetail": [
+            {
+              "holdReason": "EXPIRED",
+              "holdQty": 5
+            }
+          ],
           "partitionTemperatureZoneUtilization": [
             {
               "temperatureZone": "AMBIENT",
@@ -210,7 +190,7 @@
             "amount": 22452.82,
             "uom": "GR"
           },
-          "totalpartitionQty": 10500,
+          "totalPartitionQty": 10500,
           "totalUsedPartitionQty": 4500,
           "totalUnusablePartitionQty": 60,
           "partitionTemperatureZoneUtilization": [

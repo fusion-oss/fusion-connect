@@ -24,7 +24,8 @@
                 {
                   "containerId": "520032",
                   "pickQty": 6,
-                  "pickWeight": 3.00
+                  "pickWeight": 3.00,
+                  "pickEventId": "pickEventID"
                 }
               ],
               "pickLocation": "STATION01",
@@ -53,7 +54,8 @@
               "containers": [
                 {
                   "pickWeight": 3.0,
-                  "containerId": "520032"
+                  "containerId": "520032",
+                  "pickEventId": "pickEventID"
                 }
               ],
               "pickLocation": "STATION01"
@@ -76,7 +78,8 @@
               "containers": [
                 {
                   "containerId": "520032",
-                  "pickWeight": 3.0
+                  "pickWeight": 3.0,
+                  "pickEventId": "pickEventID"
                 }
               ],
               "pickLocation": "STATION02"
@@ -101,7 +104,8 @@
                 {
                   "containerId": "520032",
                   "pickQty": 6,
-                  "pickWeight": 3.0
+                  "pickWeight": 3.0,
+                  "pickEventId": "pickEventID"
                 }
               ],
               "pickLocation": "STATION02"
@@ -123,7 +127,8 @@
               "containers": [
                 {
                   "containerId": "520033",
-                  "pickQty": 6
+                  "pickQty": 6,
+                  "pickEventId": "pickEventID"
                 }
               ],
               "pickLocation": "STATION03"
@@ -145,7 +150,8 @@
               "containers": [
                 {
                   "containerId": "520034",
-                  "pickQty": 6
+                  "pickQty": 6,
+                  "pickEventId": "pickEventID"
                 }
               ],
               "pickLocation": "STATION01",
