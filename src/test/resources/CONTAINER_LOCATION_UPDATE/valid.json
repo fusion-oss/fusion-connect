@@ -1,0 +1,16 @@
+{
+  "inputs": [
+    {
+      "inputId": "C00001",
+      "location": "MFC"
+    },
+    {
+      "inputId": "C00002",
+      "location": "MFC"
+    },
+    {
+      "inputId": "C00003",
+      "location": "MFC"
+    }
+  ]
+}
