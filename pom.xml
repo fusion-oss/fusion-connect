@@ -16,7 +16,7 @@
 
 	<properties>
 		<fusion.connect.core.version>0.37</fusion.connect.core.version>
-		<spring.version>2.4.5</spring.version>
+		<spring.version>2.5.12</spring.version>
 		<java.version>11</java.version>
 	</properties>
 
