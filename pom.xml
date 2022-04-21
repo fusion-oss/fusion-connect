@@ -15,6 +15,7 @@
 	<description>Fusion connect</description>
 
 	<properties>
+		<sonar.organization>fusion-oss</sonar.organization>
 		<fusion.connect.core.version>0.37</fusion.connect.core.version>
 		<spring.version>2.4.5</spring.version>
 		<java.version>11</java.version>
