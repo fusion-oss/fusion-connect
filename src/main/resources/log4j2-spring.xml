@@ -35,11 +35,11 @@
 		</Console>
 	</Appenders>
 	<Loggers>
-		<Logger name="com.scoperetail" level="TRACE" additivity="false">
+		<Logger name="com.scoperetail" level="INFO" additivity="false">
 			<AppenderRef ref="App-File-Appender" />
 			<AppenderRef ref="App-Console-Appender"/>
 		</Logger>
-		<Logger name="org.apache.camel" level="DEBUG" additivity="false">
+		<Logger name="org.apache.camel" level="INFO" additivity="false">
 			<AppenderRef ref="App-File-Appender" />
 			<AppenderRef ref="App-Console-Appender"/>
 		</Logger>
@@ -53,7 +53,7 @@
 			<AppenderRef ref="App-File-Appender" />
 			<AppenderRef ref="App-Console-Appender"/>
 		</Logger>
-		<Logger name="com.zaxxer.hikari" level="DEBUG"
+		<Logger name="com.zaxxer.hikari" level="INFO"
 				additivity="false">
 			<AppenderRef ref="App-File-Appender" />
 			<AppenderRef ref="App-Console-Appender"/>
