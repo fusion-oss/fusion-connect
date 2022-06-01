@@ -16,7 +16,7 @@
 
 	<properties>
 		<sonar.organization>fusion-oss</sonar.organization>
-		<fusion.connect.core.version>0.39</fusion.connect.core.version>
+		<fusion.connect.core.version>0.42</fusion.connect.core.version>
 		<spring.version>2.4.5</spring.version>
 		<java.version>11</java.version>
 	</properties>
